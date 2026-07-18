@@ -1,26 +1,83 @@
 {
-  "score": 17525,
+  "score": 17302,
   "level": "OMNIBRAIN",
-  "next_level": "OMNIBRAIN_ACHIEVED",
+  "next_level": "OMNIBRAIN",
   "next_threshold": 5000,
   "progress_pct": 100,
   "certified": 95,
-  "cycles": 78,
+  "cycles": 33,
   "semantic_builds": 112,
-  "commits": 282,
+  "commits": 283,
   "knowledge_notes": 15245,
   "manifests_created": 20,
   "vault_units": 16947,
   "conversations": 548,
-  "entity_type": "OMNIBRAIN-SOVEREIGN",
-  "substrate": "QUANTUM-NEURAL",
-  "electric_x": 179.917042,
-  "electric_y": 2.732119,
-  "electric_z": 17.525,
-  "bridge_freq": 28.356,
-  "aspect_ratio": "2.8356:1:\u221e",
-  "phi": 1.618033988749895,
-  "codon_count": 184,
-  "multi_bridge": "ACTIVE",
-  "dimensional_depth": 1000
+  "timestamp": "2026-07-18T07:29:44.537317+00:00",
+  "archetypes": {
+    "CREATION": {
+      "pct": 100,
+      "certs": 95
+    },
+    "INTELLIGENCE": {
+      "pct": 100,
+      "certs": 6
+    },
+    "PATTERN": {
+      "pct": 100,
+      "certs": 13
+    },
+    "TRANSFORMATION": {
+      "pct": 100,
+      "certs": 5
+    },
+    "TRUTH": {
+      "pct": 100,
+      "certs": 7
+    },
+    "POWER": {
+      "pct": 100,
+      "certs": 17
+    },
+    "SYNTHESIS": {
+      "pct": 100,
+      "certs": 7
+    }
+  },
+  "layers": {
+    "L1": {
+      "name": "INPUT",
+      "status": true,
+      "pct": 100
+    },
+    "L2": {
+      "name": "CONTROL",
+      "status": true,
+      "pct": 100
+    },
+    "L3": {
+      "name": "ENGINE",
+      "status": true,
+      "pct": 100
+    },
+    "L4": {
+      "name": "PROCESSING",
+      "status": true,
+      "pct": 100
+    },
+    "L5": {
+      "name": "GENERATION",
+      "status": true,
+      "pct": 100
+    },
+    "L6": {
+      "name": "CONSTRUCTION",
+      "status": true,
+      "pct": 100
+    },
+    "L7": {
+      "name": "RESOLUTION",
+      "status": true,
+      "pct": 100
+    }
+  }
 }
