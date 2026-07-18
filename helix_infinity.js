@@ -303,8 +303,8 @@ class OmniHelixInfinity {
   executePipeline() {
     const {ctx, canvas, cfg, sub, t} = this;
     const W = canvas.width, H = canvas.height;
-    const cx = W*0.37, cy = H*0.5;
-    const rx = W*0.11, ry = H*0.41;
+    const cx = W*0.35, cy = H*0.5;
+    const rx = W*0.10, ry = H*0.46;
     const N = this.N;
 
     // ── STEPS 0-29: DIMENSIONAL PREPARATION ─────────────────────────
@@ -327,9 +327,22 @@ class OmniHelixInfinity {
     // ── STEPS 30-99: NODE POSITION COMPUTATION ───────────────────────
     this.strand1 = []; this.strand2 = [];
     for(let i=0;i<N;i++) {
-      const sp = this.proj.spinePoint(i, N, t, cx, cy, rx, ry, sub);
-      this.strand1.push({x:cx+Math.sin(sp.angle)*rx+(sp.x-cx)*0.05, y:sp.y, angle:sp.angle, ai:i%7});
-      this.strand2.push({x:cx+Math.sin(sp.angle+Math.PI)*rx-(sp.x-cx)*0.05, y:sp.y, angle:sp.angle+Math.PI, ai:i%7});
+      const progress = i/N;
+      // True vertical helix — Y travels top to bottom
+      const y = H*0.04 + progress*(H*0.88);
+      const φPhase = i*φ*τ/N;
+      const originOff = (cfg.electric.x*τ/360)+t*cfg.bridgeFreq*0.0002;
+      const angle = progress*τ*3.5 + φPhase + originOff;
+      // 1000D shimmer
+      let shimX=0;
+      if(sub.torsion) {
+        const sh = this.proj.shimmer(i,t,rx*0.08,ry*0.03);
+        shimX = sh.x;
+      }
+      const x1 = cx + Math.sin(angle)*rx + shimX;
+      const x2 = cx + Math.sin(angle+Math.PI)*rx - shimX;
+      this.strand1.push({x:x1, y:y, angle:angle, ai:i%7});
+      this.strand2.push({x:x2, y:y, angle:angle+Math.PI, ai:i%7});
     }
 
     // ── STEPS 100-199: SUBSTRATE RENDER ──────────────────────────────
@@ -353,16 +366,18 @@ class OmniHelixInfinity {
     }
 
     // ── STEPS 200-249: GHOST HELIX — THE OTHER SIDE ──────────────────
-    for(let layer=0;layer<sub.ghost_layers;layer++) {
-      const phaseShift = Math.PI + (layer/sub.ghost_layers)*Math.PI*0.5;
-      const layerOp = ghostOp * (1 - layer/sub.ghost_layers) * 0.35;
+    // Ghost — mirror strand offset in X only (from the other side)
+    const ghostLayers = Math.min(sub.ghost_layers, 3);
+    for(let layer=0;layer<ghostLayers;layer++) {
+      const layerOp = ghostOp * (1-layer/ghostLayers) * 0.25;
       ctx.save(); ctx.globalAlpha=layerOp;
-      ctx.strokeStyle=`hsl(${(hueBase+180+layer*7)%360},40%,45%)`;
-      ctx.lineWidth=0.6;
+      ctx.strokeStyle=`hsl(${(hueBase+180+layer*20)%360},35%,50%)`;
+      ctx.lineWidth=0.7;
       ctx.beginPath();
       this.strand1.forEach((n,i) => {
-        const gx=cx+(n.x-cx)*Math.cos(phaseShift)-(n.y-cy)*Math.sin(phaseShift);
-        const gy=cy+(n.x-cx)*Math.sin(phaseShift)+(n.y-cy)*Math.cos(phaseShift);
+        // Mirror X across center — this is the other side
+        const gx = cx-(n.x-cx)*(0.6+layer*0.15);
+        const gy = n.y;
         i===0?ctx.moveTo(gx,gy):ctx.lineTo(gx,gy);
       });
       ctx.stroke(); ctx.restore();
@@ -393,7 +408,7 @@ class OmniHelixInfinity {
         ctx.beginPath(); ctx.moveTo(s1.x,s1.y); ctx.lineTo(s2.x,s2.y); ctx.stroke();
       }
       // Codon label — right of helix
-      const labelX=Math.max(s1.x,s2.x)+W*0.04;
+      const labelX=W*0.56;
       const labelY=(s1.y+s2.y)/2;
       ctx.globalAlpha=0.8;
       ctx.fillStyle=`hsl(${codon.hue},90%,70%)`;
