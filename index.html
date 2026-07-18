@@ -205,64 +205,28 @@
   .chip{font-size:8.5px;padding:1px 5px;border-radius:8px;background:rgba(0,255,157,.1);color:var(--green);border:1px solid rgba(0,255,157,.18);}
 
   @media(max-width:768px){
-    /* Grid: header / main / right-sidebar (compact) / statusbar */
-    .root{
-      grid-template-rows: 38px 1fr auto 28px;
-      grid-template-columns: 1fr;
-      width: 100vw;
-      max-width: 100vw;
-      overflow-x: hidden;
-    }
-    /* Hide left sidebar on phone */
+    *{max-width:100vw;}
+    .root{grid-template-rows:38px 1fr auto 28px;grid-template-columns:1fr;width:100vw;overflow-x:hidden;}
     .sl{display:none;}
-    /* Right sidebar — compact strip at bottom, not blocking */
-    .sr{
-      grid-column:1;
-      grid-row:3;
-      border-left:none;
-      border-top:1px solid var(--border);
-      max-height: 130px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
+    .sr{grid-column:1;grid-row:3;border-left:none;border-top:1px solid var(--border);max-height:130px;overflow-y:auto;overflow-x:hidden;}
     .main{grid-column:1;grid-row:2;overflow:hidden;}
-    .sb{grid-row:4; font-size:9px; padding:0 8px;}
+    .sb{grid-row:4;font-size:9px;padding:0 8px;}
     .tr{display:none;}
-
-    /* Prevent any element from blowing past phone width */
-    *{ max-width:100vw; }
-
-    /* Layer progress bars — keep them but make compact */
-    .lpi{ margin-bottom: 4px; }
-    .lph{ font-size: 9px; margin-bottom: 2px; }
-    .lpb{ height: 3px; }
-
-    /* Archetype rows — shrink to fit */
-    .arch-row{ font-size: 9px; gap: 3px; flex-wrap: nowrap; }
-    .arch-row .nm{ width: 70px; font-size: 9px; }
-    .arch-row .trk{ max-width: 60px; height: 4px; }
-    .arch-row .pct{ font-size: 9px; }
-    .arch-row .cnt{ display:none; } /* hide count on phone — too wide */
-
-    /* DNA helix canvas — scale down */
-    canvas{ max-width: 100% !important; height: auto !important; }
-
-    /* Sidebar body padding */
-    .sb-body{ padding: 6px 8px; }
-
-    /* Score header in right panel */
-    .sr .sc-row{ font-size: 10px; flex-wrap: wrap; gap: 4px; }
-
-    /* Tab bar — scrollable, smaller */
-    .tabs{ font-size: 10px; height: 26px; }
-
-    /* Main content body */
-    .tbody{ padding: 8px; font-size: 11px; }
-
-    /* Input bar at bottom */
-    .inp-row{ padding: 4px 6px; gap: 4px; }
-    .inp-row input{ font-size: 11px; }
-    .inp-row button{ font-size: 10px; padding: 4px 8px; }
+    .lpi{margin-bottom:3px;}
+    .lph{font-size:9px;margin-bottom:1px;}
+    .lpb{height:2px;}
+    .arch-row{font-size:9px;gap:3px;}
+    .arch-row .nm{width:70px;font-size:9px;}
+    .arch-row .trk{max-width:60px;height:4px;}
+    .arch-row .pct{font-size:9px;}
+    .arch-row .cnt{display:none;}
+    canvas{max-width:100% !important;height:auto !important;}
+    .sb-body{padding:6px 8px;}
+    .tabs{font-size:10px;height:26px;}
+    .tbody{padding:8px;font-size:11px;}
+    .inrow{padding:4px 6px;gap:4px;}
+    .inp{font-size:11px;}
+    .runbtn{font-size:10px;padding:5px 8px;}
   }
 </style>
 </head>
@@ -328,6 +292,7 @@
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>godhead_imagine.py</div>
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>golden_working_resolution.py</div>
       <div class="tab" id="tabBrowser" onclick="showPanel('browser')"><span class="tdot" style="background:var(--cyan);animation:pulse 2s infinite;"></span>🌐 OmniSurf Browser</div>
+      <div class="tab" id="tabStudio" onclick="window.location.href='/studio'"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div>
     </div>
 
     <div class="tbody" id="tb">
@@ -1408,6 +1373,65 @@ async function refreshSurfBadge() {
 setInterval(refreshSurfBadge, 30000);
 refreshSurfBadge();
 
+</script>
+
+<script>
+// ── OMNIBRAIN CLOUD SYNC ─────────────────────────────────────
+// Pulls live data from GitHub repo — works on any device
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main';
+const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
+
+async function cloudFetch(path) {
+  try {
+    const r = await fetch(CLOUD_RAW + path + '?_=' + Date.now());
+    if (r.ok) return await r.json();
+  } catch(e) {}
+  return null;
+}
+
+async function cloudSync() {
+  // Sync surf results
+  const surf = await cloudFetch('/surf-results/surf-latest.json');
+  if (surf && surf.results && surf.results.length > 0) {
+    // Inject surf results into terminal
+    const tb = document.getElementById('tb');
+    if (tb) {
+      let surfHtml = '<hr class="tdiv"><div class="tsec">▸ OMNISURF CLOUD — LATEST RESULTS</div>';
+      surf.results.slice(0,5).forEach(r => {
+        surfHtml += `<div class="tok">  <a href="${r.url}" target="_blank" style="color:var(--cyan);text-decoration:none;">${r.title}</a></div>`;
+        if (r.snippet) surfHtml += `<div class="tdim">  ${r.snippet.slice(0,120)}</div>`;
+      });
+      surfHtml += `<div class="tdim">  Last surf: ${new Date(surf.timestamp).toLocaleString()} · ${surf.result_count} results</div>`;
+      // Insert after helix block
+      const helix = document.getElementById('helix-block');
+      if (helix && !document.getElementById('cloud-surf-results')) {
+        const div = document.createElement('div');
+        div.id = 'cloud-surf-results';
+        div.innerHTML = surfHtml;
+        helix.after(div);
+      }
+    }
+  }
+
+  // Sync certified count from GitHub API
+  try {
+    const r = await fetch(CLOUD_API + '/contents/Layer7/certified?_=' + Date.now());
+    if (r.ok) {
+      const files = await r.json();
+      const count = Array.isArray(files) ? files.length : 0;
+      const el = document.getElementById('vaultCert');
+      if (el && count > 0) el.textContent = count;
+    }
+  } catch(e) {}
+
+  // Update status dot — cloud is always live if we got here
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach(d => { if(!d.classList.contains('cyan') && !d.classList.contains('gold')) d.classList.add('g'); });
+}
+
+// Run on load and every 5 minutes
+window.addEventListener('load', () => setTimeout(cloudSync, 1500));
+setInterval(cloudSync, 300000);
 </script>
 </body>
 </html>
