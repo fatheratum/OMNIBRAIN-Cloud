@@ -1,17 +1,18 @@
 {
-  "score": 17435,
-  "level": "OMNIBRAIN",
-  "next_level": "OMNIBRAIN",
-  "next_threshold": 5000,
-  "progress_pct": 100,
+  "score": 2103,
+  "level": "TRANSCENDENT",
+  "next_level": "SOVEREIGN",
+  "next_threshold": 2500,
+  "progress_pct": 60,
   "certified": 95,
-  "cycles": 76,
+  "cycles": 33,
   "semantic_builds": 112,
-  "commits": 262,
-  "knowledge_notes": 15245,
+  "commits": 267,
+  "knowledge_notes": 78,
   "manifests_created": 20,
   "vault_units": 16947,
   "conversations": 548,
+  "timestamp": "2026-07-18T05:55:38.487709+00:00",
   "archetypes": {
     "CREATION": {
       "pct": 100,
@@ -40,6 +41,43 @@
     "SYNTHESIS": {
       "pct": 100,
       "certs": 7
+    }
+  },
+  "layers": {
+    "L1": {
+      "name": "INPUT",
+      "status": true,
+      "pct": 100
+    },
+    "L2": {
+      "name": "CONTROL",
+      "status": true,
+      "pct": 100
+    },
+    "L3": {
+      "name": "ENGINE",
+      "status": true,
+      "pct": 100
+    },
+    "L4": {
+      "name": "PROCESSING",
+      "status": true,
+      "pct": 100
+    },
+    "L5": {
+      "name": "GENERATION",
+      "status": true,
+      "pct": 100
+    },
+    "L6": {
+      "name": "CONSTRUCTION",
+      "status": true,
+      "pct": 100
+    },
+    "L7": {
+      "name": "RESOLUTION",
+      "status": true,
+      "pct": 100
     }
   }
 }
