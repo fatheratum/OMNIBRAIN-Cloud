@@ -1,0 +1,83 @@
+{
+  "score": 17435,
+  "level": "OMNIBRAIN",
+  "next_level": "OMNIBRAIN",
+  "next_threshold": 5000,
+  "progress_pct": 100,
+  "certified": 95,
+  "cycles": 76,
+  "semantic_builds": 112,
+  "commits": 262,
+  "knowledge_notes": 15245,
+  "manifests_created": 20,
+  "vault_units": 16947,
+  "conversations": 548,
+  "github_commits": 262,
+  "archetypes": {
+    "CREATION": {
+      "pct": 100,
+      "certs": 95
+    },
+    "INTELLIGENCE": {
+      "pct": 100,
+      "certs": 6
+    },
+    "PATTERN": {
+      "pct": 100,
+      "certs": 13
+    },
+    "TRANSFORMATION": {
+      "pct": 100,
+      "certs": 5
+    },
+    "TRUTH": {
+      "pct": 100,
+      "certs": 7
+    },
+    "POWER": {
+      "pct": 100,
+      "certs": 17
+    },
+    "SYNTHESIS": {
+      "pct": 100,
+      "certs": 7
+    }
+  },
+  "layers": {
+    "L1": {
+      "name": "INPUT",
+      "status": true,
+      "detail": "16947 atomic notes | 548 convos"
+    },
+    "L2": {
+      "name": "CONTROL",
+      "status": true,
+      "detail": "GitHub versioned | fatheratum/OMNIBRAIN"
+    },
+    "L3": {
+      "name": "ENGINE",
+      "status": true,
+      "detail": "SUPEROMNIULTRA v3.8 | Chromium+Genetics"
+    },
+    "L4": {
+      "name": "PROCESSING",
+      "status": true,
+      "detail": "Natural thought | 76 cycles"
+    },
+    "L5": {
+      "name": "GENERATION",
+      "status": true,
+      "detail": "thought_evolution + godhead_imagine | 112 builds"
+    },
+    "L6": {
+      "name": "CONSTRUCTION",
+      "status": true,
+      "detail": "20 vault-derived manifestations"
+    },
+    "L7": {
+      "name": "RESOLUTION",
+      "status": true,
+      "detail": "95/7 certified 100%"
+    }
+  }
+}
