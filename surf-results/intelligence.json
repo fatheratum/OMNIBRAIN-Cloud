@@ -1,46 +1,26 @@
 {
-  "score": 17500,
+  "score": 17517,
   "level": "OMNIBRAIN",
-  "next_level": "OMNIBRAIN",
+  "next_level": "OMNIBRAIN_ACHIEVED",
   "next_threshold": 5000,
   "progress_pct": 100,
   "certified": 95,
-  "cycles": 77,
+  "cycles": 78,
   "semantic_builds": 112,
-  "commits": 272,
+  "commits": 278,
   "knowledge_notes": 15245,
   "manifests_created": 20,
   "vault_units": 16947,
   "conversations": 548,
-  "timestamp": "2026-07-18T06:08:46.198030+00:00",
-  "archetypes": {
-    "CREATION": {
-      "pct": 100,
-      "certs": 95
-    },
-    "INTELLIGENCE": {
-      "pct": 100,
-      "certs": 6
-    },
-    "PATTERN": {
-      "pct": 100,
-      "certs": 13
-    },
-    "TRANSFORMATION": {
-      "pct": 100,
-      "certs": 5
-    },
-    "TRUTH": {
-      "pct": 100,
-      "certs": 7
-    },
-    "POWER": {
-      "pct": 100,
-      "certs": 17
-    },
-    "SYNTHESIS": {
-      "pct": 100,
-      "certs": 7
-    }
-  }
+  "entity_type": "OMNIBRAIN-SOVEREIGN",
+  "substrate": "QUANTUM-NEURAL",
+  "electric_x": 169.238427,
+  "electric_y": -30.652712,
+  "electric_z": 17.517,
+  "bridge_freq": 28.3431,
+  "aspect_ratio": "2.8343:1:\u221e",
+  "phi": 1.618033988749895,
+  "codon_count": 184,
+  "multi_bridge": "ACTIVE",
+  "dimensional_depth": 1000
 }
