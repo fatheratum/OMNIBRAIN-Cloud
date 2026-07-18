@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>OmniBrain — Cloud</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #060608;
+  --bg2:    #0d0d14;
+  --bg3:    #13131a;
+  --border: #1e1e2a;
+  --text:   #c8c8d8;
+  --dim:    #666680;
+  --green:  #00ff9d;
+  --cyan:   #00d4ff;
+  --purple: #a87fdb;
+  --red:    #ff6b6b;
+  --mono:   'JetBrains Mono', 'Courier New', monospace;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 44px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  z-index: 100;
+}
+.logo { color: var(--green); font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.dot  { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+.dot.live { background: var(--green); animation: pulse 2s infinite; }
+#server-status { font-size: 10px; color: var(--dim); flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.last-surf { font-size: 9px; color: var(--dim); flex-shrink: 0; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── TABS ── */
+.tabs {
+  position: fixed;
+  top: 44px; left: 0; right: 0;
+  height: 32px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  z-index: 99;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 0 14px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  color: var(--dim);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* ── MAIN CONTENT ── */
+.content {
+  margin-top: 76px;
+  padding: 12px;
+  min-height: calc(100vh - 76px);
+}
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── SURF PANEL ── */
+.surf-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.surf-input {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  min-width: 0;
+}
+.surf-btn {
+  background: rgba(0,255,157,0.1);
+  border: 1px solid rgba(0,255,157,0.3);
+  color: var(--green);
+  padding: 9px 14px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.surf-btn:active { background: rgba(0,255,157,0.2); }
+
+.quick-surfs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.quick-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+.quick-btn:active { background: var(--border); }
+
+.result-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.result-card .src {
+  font-size: 9px;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.result-card .title {
+  font-size: 11px;
+  color: var(--cyan);
+  margin-bottom: 4px;
+  word-break: break-word;
+  cursor: pointer;
+}
+.result-card .title:active { color: var(--green); }
+.result-card .snip {
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ── STATUS PANEL ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.stat-card .val { font-size: 20px; font-weight: 700; color: var(--green); }
+.stat-card .lbl { font-size: 9px; color: var(--dim); margin-top: 2px; }
+
+.layer-list { margin-bottom: 12px; }
+.layer-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+}
+.layer-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.layer-name { color: var(--text); flex: 1; }
+.layer-pct { color: var(--green); font-size: 10px; }
+
+/* ── BUILD PANEL ── */
+.build-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  margin-bottom: 8px;
+  resize: none;
+  min-height: 60px;
+}
+.build-btn {
+  width: 100%;
+  background: rgba(0,255,157,0.1);
+  border: 1px solid rgba(0,255,157,0.3);
+  color: var(--green);
+  padding: 10px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.build-btn:active { background: rgba(0,255,157,0.2); }
+
+.log-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 10px;
+  color: var(--dim);
+  min-height: 80px;
+  line-height: 1.6;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* ── LOADING ── */
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: var(--dim);
+  font-size: 11px;
+}
+.spin {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── STATUS BAR ── */
+.statusbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 24px;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--bg);
+  z-index: 100;
+  overflow: hidden;
+}
+.sb-sep { opacity: 0.4; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">🧠 OMNIBRAIN</div>
+  <div class="dot" id="dot"></div>
+  <div id="server-status">connecting to GitHub...</div>
+  <div class="last-surf" id="last-surf"></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('surf')" id="tab-surf">⚡ OmniSurf</div>
+  <div class="tab" onclick="showTab('status')" id="tab-status">◈ Status</div>
+  <div class="tab" onclick="showTab('build')" id="tab-build">⚙ Build</div>
+  <div class="tab" onclick="showTab('vault')" id="tab-vault">📦 Vault</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content" style="padding-bottom:36px;">
+
+  <!-- SURF PANEL -->
+  <div class="panel active" id="panel-surf">
+    <div class="surf-bar">
+      <input class="surf-input" id="surf-query" type="text"
+             placeholder="Search via OmniSurf..." value="">
+      <button class="surf-btn" onclick="triggerSurf()">⚡ Surf</button>
+    </div>
+
+    <div class="quick-surfs">
+      <button class="quick-btn" onclick="quickSurf('Consciousness AI DNA')">Consciousness</button>
+      <button class="quick-btn" onclick="quickSurf('quantum computing latest')">Quantum</button>
+      <button class="quick-btn" onclick="quickSurf('decentralized intelligence systems')">Decentral</button>
+      <button class="quick-btn" onclick="quickSurf('genetic evolution algorithms')">Genetics</button>
+    </div>
+
+    <div id="surf-results">
+      <div class="loading"><span class="spin">⟳</span> Loading latest surf results from GitHub...</div>
+    </div>
+  </div>
+
+  <!-- STATUS PANEL -->
+  <div class="panel" id="panel-status">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="val" id="stat-certified">—</div>
+        <div class="lbl">Certified Scripts</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="stat-results">—</div>
+        <div class="lbl">Surf Results</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="stat-version">1.0</div>
+        <div class="lbl">OmniSurf Version</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="stat-sources">5</div>
+        <div class="lbl">Sources Active</div>
+      </div>
+    </div>
+
+    <div class="layer-list">
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L1 — Input / Vault</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L2 — GitHub Control</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L3 — OmniSurf Engine</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L4 — Natural Thought</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L5 — Godhead Synthesis</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L6 — Construction</div><div class="layer-pct">✓</div></div>
+      <div class="layer-row"><div class="layer-dot"></div><div class="layer-name">L7 — Resolution / Cert</div><div class="layer-pct">✓</div></div>
+    </div>
+
+    <div id="status-raw" class="log-box" style="font-size:9px;">Fetching status...</div>
+  </div>
+
+  <!-- BUILD PANEL -->
+  <div class="panel" id="panel-build">
+    <textarea class="build-input" id="build-query"
+      placeholder="Type what to build... &#10;e.g. build a calculator&#10;search vault for consciousness&#10;generate a file organizer"></textarea>
+    <button class="build-btn" onclick="triggerBuild()">⚡ BUILD via GitHub Actions</button>
+    <div class="log-box" id="build-log">Waiting for build request...</div>
+  </div>
+
+  <!-- VAULT PANEL -->
+  <div class="panel" id="panel-vault">
+    <div id="vault-results">
+      <div class="loading"><span class="spin">⟳</span> Loading vault from GitHub...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span>◈ OMNIBRAIN</span>
+  <span class="sb-sep">|</span>
+  <span id="sb-mode">GitHub Cloud</span>
+  <span class="sb-sep">|</span>
+  <span id="sb-layers">L1-L7 ✓</span>
+  <span class="sb-sep">|</span>
+  <span id="sb-time"></span>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+// This points to YOUR GitHub repo raw content — update with your username
+const REPO   = 'fatheratum/OMNIBRAIN';
+const BRANCH = 'main';
+const RAW    = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+const API    = `https://api.github.com/repos/${REPO}`;
+
+// ── HELPERS ─────────────────────────────────────────────────
+async function fetchJSON(url) {
+  const r = await fetch(url + '?_=' + Date.now());
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}
+
+function timeAgo(iso) {
+  const diff = (Date.now() - new Date(iso)) / 1000;
+  if (diff < 60)   return Math.round(diff) + 's ago';
+  if (diff < 3600) return Math.round(diff/60) + 'm ago';
+  return Math.round(diff/3600) + 'h ago';
+}
+
+function setStatus(live, msg) {
+  document.getElementById('dot').className = 'dot' + (live ? ' live' : '');
+  document.getElementById('server-status').textContent = msg;
+}
+
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── LOAD SURF RESULTS FROM GITHUB ───────────────────────────
+async function loadSurfResults() {
+  try {
+    const data = await fetchJSON(`${RAW}/surf-results/surf-latest.json`);
+    setStatus(true, 'OmniSurf LIVE — GitHub as Internet Provider');
+    document.getElementById('last-surf').textContent = timeAgo(data.timestamp);
+    document.getElementById('stat-results').textContent = data.result_count || 0;
+    document.getElementById('sb-mode').textContent = 'OmniSurf Cloud';
+
+    renderResults(data.results || [], data.query);
+  } catch(e) {
+    setStatus(false, 'Connecting to GitHub OmniSurf...');
+    document.getElementById('surf-results').innerHTML =
+      '<div class="loading">No surf results yet — trigger a surf above</div>';
+  }
+}
+
+function renderResults(results, query) {
+  const el = document.getElementById('surf-results');
+  if (!results.length) {
+    el.innerHTML = '<div class="loading">No results yet</div>';
+    return;
+  }
+  const srcColors = {
+    wikipedia:  '#a87fdb',
+    hackernews: '#ff6b35',
+    reddit:     '#ff4500',
+    github:     '#00d4ff',
+    duckduckgo: '#00ff9d'
+  };
+  el.innerHTML = results.map(r => `
+    <div class="result-card">
+      <div class="src" style="color:${srcColors[r.source]||'#666680'}">${r.source}</div>
+      <div class="title" onclick="window.open('${r.url}','_blank')">${r.title || 'Untitled'}</div>
+      ${r.snippet ? `<div class="snip">${r.snippet.slice(0,200)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ── TRIGGER SURF VIA GITHUB ──────────────────────────────────
+async function triggerSurf() {
+  const query = document.getElementById('surf-query').value.trim()
+             || 'consciousness AI DNA evolution';
+  document.getElementById('surf-results').innerHTML =
+    `<div class="loading"><span class="spin">⟳</span> Triggering OmniSurf via GitHub Actions...</div>`;
+  setStatus(true, 'Triggering surf: ' + query);
+
+  // Write trigger file to GitHub via API
+  await pushTrigger(query);
+
+  // Poll for new results
+  setTimeout(() => {
+    document.getElementById('surf-results').innerHTML =
+      `<div class="loading"><span class="spin">⟳</span> GitHub Actions running OmniSurf... (~60s)</div>`;
+  }, 2000);
+  setTimeout(loadSurfResults, 90000);
+}
+
+function quickSurf(query) {
+  document.getElementById('surf-query').value = query;
+  triggerSurf();
+}
+
+// ── TRIGGER BUILD ────────────────────────────────────────────
+async function triggerBuild() {
+  const query = document.getElementById('build-query').value.trim();
+  if (!query) return;
+  document.getElementById('build-log').textContent =
+    'Sending to GitHub Actions...\nThis triggers L6+L7 pipeline.\nResults will appear in vault after ~2 minutes.';
+
+  await pushTrigger(query, 'build');
+  document.getElementById('build-log').textContent =
+    `✓ Build triggered: "${query}"\n\nGitHub Actions is running:\n  L3 → OmniSurf\n  L6 → Manifestation\n  L7 → Certification\n\nCheck: github.com/${REPO}/actions`;
+}
+
+// ── PUSH TRIGGER FILE TO GITHUB ──────────────────────────────
+async function pushTrigger(query, type = 'surf') {
+  // Without a PAT token, we open the GitHub Actions page instead
+  // With a token stored in the URL hash, we can push directly
+  const token = getToken();
+  if (!token) {
+    // Fallback: open GitHub Actions manual trigger
+    window.open(`https://github.com/${REPO}/actions/workflows/omnisurf-server.yml`, '_blank');
+    document.getElementById('surf-results').innerHTML =
+      `<div class="result-card">
+        <div class="src" style="color:var(--cyan)">ACTION REQUIRED</div>
+        <div class="title">Tap "Run workflow" on GitHub Actions page</div>
+        <div class="snip">Enter query: ${query}<br><br>
+        Or add your GitHub token to enable auto-trigger:<br>
+        Tap the ⚙ Build tab → "Set Token"</div>
+      </div>`;
+    return;
+  }
+
+  try {
+    // Get current file SHA for update
+    const fileRes = await fetch(
+      `${API}/contents/.github/triggers/surf-request.json`,
+      { headers: { Authorization: `token ${token}` }}
+    );
+    const sha = fileRes.ok ? (await fileRes.json()).sha : undefined;
+
+    const content = btoa(JSON.stringify({ query, type, timestamp: new Date().toISOString() }));
+    await fetch(`${API}/contents/.github/triggers/surf-request.json`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `trigger: ${type} — ${query}`,
+        content,
+        ...(sha ? { sha } : {})
+      })
+    });
+  } catch(e) {
+    console.error('Trigger error:', e);
+  }
+}
+
+function getToken() {
+  // Token stored in localStorage (set via settings)
+  return localStorage.getItem('gh_token') || '';
+}
+
+// ── LOAD STATUS ──────────────────────────────────────────────
+async function loadStatus() {
+  try {
+    const data = await fetchJSON(`${RAW}/surf-results/status.json`);
+    document.getElementById('status-raw').textContent = JSON.stringify(data, null, 2);
+    document.getElementById('stat-version').textContent = data.version || '1.0';
+    setStatus(true, 'GitHub OmniSurf — ' + timeAgo(data.last_surf));
+  } catch(e) {
+    document.getElementById('status-raw').textContent = 'Status not yet available';
+  }
+}
+
+// ── LOAD VAULT ───────────────────────────────────────────────
+async function loadVault() {
+  try {
+    const data = await fetchJSON(`${API}/contents/Layer7/certified`);
+    const files = Array.isArray(data) ? data : [];
+    document.getElementById('vault-results').innerHTML = files.length
+      ? files.reverse().slice(0, 20).map(f => `
+          <div class="result-card">
+            <div class="src" style="color:var(--green)">certified</div>
+            <div class="title" onclick="window.open('${f.html_url}','_blank')">${f.name}</div>
+            <div class="snip">${Math.round(f.size/1024*10)/10} KB</div>
+          </div>`).join('')
+      : '<div class="loading">No certified scripts yet</div>';
+    document.getElementById('stat-certified').textContent = files.length;
+  } catch(e) {
+    document.getElementById('vault-results').innerHTML =
+      '<div class="loading">Vault loading...</div>';
+  }
+}
+
+// ── CLOCK ────────────────────────────────────────────────────
+function tick() {
+  document.getElementById('sb-time').textContent =
+    new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  tick();
+  setInterval(tick, 60000);
+  loadSurfResults();
+  loadStatus();
+  loadVault();
+  // Refresh surf results every 5 minutes
+  setInterval(loadSurfResults, 300000);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+name: OmniSurf — Permanent Internet Provider
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # Every 30 minutes — keeps results fresh
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'Search query'
+        required: false
+        default: ''
+  push:
+    paths:
+      - '.github/triggers/surf-request.json'
+
+jobs:
+  omnisurf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install OmniSurf dependencies
+        run: |
+          pip install requests beautifulsoup4 trafilatura lxml
+
+      - name: Read trigger query
+        id: q
+        run: |
+          QUERY=""
+          # Check manual dispatch
+          if [ -n "${{ github.event.inputs.query }}" ]; then
+            QUERY="${{ github.event.inputs.query }}"
+          fi
+          # Check trigger file
+          if [ -z "$QUERY" ] && [ -f ".github/triggers/surf-request.json" ]; then
+            QUERY=$(python3 -c "import json; d=json.load(open('.github/triggers/surf-request.json')); print(d.get('query',''))" 2>/dev/null)
+          fi
+          # Default self-directed query
+          if [ -z "$QUERY" ]; then
+            QUERY="latest developments in AI consciousness DNA and quantum computing"
+          fi
+          echo "query=$QUERY" >> $GITHUB_OUTPUT
+          echo "Surfing: $QUERY"
+
+      - name: OmniSurf Engine — GitHub as Internet Provider
+        run: |
+          python3 << 'PYEOF'
+          import requests, json, os, re
+          from datetime import datetime, timezone
+          from urllib.parse import quote
+
+          HEADERS = {
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0 Safari/537.36"
+          }
+
+          query = os.environ.get("SURF_QUERY", "consciousness AI DNA")
+          print(f"OmniSurf Query: {query}")
+
+          results = []
+
+          # Source 1: Wikipedia
+          try:
+            r = requests.get("https://en.wikipedia.org/w/api.php", params={
+              "action": "query", "list": "search", "srsearch": query,
+              "format": "json", "srlimit": 5, "srprop": "snippet|titlesnippet"
+            }, headers=HEADERS, timeout=10)
+            for i in r.json().get("query", {}).get("search", []):
+              results.append({
+                "title": i.get("title"),
+                "url": f"https://en.wikipedia.org/wiki/{quote(i['title'].replace(' ','_'))}",
+                "snippet": re.sub('<[^>]+>', '', i.get("snippet", "")),
+                "source": "wikipedia"
+              })
+            print(f"Wikipedia: {len(results)} results")
+          except Exception as e:
+            print(f"Wikipedia error: {e}")
+
+          # Source 2: HackerNews
+          try:
+            r = requests.get("https://hn.algolia.com/api/v1/search", params={
+              "query": query, "hitsPerPage": 5, "tags": "story"
+            }, headers=HEADERS, timeout=10)
+            for h in r.json().get("hits", []):
+              if h.get("title") and h.get("url"):
+                results.append({
+                  "title": h["title"],
+                  "url": h.get("url") or f"https://news.ycombinator.com/item?id={h.get('objectID')}",
+                  "snippet": (h.get("story_text") or "")[:300],
+                  "source": "hackernews"
+                })
+            print(f"HackerNews: added results")
+          except Exception as e:
+            print(f"HackerNews error: {e}")
+
+          # Source 3: Reddit
+          try:
+            r = requests.get(
+              f"https://www.reddit.com/search.json?q={quote(query)}&limit=5&sort=relevance",
+              headers={**HEADERS, "Accept": "application/json"}, timeout=10
+            )
+            for c in r.json().get("data", {}).get("children", []):
+              p = c.get("data", {})
+              if p.get("title"):
+                results.append({
+                  "title": p["title"],
+                  "url": f"https://reddit.com{p.get('permalink','')}",
+                  "snippet": (p.get("selftext") or "")[:300],
+                  "source": "reddit"
+                })
+            print(f"Reddit: added results")
+          except Exception as e:
+            print(f"Reddit error: {e}")
+
+          # Source 4: GitHub repos
+          try:
+            r = requests.get(
+              f"https://api.github.com/search/repositories?q={quote(query)}&per_page=3&sort=stars",
+              headers=HEADERS, timeout=10
+            )
+            for i in r.json().get("items", []):
+              results.append({
+                "title": i.get("full_name"),
+                "url": i.get("html_url"),
+                "snippet": (i.get("description") or "")[:300],
+                "source": "github",
+                "stars": i.get("stargazers_count", 0)
+              })
+            print(f"GitHub: added results")
+          except Exception as e:
+            print(f"GitHub error: {e}")
+
+          # Source 5: DuckDuckGo
+          try:
+            from bs4 import BeautifulSoup
+            r = requests.get(
+              f"https://html.duckduckgo.com/html/?q={quote(query)}",
+              headers=HEADERS, timeout=15
+            )
+            soup = BeautifulSoup(r.text, 'lxml')
+            for res in soup.select('.result')[:5]:
+              title_el = res.select_one('.result__a')
+              snip_el  = res.select_one('.result__snippet')
+              if title_el and title_el.get('href'):
+                href = title_el['href']
+                if 'uddg=' in href:
+                  from urllib.parse import parse_qs, urlparse
+                  href = parse_qs(urlparse(href).query).get('uddg', [href])[0]
+                results.append({
+                  "title": title_el.get_text(strip=True),
+                  "url": href,
+                  "snippet": snip_el.get_text(strip=True) if snip_el else "",
+                  "source": "duckduckgo"
+                })
+            print(f"DuckDuckGo: added results")
+          except Exception as e:
+            print(f"DuckDuckGo error: {e}")
+
+          # Deduplicate
+          seen, unique = set(), []
+          for r in results:
+            if r.get("url") and r["url"] not in seen:
+              seen.add(r["url"])
+              unique.append(r)
+
+          os.makedirs("surf-results", exist_ok=True)
+
+          # Write latest results
+          output = {
+            "omnisurf_version": "1.0-cloud",
+            "powered_by": "GitHub Actions — OmniSurf Internet Provider",
+            "query": query,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "result_count": len(unique),
+            "sources": ["wikipedia", "hackernews", "reddit", "github", "duckduckgo"],
+            "results": unique[:12]
+          }
+
+          with open("surf-results/surf-latest.json", "w") as f:
+            json.dump(output, f, indent=2)
+
+          # Also write timestamped archive
+          ts = datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')
+          with open(f"surf-results/surf-{ts}.json", "w") as f:
+            json.dump(output, f, indent=2)
+
+          # Write status beacon
+          with open("surf-results/status.json", "w") as f:
+            json.dump({
+              "status": "OMNISURF LIVE",
+              "last_surf": datetime.now(timezone.utc).isoformat(),
+              "query": query,
+              "result_count": len(unique),
+              "server": "github-actions",
+              "version": "1.0-cloud"
+            }, f, indent=2)
+
+          print(f"\nOmniSurf complete: {len(unique)} results written")
+          PYEOF
+        env:
+          SURF_QUERY: ${{ steps.q.outputs.query }}
+
+      - name: Clear trigger file
+        run: |
+          if [ -f ".github/triggers/surf-request.json" ]; then
+            echo '{"query":"","status":"processed"}' > .github/triggers/surf-request.json
+          fi
+
+      - name: Commit results to repo (this IS the server)
+        run: |
+          git config user.name "omnisurf-bot"
+          git config user.email "omnisurf@omnibrain.ai"
+          git fetch origin main
+          git rebase origin/main 2>/dev/null || git reset --hard origin/main
+          git add surf-results/ .github/triggers/ || true
+          git diff --staged --quiet || git commit -m \
+            "omnisurf: $(date -u +%Y-%m-%dT%H:%M:%SZ) — ${{ steps.q.outputs.query }}"
+          git push origin main || true
