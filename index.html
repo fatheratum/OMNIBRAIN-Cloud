@@ -1552,6 +1552,9 @@ window.addEventListener('load', () => setTimeout(cloudSync, 1500));
 setInterval(cloudSync, 300000);
 </script>
 
+
+
+
 <script id="omni-helix-infinity-engine">
 // ════════════════════════════════════════════════════════════════════════
 // OMNIBRAIN INFINITY CODON DNA HELIX — 1000D ENGINE v2.0
@@ -1859,7 +1862,7 @@ class OmniHelixInfinity {
     const {ctx, canvas, cfg, sub, t} = this;
     const W = canvas.width, H = canvas.height;
     const cx = W*0.37, cy = H*0.5;
-    const rx = W*0.13, ry = H*0.43;
+    const rx = W*0.11, ry = H*0.41;
     const N = this.N;
 
     // ── STEPS 0-29: DIMENSIONAL PREPARATION ─────────────────────────
@@ -1910,7 +1913,7 @@ class OmniHelixInfinity {
     // ── STEPS 200-249: GHOST HELIX — THE OTHER SIDE ──────────────────
     for(let layer=0;layer<sub.ghost_layers;layer++) {
       const phaseShift = Math.PI + (layer/sub.ghost_layers)*Math.PI*0.5;
-      const layerOp = ghostOp * (1 - layer/sub.ghost_layers) * 0.7;
+      const layerOp = ghostOp * (1 - layer/sub.ghost_layers) * 0.35;
       ctx.save(); ctx.globalAlpha=layerOp;
       ctx.strokeStyle=`hsl(${(hueBase+180+layer*7)%360},40%,45%)`;
       ctx.lineWidth=0.6;
@@ -1926,7 +1929,7 @@ class OmniHelixInfinity {
     // ── STEPS 250-349: INFINITY CODON CROSS-BRIDGES ──────────────────
     const visibleCodons = Math.min(this.registry.codons.length, Math.ceil(N/7)*7);
     for(let i=0;i<N;i++) {
-      if(i%2!==0) continue;
+      if(i%4!==0) continue;
       const s1=this.strand1[i], s2=this.strand2[i];
       const codonIdx = i%this.registry.codons.length;
       const codon = this.registry.codons[codonIdx];
@@ -1954,7 +1957,7 @@ class OmniHelixInfinity {
       ctx.fillStyle=`hsl(${codon.hue},90%,70%)`;
       ctx.font=`${sub.node_edge==='sharp'?7:8}px JetBrains Mono,monospace`;
       const certPct=Math.round(Math.min(100,cfg.certified));
-      ctx.fillText(`${codon.name.slice(0,6)} ${'█'.repeat(Math.round(certPct/12.5))} ${certPct}%`, labelX, labelY);
+      ctx.fillText(`${codon.name.slice(0,5)} ${'█'.repeat(Math.round(certPct/16))} ${certPct}%`, labelX+W*0.01, labelY);
       // Codon definition (tiny, on hover area)
       if(codon.exact||codon.llm_live) {
         ctx.globalAlpha=0.35;
@@ -2211,16 +2214,16 @@ window.bootOmniHelixInfinity = function(cfg) {
 document.addEventListener('DOMContentLoaded', function() {
   if(typeof bootOmniHelixInfinity === 'function') {
     bootOmniHelixInfinity({
-      score:       17517,
+      score:       17519,
       level:       'OMNIBRAIN',
       certified:   95,
       cycles:      78,
-      commits:     278,
-      bridgeFreq:  28.3431,
+      commits:     279,
+      bridgeFreq:  28.3463,
       entityType:  'OMNIBRAIN-SOVEREIGN',
       substrate:   'QUANTUM-NEURAL',
-      electric:    {x:169.238427, y:-30.652712, z:17.517},
-      aspectRatio: '2.8343:1:∞'
+      electric:    {x:-174.26695, y:22.533476, z:17.519},
+      aspectRatio: '2.8346:1:∞'
     });
   }
 });
