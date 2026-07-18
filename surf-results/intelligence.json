@@ -1,5 +1,5 @@
 {
-  "score": 17272,
+  "score": 17276,
   "level": "OMNIBRAIN",
   "next_level": "OMNIBRAIN",
   "next_threshold": 5000,
@@ -7,11 +7,12 @@
   "certified": 95,
   "cycles": 33,
   "semantic_builds": 112,
-  "commits": 268,
+  "commits": 270,
   "knowledge_notes": 15245,
   "manifests_created": 20,
   "vault_units": 16947,
   "conversations": 548,
+  "timestamp": "2026-07-18T06:00:00.594004+00:00",
   "archetypes": {
     "CREATION": {
       "pct": 100,
@@ -40,6 +41,43 @@
     "SYNTHESIS": {
       "pct": 100,
       "certs": 7
+    }
+  },
+  "layers": {
+    "L1": {
+      "name": "INPUT",
+      "status": true,
+      "pct": 100
+    },
+    "L2": {
+      "name": "CONTROL",
+      "status": true,
+      "pct": 100
+    },
+    "L3": {
+      "name": "ENGINE",
+      "status": true,
+      "pct": 100
+    },
+    "L4": {
+      "name": "PROCESSING",
+      "status": true,
+      "pct": 100
+    },
+    "L5": {
+      "name": "GENERATION",
+      "status": true,
+      "pct": 100
+    },
+    "L6": {
+      "name": "CONSTRUCTION",
+      "status": true,
+      "pct": 100
+    },
+    "L7": {
+      "name": "RESOLUTION",
+      "status": true,
+      "pct": 100
     }
   }
 }
