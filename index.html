@@ -292,9 +292,9 @@
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>godhead_imagine.py</div>
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>golden_working_resolution.py</div>
       <div class="tab" id="tabBrowser" onclick="showPanel('browser')"><span class="tdot" style="background:var(--cyan);animation:pulse 2s infinite;"></span>🌐 OmniSurf Browser</div>
-      <div class="tab" id="tabStudio" onclick="openTab('http://127.0.0.1:7777/studio')"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div>
-      <div class="tab" id="tabOmniSurf" onclick="openTab('http://127.0.0.1:7777/omnisurf/ui')"><span class="tdot" style="background:var(--purple);animation:pulse 1.6s infinite;"></span>⬡ OmniSurf</div>
-      <div class="tab" id="tabTelephonic" onclick="openTab('http://127.0.0.1:7777/omnisurf/telephonic/ui')"><span class="tdot" style="background:var(--cyan);animation:pulse 1.2s infinite;"></span>📡 Telephonic</div>
+      <div class="tab" id="tabStudio" onclick="showStudioPanel()"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div>
+      <div class="tab" id="tabOmniSurf" onclick="showOmniSurfPanel()"><span class="tdot" style="background:var(--purple);animation:pulse 1.6s infinite;"></span>⬡ OmniSurf</div>
+      <div class="tab" id="tabTelephonic" onclick="showTelephonicPanel()"><span class="tdot" style="background:var(--cyan);animation:pulse 1.2s infinite;"></span>📡 Telephonic</div>
     </div>
 
     <div class="tbody" id="tb">
@@ -349,7 +349,7 @@
             <span class="tdim" style="margin-left:0;">Surfing + semantic + vault running as one unified system. Autonomous output every cycle.</span>
           </div>
           <div class="sb-meta">
-            <span>Score: <strong>17504</strong> pts</span>
+            <span>Score: <strong class="live-score">17504</strong> pts</span>
             <span>Progress: <span style="color:var(--green);">███░░░░░░░░░░░░░░░░░</span> <strong>100%</strong></span>
             <span>Next: <strong style="color:var(--gold);">SOVEREIGN</strong> @ 2500</span>
           </div>
@@ -415,7 +415,7 @@
         <div class="sb-body">
           <div class="sb-meta">
             <span>Level: <strong>OMNIBRAIN</strong></span>
-            <span>Score: <strong>17504</strong></span>
+            <span>Score: <strong class="live-score">17504</strong></span>
             <span>Certified: <strong>95</strong></span>
             <span>Cycles: <strong>77/20</strong></span>
           </div>
@@ -517,6 +517,38 @@
         <div id="surfResultsBody"></div>
       </div>
     </div>
+</div>
+
+    <!-- ── STUDIO PANEL ── -->
+    <div id="studioPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#04040a;">
+      <div id="studioContent" style="flex:1;overflow:auto;"></div>
+    </div>
+
+    <!-- ── OMNISURF PANEL ── -->
+    <div id="omniSurfPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#03030a;">
+      <div id="omniSurfContent" style="flex:1;overflow:auto;"></div>
+    </div>
+
+    <!-- ── TELEPHONIC PANEL ── -->
+    <div id="telephonicPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#030308;">
+      <div id="telephonicContent" style="flex:1;overflow:auto;"></div>
+    </div>
+</div>
+
+    <!-- ── STUDIO PANEL ── -->
+    <div id="studioPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#04040a;">
+      <div id="studioContent" style="flex:1;overflow:auto;"></div>
+    </div>
+
+    <!-- ── OMNISURF PANEL ── -->
+    <div id="omniSurfPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#03030a;">
+      <div id="omniSurfContent" style="flex:1;overflow:auto;"></div>
+    </div>
+
+    <!-- ── TELEPHONIC PANEL ── -->
+    <div id="telephonicPanel" style="display:none;flex:1;flex-direction:column;overflow:hidden;background:#030308;">
+      <div id="telephonicContent" style="flex:1;overflow:auto;"></div>
+    </div>
 
     <div class="inrow">
       <span class="inprompt">OMNIBRAIN@atum:~/OmniBrain$</span>
@@ -572,7 +604,7 @@
       <div class="pt">Genetic Helix <span style="color:var(--pb);font-size:8px;margin-left:4px;">● LIVE</span></div>
       <div style="font-size:10.5px;color:var(--text);line-height:1.55;">
         <div>Level: <strong style="color:var(--pb);">TRANSCENDENT</strong></div>
-        <div>Score: <strong style="color:var(--pb);">17504</strong> · Certified: <strong style="color:var(--green);">95</strong></div>
+        <div>Score: <strong style="color:var(--pb);">17504</strong> · Certified: <strong class="live-cert" style="color:var(--green);">95</strong></div>
         <div>Cycles: <strong style="color:var(--cyan);">78/20</strong></div>
         <div style="margin-top:5px;font-family:var(--mono);font-size:9px;color:#a070d0;line-height:1.25;white-space:pre;">
    █          █
@@ -653,6 +685,17 @@ async function refreshCertCount(){
 }
 async function refreshStatus(){
   try{
+    const r2=await fetch("/status");
+    const d2=await r2.json();
+    if(d2.score){
+      document.querySelectorAll(".live-score").forEach(el=>el.textContent=d2.score);
+    }
+    if(d2.certified_count){
+      document.querySelectorAll(".live-cert").forEach(el=>el.textContent=d2.certified_count);
+    }
+  }catch(e){}
+
+  try{
     const r=await fetch('/status');
     const d=await r.json();
     const layers=d.layers||{};
@@ -675,10 +718,11 @@ async function refreshActivity(){
     if(vcert) vcert.textContent=certs.length||80;
   }catch(e){}
 }
-refreshCertCount();refreshStatus();refreshActivity();
+refreshCertCount();refreshStatus();refreshActivity();liveSync();
 setInterval(refreshCertCount,10000);
 setInterval(refreshStatus,15000);
 setInterval(refreshActivity,10000);
+setInterval(liveSync,30000);
 
 // ── HISTORY ──
 const hist=[];let hIdx=-1;
@@ -1113,27 +1157,117 @@ let surfStartTime = null;
 let surfTimerInterval = null;
 
 function showPanel(panel) {
-  const terminal = document.getElementById('tb');
-  const terminalInput = document.querySelector('.inrow');
-  const browserPanel = document.getElementById('browserPanel');
+  const terminal    = document.getElementById('tb');
+  const termInput   = document.querySelector('.inrow');
+  const browserPanel= document.getElementById('browserPanel');
+  const studioPanel = document.getElementById('studioPanel');
+  const omniPanel   = document.getElementById('omniSurfPanel');
+  const telPanel    = document.getElementById('telephonicPanel');
   const tabTerminal = document.getElementById('tabTerminal');
-  const tabBrowser = document.getElementById('tabBrowser');
+  const tabBrowser  = document.getElementById('tabBrowser');
+  const tabStudio   = document.getElementById('tabStudio');
+  const tabOmniSurf = document.getElementById('tabOmniSurf');
+  const tabTel      = document.getElementById('tabTelephonic');
+
+  // Hide everything
+  if (terminal)     terminal.style.display     = 'none';
+  if (termInput)    termInput.style.display     = 'none';
+  if (browserPanel) browserPanel.style.display  = 'none';
+  if (studioPanel)  studioPanel.style.display   = 'none';
+  if (omniPanel)    omniPanel.style.display     = 'none';
+  if (telPanel)     telPanel.style.display      = 'none';
+
+  // Remove all active tabs
+  [tabTerminal,tabBrowser,tabStudio,tabOmniSurf,tabTel].forEach(t => t && t.classList.remove('active'));
 
   if (panel === 'browser') {
-    terminal.style.display = 'none';
-    if (terminalInput) terminalInput.style.display = 'none';
-    browserPanel.style.display = 'flex';
-    if (tabTerminal) tabTerminal.classList.remove('active');
-    if (tabBrowser) tabBrowser.classList.add('active');
-    document.getElementById('browserNav').classList.add('active');
+    if (browserPanel) browserPanel.style.display = 'flex';
+    if (tabBrowser)   tabBrowser.classList.add('active');
+    const bn = document.getElementById('browserNav');
+    if (bn) bn.classList.add('active');
+
+  } else if (panel === 'studio') {
+    if (studioPanel) studioPanel.style.display = 'flex';
+    if (tabStudio)   tabStudio.classList.add('active');
+    loadPanel('studioContent','http://127.0.0.1:7777/studio');
+
+  } else if (panel === 'omnisurf') {
+    if (omniPanel) omniPanel.style.display = 'flex';
+    if (tabOmniSurf) tabOmniSurf.classList.add('active');
+    loadPanel('omniSurfContent','http://127.0.0.1:7777/omnisurf/ui');
+
+  } else if (panel === 'telephonic') {
+    if (telPanel) telPanel.style.display = 'flex';
+    if (tabTel)   tabTel.classList.add('active');
+    loadPanel('telephonicContent','http://127.0.0.1:7777/omnisurf/telephonic/ui');
+
   } else {
-    terminal.style.display = 'block';
-    if (terminalInput) terminalInput.style.display = 'flex';
-    browserPanel.style.display = 'none';
+    // terminal (default)
+    if (terminal)  terminal.style.display  = 'block';
+    if (termInput) termInput.style.display = 'flex';
     if (tabTerminal) tabTerminal.classList.add('active');
-    if (tabBrowser) tabBrowser.classList.remove('active');
-    document.getElementById('browserNav').classList.remove('active');
+    const bn = document.getElementById('browserNav');
+    if (bn) bn.classList.remove('active');
   }
+}
+
+
+// Load external panel HTML into a div via fetch
+const _panelCache = {};
+async function loadPanel(divId, url) {
+  const div = document.getElementById(divId);
+  if (!div) return;
+  if (_panelCache[url]) { div.innerHTML = _panelCache[url]; execScripts(div); return; }
+  div.innerHTML = '<div style="color:#444466;font-family:monospace;font-size:11px;padding:20px;">Loading...</div>';
+  try {
+    const r = await fetch(url, {signal: AbortSignal.timeout(5000)});
+    const text = await r.text();
+    _panelCache[url] = text;
+    div.innerHTML = text;
+    execScripts(div);
+  } catch(e) {
+    div.innerHTML = '<div style="color:#ff4455;font-family:monospace;font-size:11px;padding:20px;">Could not load panel — is server running?<br><br>Start: python3 ~/OmniBrain/Engine/omnibrain_server.py</div>';
+  }
+}
+// Re-execute scripts injected via innerHTML
+function execScripts(el) {
+  el.querySelectorAll('script').forEach(old => {
+    const s = document.createElement('script');
+    s.textContent = old.textContent;
+    document.head.appendChild(s);
+  });
+}
+
+
+function gotoTab(url) {
+  window.location.href = url;
+}
+
+
+// Load external panel HTML into a div via fetch
+const _panelCache = {};
+async function loadPanel(divId, url) {
+  const div = document.getElementById(divId);
+  if (!div) return;
+  if (_panelCache[url]) { div.innerHTML = _panelCache[url]; execScripts(div); return; }
+  div.innerHTML = '<div style="color:#444466;font-family:monospace;font-size:11px;padding:20px;">Loading...</div>';
+  try {
+    const r = await fetch(url, {signal: AbortSignal.timeout(5000)});
+    const text = await r.text();
+    _panelCache[url] = text;
+    div.innerHTML = text;
+    execScripts(div);
+  } catch(e) {
+    div.innerHTML = '<div style="color:#ff4455;font-family:monospace;font-size:11px;padding:20px;">Could not load panel — is server running?<br><br>Start: python3 ~/OmniBrain/Engine/omnibrain_server.py</div>';
+  }
+}
+// Re-execute scripts injected via innerHTML
+function execScripts(el) {
+  el.querySelectorAll('script').forEach(old => {
+    const s = document.createElement('script');
+    s.textContent = old.textContent;
+    document.head.appendChild(s);
+  });
 }
 
 function openBrowser() {
@@ -1393,7 +1527,7 @@ async function cloudFetch(path) {
 
 async function liveSync() {
   // 1. Pull intelligence status from GitHub
-  const status = await cloudFetch('/surf-results/intelligence.json');
+  const status = await fetch('/intelligence').then(r=>r.json()).catch(()=>null) || await cloudFetch('/surf-results/intelligence.json');
   if (status) {
     const score = status.score || status.intelligence_score || 0;
     const level = status.level || status.intelligence_level || 'TRANSCENDENT';
@@ -2442,6 +2576,88 @@ function openTab(url) {
 function closeTab() {
   document.getElementById('tab-modal').classList.remove('open');
   document.getElementById('tab-iframe').src = '';
+}
+</script>
+
+<style>
+#ext-panel{display:none;position:fixed;inset:0;z-index:9000;background:#03030a;flex-direction:column;}
+#ext-panel.active{display:flex;}
+#ext-bar{height:38px;background:#0a0a12;border-bottom:1px solid #1a1a2e;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;}
+#ext-bar-title{color:#a87fdb;font-size:11px;font-family:'JetBrains Mono',monospace;flex:1;font-weight:700;}
+#ext-bar-close{padding:3px 10px;border:1px solid #1a1a2e;background:#12121c;color:#c0c0d0;border-radius:4px;cursor:pointer;font-size:9px;font-family:'JetBrains Mono',monospace;}
+#ext-bar-close:hover{border-color:#00ff9d;color:#00ff9d;}
+#ext-iframe{flex:1;border:none;width:100%;height:100%;background:#03030a;}
+</style>
+<div id="ext-panel">
+  <div id="ext-bar">
+    <span id="ext-bar-title">Loading...</span>
+    <button id="ext-bar-close" onclick="closeExternalPanel()">✕ BACK TO OMNIBRAIN</button>
+  </div>
+  <iframe id="ext-iframe" src="" allow="*"></iframe>
+</div>
+<script>
+function showExternalPanel(url, title) {
+  const panel  = document.getElementById('ext-panel');
+  const iframe = document.getElementById('ext-iframe');
+  const titleEl= document.getElementById('ext-bar-title');
+  titleEl.textContent = title + ' — OMNIBRAIN SOVEREIGN';
+  iframe.src = url;
+  panel.classList.add('active');
+}
+function closeExternalPanel() {
+  const panel  = document.getElementById('ext-panel');
+  const iframe = document.getElementById('ext-iframe');
+  panel.classList.remove('active');
+  iframe.src = '';
+}
+</script>
+
+  <!-- OmniSurf Hotspot Panel -->
+  <div id="panelOmniSurf" class="panel" style="display:none;flex-direction:column;height:100%;overflow:hidden;">
+    <iframe id="iframeOmniSurf" src="" style="flex:1;border:none;width:100%;height:100%;background:#03030a;" allow="*"></iframe>
+  </div>
+
+  <!-- Telephonic Panel -->
+  <div id="panelTelephonic" class="panel" style="display:none;flex-direction:column;height:100%;overflow:hidden;">
+    <iframe id="iframeTelephonic" src="" style="flex:1;border:none;width:100%;height:100%;background:#030308;" allow="*"></iframe>
+  </div>
+
+<script id="omni-panel-switcher">
+function showOmniSurfPanel() {
+  // Load iframe if not loaded yet
+  const iframe = document.getElementById('iframeOmniSurf');
+  if (!iframe.src || iframe.src === window.location.href) {
+    iframe.src = 'http://127.0.0.1:7777/omnisurf/ui';
+  }
+  showPanel('omnisurf');
+}
+function showTelephonicPanel() {
+  const iframe = document.getElementById('iframeTelephonic');
+  if (!iframe.src || iframe.src === window.location.href) {
+    iframe.src = 'http://127.0.0.1:7777/omnisurf/telephonic/ui';
+  }
+  showPanel('telephonic');
+}
+function showStudioPanel() {
+  // Studio already has its own panel — try showPanel first
+  // then fallback to loading via iframe if panel doesn't exist
+  const existing = document.getElementById('panelStudio');
+  if (existing) {
+    showPanel('studio');
+    return;
+  }
+  // Create studio panel on first click
+  const div = document.createElement('div');
+  div.id = 'panelStudio';
+  div.className = 'panel';
+  div.style.cssText = 'display:none;flex-direction:column;height:100%;overflow:hidden;';
+  const iframe = document.createElement('iframe');
+  iframe.src = 'http://127.0.0.1:7777/studio';
+  iframe.style.cssText = 'flex:1;border:none;width:100%;height:100%;background:#04040a;';
+  iframe.allow = '*';
+  div.appendChild(iframe);
+  document.body.appendChild(div);
+  showPanel('studio');
 }
 </script>
 </body>
