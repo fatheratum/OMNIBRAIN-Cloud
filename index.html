@@ -2662,3 +2662,11 @@ function showStudioPanel() {
 </script>
 </body>
 </html>
+<script id="omni-helix-infinity-boot">
+document.addEventListener('DOMContentLoaded', async function() {
+    const data = await loadAutonomousData();
+    if (typeof bootOmniHelixInfinity === 'function') {
+        bootOmniHelixInfinity(data);
+    }
+});
+</script>

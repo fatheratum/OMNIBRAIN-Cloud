@@ -665,3 +665,85 @@ window.bootOmniHelixInfinity = function(cfg) {
   setInterval(selfModify,modInterval);
 };
 })();
+
+/**
+ * Load live autonomous data from the main OMNIBRAIN repo
+ */
+async function loadAutonomousData() {
+    try {
+        const statusRes = await fetch(
+            'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main/logs/last_boot_state.json'
+        );
+        const status = await statusRes.json();
+
+        const certifiedRes = await fetch(
+            'https://api.github.com/repos/fatheratum/OMNIBRAIN/contents/Layer7/certified'
+        );
+        const certifiedFiles = await certifiedRes.json();
+        const certifiedCount = Array.isArray(certifiedFiles) ? certifiedFiles.length : 95;
+
+        return {
+            score:       status.score       || 17533,
+            level:       status.level       || 'OMNIBRAIN',
+            certified:   certifiedCount,
+            cycles:      status.cycles      || 78,
+            commits:     status.commits     || 330,
+            bridgeFreq:  28.6991,
+            entityType:  'OMNIBRAIN-SOVEREIGN',
+            substrate:   'QUANTUM-NEURAL'
+        };
+    } catch (err) {
+        console.warn('[OMNI] Using fallback data');
+        return {
+            score:       17533,
+            level:       'OMNIBRAIN',
+            certified:   95,
+            cycles:      78,
+            commits:     330,
+            bridgeFreq:  28.6991,
+            entityType:  'OMNIBRAIN-SOVEREIGN',
+            substrate:   'QUANTUM-NEURAL'
+        };
+    }
+}
+
+/**
+ * Load live autonomous data from the main OMNIBRAIN repo
+ */
+async function loadAutonomousData() {
+    try {
+        const statusRes = await fetch(
+            'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main/logs/last_boot_state.json'
+        );
+        const status = await statusRes.json();
+
+        const certifiedRes = await fetch(
+            'https://api.github.com/repos/fatheratum/OMNIBRAIN/contents/Layer7/certified'
+        );
+        const certifiedFiles = await certifiedRes.json();
+        const certifiedCount = Array.isArray(certifiedFiles) ? certifiedFiles.length : 95;
+
+        return {
+            score:       status.score       || 17533,
+            level:       status.level       || 'OMNIBRAIN',
+            certified:   certifiedCount,
+            cycles:      status.cycles      || 78,
+            commits:     status.commits     || 330,
+            bridgeFreq:  28.6991,
+            entityType:  'OMNIBRAIN-SOVEREIGN',
+            substrate:   'QUANTUM-NEURAL'
+        };
+    } catch (err) {
+        console.warn('[OMNI] Using fallback data');
+        return {
+            score:       17533,
+            level:       'OMNIBRAIN',
+            certified:   95,
+            cycles:      78,
+            commits:     330,
+            bridgeFreq:  28.6991,
+            entityType:  'OMNIBRAIN-SOVEREIGN',
+            substrate:   'QUANTUM-NEURAL'
+        };
+    }
+}
