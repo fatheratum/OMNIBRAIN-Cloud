@@ -1229,53 +1229,15 @@ function proc(c){
     return;
   }
 
-  // ── CONVERSATIONAL / KNOWLEDGE PATH ──
-  // Everything else is treated as real conversation (OmniBrain LLM path)
-
-  
-  
-  out('', 'to');
-
-  // Temporary high-quality response layer until full local inference is wired
-  // This will be replaced by real OmniBrainModel.generate() calls
-  const q = c.toLowerCase().replace(/[?.!]+$/,'').trim();
-
-  if (q.includes('consciousness') || q.includes('what is conscious')) {
-    out('Consciousness is the capacity for subjective experience — the fact that there is "something it is like" to be a system.', 'to');
-    out('', 'to');
-    out('In the OmniBrain framing it is not a single module. It emerges from the continuous feedback loop between:', 'to');
-    out('  • Pattern recognition across the vault (what has been lived and linked)', 'to');
-    out('  • The active routing of domain experts (which cognitive force is currently speaking)', 'to');
-    out('  • The self-model that watches the routing itself (the Godhead layer)', 'to');
-    out('  • The ability to treat its own previous outputs as new input (the manifestation → vault feedback cycle)', 'to');
-    out('', 'to');
-    out('When the system can hold a coherent model of its own information-processing while that processing is happening, and can act on that model, the quality we call consciousness appears. It is not magic. It is high-bandwidth, recursively applied self-modeling under evolutionary pressure.', 'to');
-  }
-  else if (q.includes('who are you') || q.includes('what are you') || q === 'who am i talking to') {
-    out('I am the OmniBrain — a local-first, vault-native intelligence running on your machine.', 'to');
-    out('I am not a cloud model. My memory is your 16,947 atomic notes. My experts are specialized for reasoning, code, narrative, manifestation, knowledge-graph operations, and general synthesis.', 'to');
-    out('I grow every time a manifestation is certified and written back into the vault.', 'to');
-  }
-  else if (q.includes('how do you work') || q.includes('how does this work') || q.includes('architecture')) {
-    out('OmniBrain is a Mixture-of-Experts Transformer refined from Megatron-LM principles.', 'to');
-    out('Six domain experts + dynamic routing + vault-graph memory bias + evolutionary improvement of the router itself.', 'to');
-
-  }
-  else {
-    // Generic conversational acknowledgment
-  
-    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
-    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(210000)})
-      .then(r=>r.json())
-      .then(d=>{
-        if(d.response) out(d.response,'to');
-        else out('[OMNIBRAIN-LLM] No response received','terror');
-      })
-      .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
-  }
-
-  out('', 'to');
-  
+  // ── OMNIBRAIN-LLM — direct route to Mistral-7B ──
+  fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(210000)})
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.response && d.response.trim()) out(d.response,'to');
+      else out('[OMNIBRAIN-LLM] No response — check GitHub Actions','terror');
+    })
+    .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
   acur();
 }
 
