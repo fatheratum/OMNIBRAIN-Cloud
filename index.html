@@ -3019,8 +3019,10 @@ try {
     document.getElementById('omni-sidebar').classList.add('sb-open');
     document.getElementById('omni-sidebar-overlay').classList.add('show');
     renderProjs();
-    // Load from GitHub on open
+    // Load from localStorage
     const cached = cacheLoad();
+    console.log('[SB] cache size:', cached.length, 'activeId:', window._sbActiveId);
+    console.log('[SB] raw localStorage:', localStorage.getItem('omni_convs_cache')?.slice(0,200));
     renderList(cached); updateStat(cached);
     ghLoadAll().then(ghConvs => {
       if (ghConvs.length) {
