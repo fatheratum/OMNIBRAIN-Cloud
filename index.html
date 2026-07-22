@@ -3030,6 +3030,17 @@ try {
     document.getElementById('omni-sidebar-overlay').classList.add('show');
     renderProjs();
     const cached = cacheLoad();
+    // DIAGNOSTIC: show what we have
+    const _raw = localStorage.getItem("omni_convs_cache");
+    const _raw2 = localStorage.getItem("omni_sb_cache");
+    console.log("SB OPEN — omni_convs_cache:", _raw ? JSON.parse(_raw).length : 0);
+    console.log("SB OPEN — omni_sb_cache:", _raw2 ? JSON.parse(_raw2).length : 0);
+    console.log("SB OPEN — merged:", cached.length);
+    if (cached.length === 0) {
+      // Show all localStorage keys
+      const keys = Object.keys(localStorage);
+      console.log("All localStorage keys:", keys);
+    }
     renderList(cached); updateStat(cached);
     ghLoadAll().then(ghConvs => {
       if (ghConvs.length) {
@@ -3052,6 +3063,17 @@ try {
   window.addEventListener('load', () => {
     renderProjs();
     const cached = cacheLoad();
+    // DIAGNOSTIC: show what we have
+    const _raw = localStorage.getItem("omni_convs_cache");
+    const _raw2 = localStorage.getItem("omni_sb_cache");
+    console.log("SB OPEN — omni_convs_cache:", _raw ? JSON.parse(_raw).length : 0);
+    console.log("SB OPEN — omni_sb_cache:", _raw2 ? JSON.parse(_raw2).length : 0);
+    console.log("SB OPEN — merged:", cached.length);
+    if (cached.length === 0) {
+      // Show all localStorage keys
+      const keys = Object.keys(localStorage);
+      console.log("All localStorage keys:", keys);
+    }
     renderList(cached); updateStat(cached);
 
     // Patch addMsg to intercept every message
