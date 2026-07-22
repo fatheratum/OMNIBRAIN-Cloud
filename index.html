@@ -1076,20 +1076,21 @@ function proc(c){
   }
   else {
     // Generic conversational acknowledgment
-    // Route to OMNIBRAIN-LLM via /chat
-  showOmniThinking();
+    // OMNIBRAIN-LLM — fetch real response from Mistral-7B
+  out('◈ OMNIBRAIN thinking...', 'tdim');
   try {
-    const _cr = await fetch('/chat', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+    const _r = await fetch('/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({prompt: c})
     });
-    const _cd = await _cr.json();
-    hideOmniThinking();
-    out(_cd.response || '[OMNIBRAIN-LLM] No response', 'to');
-  } catch(_ce) {
-    hideOmniThinking();
-    out('[OMNIBRAIN-LLM] Error: ' + _ce.message, 'terror');
+    const _d = await _r.json();
+    const _resp = _d.response || '';
+    // Remove the thinking line
+    const _lines = document.getElementById('terminal');
+    if (_lines && _lines.lastChild) _lines.lastChild.remove();
+    out(_resp, 'to');
+  } catch(_e) {
+    out('[OMNIBRAIN-LLM] Error: ' + _e.message, 'terror');
   }
     out('', 'to');
     out('The OmniBrain LLM layer has been injected (omnibrain-llm/). Full local generation is coming online.', 'to');
