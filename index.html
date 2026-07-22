@@ -901,6 +901,7 @@ function out(t,cls='to'){
   b.appendChild(d);b.scrollTop=b.scrollHeight;
   // Capture to sidebar
   if(t && t.trim()) {
+    if (window._sbRestoring) return; // don't re-capture on restore
     const skip = t.includes('processing...') || t.includes('~2 min') ||
       t.startsWith('[L') || t.startsWith('▸') || t.startsWith('OMNIBRAIN v') ||
       t.startsWith('  ') || t.startsWith('[1]') || t.startsWith('[2]') ||
@@ -2644,7 +2645,17 @@ const SB = (function() {
 try {
 
   let TOKEN = '';
-  fetch('/token').then(r=>r.json()).then(d=>{TOKEN=d.token||'';}).catch(()=>{});
+  let _tokenReady = false;
+  async function ensureToken() {
+    if (TOKEN) return TOKEN;
+    try {
+      const r = await fetch('/token');
+      if (r.ok) { const d = await r.json(); TOKEN = d.token||''; }
+    } catch(e) {}
+    _tokenReady = true;
+    return TOKEN;
+  }
+  ensureToken(); // fetch immediately on load
   const SB_REPO = 'fatheratum/OMNIBRAIN';
   const BASE  = 'https://api.github.com';
   const LKEY  = 'omni_convs_cache';      // localStorage cache only
@@ -2658,6 +2669,8 @@ try {
 
   // ── GitHub push ────────────────────────────────────────────────
   async function ghPush(conv) {
+    await ensureToken();
+    if (!TOKEN) { console.warn('[SB] No token — saving locally only'); return false; }
     const path = `conversations/${conv.id}.json`;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(conv, null, 2))));
     const headers = {
@@ -2792,12 +2805,15 @@ try {
     if (!conv) return;
     activeId = id;
     _pendingConv = JSON.parse(JSON.stringify(conv));
-    const thread = document.getElementById('chatThread');
-    if (thread && typeof window.addMsg === 'function') {
-      thread.innerHTML = '';
+    // Clear terminal and restore messages using out()
+    const tb = document.getElementById('tb');
+    if (tb) {
+      tb.innerHTML = '';
       (conv.messages||[]).forEach(m => {
         window._sbRestoring = true;
-        window.addMsg(m.text, m.role === 'user' ? 'user' : 'system');
+        if (typeof window.out === 'function') {
+          window.out(m.text, m.role === 'user' ? 'ti' : 'to');
+        }
         window._sbRestoring = false;
       });
     }
