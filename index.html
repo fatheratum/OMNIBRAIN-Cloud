@@ -1548,7 +1548,6 @@ refreshSurfBadge();
 <script>
 // ── OMNIBRAIN LIVE INTELLIGENCE SYNC ───────────────────────────
 // Pulls real-time data from GitHub repo on every load + every 2min
-const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
@@ -1666,7 +1665,6 @@ async function liveSync() {
   });
 }
 // Pulls live data from GitHub repo — works on any device
-const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
