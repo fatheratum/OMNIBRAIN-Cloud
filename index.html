@@ -1264,7 +1264,7 @@ function proc(c){
   else {
     // Generic conversational acknowledgment
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions
-
+  out('◈ OMNIBRAIN-LLM processing...', 'tdim');
   fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
     .then(r=>r.json())
     .then(d=>{
@@ -1276,7 +1276,7 @@ function proc(c){
     .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
     out('', 'to');
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
-  
+    out('◈ OMNIBRAIN thinking...', 'tdim');
     fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(180000)})
       .then(r=>r.json())
       .then(d=>{
@@ -2651,383 +2651,415 @@ setInterval(masterSync, 30000);
 
 
 <script id="omni-sidebar-js">
-// ═══ OMNIBRAIN SIDEBAR — GitHub-Persistent Chat History ═══════════
-(function() {
-'use strict';
+// ════════════════════════════════════════════════════════════════════
+// OMNIBRAIN SIDEBAR — Git-persistent conversation storage
+// Saves to fatheratum/OMNIBRAIN/conversations/ via GitHub API
+// ════════════════════════════════════════════════════════════════════
+const SB = (function() {
+try {
 
-const GH_TOKEN_URL = '/token';
-const GH_REPO      = 'fatheratum/OMNIBRAIN';
-const GH_API       = 'https://api.github.com';
-const CACHE_KEY    = 'omni_sb_cache';
-const PROJ_KEY     = 'omni_sb_projs';
+  let TOKEN = '';
+  fetch('/token').then(r=>r.json()).then(d=>{TOKEN=d.token||'';}).catch(()=>{});
+  const SB_REPO = 'fatheratum/OMNIBRAIN';
+  const BASE  = 'https://api.github.com';
+  const LKEY  = 'omni_convs_cache';      // localStorage cache only
+  const PKEY  = 'omni_projects_extra';
 
-let _token    = '';
-let _open     = false;
-let _proj     = 'all';
-let _activeId = null;
-let _pending  = null;
-let _saveTimer= null;
-let _query    = '';
+  let open     = false;
+  let activePrj= 'all';
+  let activeId = null;
+  let query    = '';
+  let syncQ    = [];   // queue of convs waiting to push to GitHub
 
-// Get token from server
-async function getToken() {
-  if (_token) return _token;
-  try {
-    const r = await fetch(GH_TOKEN_URL);
-    if (r.ok) { const d = await r.json(); _token = d.token || ''; }
-  } catch(e) {}
-  return _token;
-}
+  // ── GitHub push ────────────────────────────────────────────────
+  async function ghPush(conv) {
+    const path = `conversations/${conv.id}.json`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(conv, null, 2))));
+    const headers = {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    };
+    // Check if file exists (get SHA)
+    let sha = '';
+    try {
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {headers});
+      if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
+    } catch(e) {}
 
-// ── GitHub storage ──────────────────────────────────────────────────
-async function ghWrite(conv) {
-  const tok = await getToken();
-  if (!tok) return false;
-  const path = `conversations/${conv.id}.json`;
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(conv, null, 2))));
-  const headers = {
-    'Authorization': `token ${tok}`,
-    'Accept': 'application/vnd.github+json',
-    'Content-Type': 'application/json'
-  };
-  let sha = '';
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_REPO}/contents/${path}`, {headers});
-    if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
-  } catch(e) {}
-  const body = {
-    message: `CHAT: ${conv.title.slice(0,40)} [${new Date().toISOString().slice(0,10)}]`,
-    content, ...(sha ? {sha} : {})
-  };
-  try {
-    const r2 = await fetch(`${GH_API}/repos/${GH_REPO}/contents/${path}`, {
+    const body = {
+      message: `CHAT: ${conv.title.slice(0,50)} [${new Date().toISOString().slice(0,10)}]`,
+      content,
+      ...(sha ? {sha} : {})
+    };
+    const r2 = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {
       method: 'PUT', headers, body: JSON.stringify(body)
     });
     return r2.ok || r2.status === 201;
-  } catch(e) { return false; }
-}
+  }
 
-async function ghReadAll() {
-  const tok = await getToken();
-  if (!tok) return [];
-  const headers = {'Authorization':`token ${tok}`,'Accept':'application/vnd.github+json'};
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_REPO}/contents/conversations`, {headers});
-    if (!r.ok) return [];
-    const files = await r.json();
-    if (!Array.isArray(files)) return [];
-    const convs = await Promise.all(
-      files.filter(f => f.name.endsWith('.json')).map(async f => {
-        try { const fr = await fetch(f.download_url); if (fr.ok) return await fr.json(); }
-        catch(e) {} return null;
-      })
-    );
-    return convs.filter(Boolean).sort((a,b)=>(b.updated||0)-(a.updated||0));
-  } catch(e) { return []; }
-}
+  // ── GitHub load all conversations ──────────────────────────────
+  async function ghLoadAll() {
+    const headers = {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github+json'
+    };
+    try {
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/conversations`, {headers});
+      if (!r.ok) return [];
+      const files = await r.json();
+      if (!Array.isArray(files)) return [];
+      const convs = await Promise.all(
+        files.filter(f => f.name.endsWith('.json')).map(async f => {
+          try {
+            const fr = await fetch(f.download_url);
+            if (fr.ok) return await fr.json();
+          } catch(e) {}
+          return null;
+        })
+      );
+      return convs.filter(Boolean).sort((a,b) => (b.updated||0)-(a.updated||0));
+    } catch(e) { return []; }
+  }
 
-async function ghDelete(id) {
-  const tok = await getToken();
-  if (!tok) return;
-  const path = `conversations/${id}.json`;
-  const headers = {'Authorization':`token ${tok}`,'Accept':'application/vnd.github+json'};
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_REPO}/contents/${path}`, {headers});
-    if (!r.ok) return;
-    const d = await r.json();
-    await fetch(`${GH_API}/repos/${GH_REPO}/contents/${path}`, {
-      method:'DELETE', headers,
-      body: JSON.stringify({message:`DELETE: ${id}`, sha: d.sha})
+  // ── Local cache (fallback while syncing) ──────────────────────
+  function cacheLoad() {
+    try { return JSON.parse(localStorage.getItem(LKEY)||'[]'); } catch(e) { return []; }
+  }
+  function cacheSave(convs) {
+    try { localStorage.setItem(LKEY, JSON.stringify(convs)); } catch(e) {}
+  }
+
+  // ── Save/update a conversation ────────────────────────────────
+  async function saveConv(conv) {
+    // Update cache immediately
+    const convs = cacheLoad();
+    const idx = convs.findIndex(c => c.id === conv.id);
+    if (idx >= 0) convs[idx] = conv; else convs.unshift(conv);
+    cacheSave(convs);
+    renderList(convs);
+    updateStat(convs);
+
+    // Push to GitHub async
+    document.getElementById('sbSync').style.display = 'block';
+    try {
+      await ghPush(conv);
+    } catch(e) {
+      console.warn('[SB] GitHub push failed, cached locally:', e);
+    } finally {
+      document.getElementById('sbSync').style.display = 'none';
+    }
+  }
+
+  // ── Auto-save a message ───────────────────────────────────────
+  let _pendingConv = null;
+  let _saveTimer   = null;
+
+  function saveMsg(role, text) {
+    if (!activeId) {
+      activeId = 'c_' + Date.now();
+      _pendingConv = {
+        id: activeId,
+        title: text.slice(0,45).trim() || 'Conversation',
+        project: activePrj === 'all' ? 'vault' : activePrj,
+        messages: [],
+        created: Date.now(), updated: Date.now(),
+        preview: ''
+      };
+    }
+    if (!_pendingConv) {
+      const convs = cacheLoad();
+      _pendingConv = convs.find(c => c.id === activeId) || {
+        id: activeId, title: text.slice(0,45)||'Conversation',
+        project: activePrj==='all'?'vault':activePrj,
+        messages:[], created:Date.now(), updated:Date.now(), preview:''
+      };
+    }
+    _pendingConv.messages.push({role, text, ts: Date.now()});
+    _pendingConv.updated = Date.now();
+    _pendingConv.preview = text.slice(0,80);
+    if (role === 'user' && _pendingConv.messages.filter(m=>m.role==='user').length === 1) {
+      _pendingConv.title = text.slice(0,45).trim();
+    }
+
+    // Debounce save — push 3s after last message
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      if (_pendingConv) saveConv({..._pendingConv});
+    }, 3000);
+  }
+
+  // ── New chat ──────────────────────────────────────────────────
+  function newChat() {
+    activeId = null;
+    _pendingConv = null;
+    clearTimeout(_saveTimer);
+    const thread = document.getElementById('chatThread');
+    if (thread) thread.innerHTML = '';
+    close();
+    renderList(cacheLoad());
+  }
+
+  // ── Load a chat ───────────────────────────────────────────────
+  function loadChat(id) {
+    const convs = cacheLoad();
+    const conv = convs.find(c => c.id === id);
+    if (!conv) return;
+    activeId = id;
+    _pendingConv = JSON.parse(JSON.stringify(conv));
+    const thread = document.getElementById('chatThread');
+    if (thread && typeof window.addMsg === 'function') {
+      thread.innerHTML = '';
+      (conv.messages||[]).forEach(m => {
+        window._sbRestoring = true;
+        window.addMsg(m.text, m.role === 'user' ? 'user' : 'system');
+        window._sbRestoring = false;
+      });
+    }
+    renderList(convs);
+    close();
+  }
+
+  // ── Pin ───────────────────────────────────────────────────────
+  function pin(e, id) {
+    e.stopPropagation();
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.pinned = !c.pinned; cacheSave(convs); saveConv(c); renderList(convs); }
+  }
+
+  // ── Rename ────────────────────────────────────────────────────
+  function rename(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById('sbt_'+id);
+    if (!el) return;
+    const old = el.textContent;
+    const inp = document.createElement('input');
+    inp.className = 'sb-ri'; inp.value = old;
+    el.replaceWith(inp); inp.focus(); inp.select();
+    const done = () => {
+      const convs = cacheLoad();
+      const c = convs.find(x => x.id === id);
+      if (c) { c.title = inp.value.trim()||old; cacheSave(convs); saveConv(c); }
+      renderList(convs);
+    };
+    inp.onblur = done;
+    inp.onkeydown = ev => { if(ev.key==='Enter')done(); if(ev.key==='Escape')renderList(cacheLoad()); };
+  }
+
+  // ── Delete ────────────────────────────────────────────────────
+  function del(e, id) {
+    e.stopPropagation();
+    if (!confirm('Delete this conversation from GitHub?')) return;
+    const convs = cacheLoad().filter(c => c.id !== id);
+    cacheSave(convs);
+    // Delete from GitHub
+    const headers = {'Authorization':`token ${TOKEN}`,'Accept':'application/vnd.github+json'};
+    fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {headers})
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && d.sha) {
+          fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {
+            method:'DELETE', headers,
+            body: JSON.stringify({message:`DELETE: conversation ${id}`, sha: d.sha})
+          });
+        }
+      }).catch(()=>{});
+    if (activeId === id) { activeId=null; _pendingConv=null; }
+    renderList(convs); updateStat(convs);
+  }
+
+  // ── Move project ──────────────────────────────────────────────
+  function move(e, id) {
+    e.stopPropagation();
+    const proj = prompt('Move to project (vault/builds/research/or custom):');
+    if (!proj) return;
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.project = proj.trim(); cacheSave(convs); saveConv(c); renderList(convs); }
+  }
+
+  // ── Projects ──────────────────────────────────────────────────
+  const BASE_PROJS = ['all','vault','builds','research','pinned'];
+
+  function getProjs() {
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      return [...BASE_PROJS, ...extra];
+    } catch(e) { return BASE_PROJS; }
+  }
+  function addProject() {
+    const n = prompt('New project name:');
+    if (!n) return;
+    const key = n.trim().toLowerCase().replace(/[^a-z0-9_]/g,'_');
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      if (!extra.includes(key)) { extra.push(key); localStorage.setItem(PKEY, JSON.stringify(extra)); }
+    } catch(e) {}
+    renderProjs(); setProj(key);
+  }
+  function setProj(p) {
+    activePrj = p;
+    document.querySelectorAll('.sb-ptab').forEach(b => b.classList.toggle('on', b.dataset.p === p));
+    renderList(cacheLoad());
+  }
+  function renderProjs() {
+    const el = document.getElementById('sbProjs');
+    if (!el) return;
+    el.innerHTML = getProjs().map(p =>
+      `<button class="sb-ptab${activePrj===p?' on':''}" data-p="${p}"
+        onclick="SB.setProj('${p}')">${p.charAt(0).toUpperCase()+p.slice(1)}</button>`
+    ).join('') + `<button class="sb-padd" onclick="SB.addProject()">+</button>`;
+  }
+
+  // ── Render list ───────────────────────────────────────────────
+  function renderList(allConvs) {
+    const el = document.getElementById('sbList');
+    if (!el) return;
+    let convs = [...allConvs];
+    if (activePrj === 'pinned') convs = convs.filter(c => c.pinned);
+    else if (activePrj !== 'all') convs = convs.filter(c => c.project === activePrj);
+    if (query) {
+      const q = query.toLowerCase();
+      convs = convs.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        (c.preview||'').toLowerCase().includes(q) ||
+        (c.messages||[]).some(m => (m.text||'').toLowerCase().includes(q))
+      );
+    }
+    if (!convs.length) {
+      el.innerHTML = `<div class="sb-empty">◈ ${query?'No results':'No conversations yet'}<br>
+        <span style="font-size:8px;color:#44445a">${query?'Try different search.':'Start chatting — saves to GitHub automatically.'}</span></div>`;
+      return;
+    }
+    const now = Date.now();
+    const grp = {today:[],yesterday:[],week:[],older:[]};
+    convs.forEach(c => {
+      const age = now - (c.updated||0);
+      if (age < 86400000) grp.today.push(c);
+      else if (age < 172800000) grp.yesterday.push(c);
+      else if (age < 604800000) grp.week.push(c);
+      else grp.older.push(c);
     });
-  } catch(e) {}
-}
-
-// ── Local cache ─────────────────────────────────────────────────────
-function cLoad() { try{return JSON.parse(localStorage.getItem(CACHE_KEY)||'[]');}catch(e){return[];} }
-function cSave(c) { try{localStorage.setItem(CACHE_KEY,JSON.stringify(c));}catch(e){} }
-
-// ── Save conversation ───────────────────────────────────────────────
-async function saveConv(conv) {
-  const all = cLoad();
-  const idx = all.findIndex(c => c.id === conv.id);
-  if (idx >= 0) all[idx] = conv; else all.unshift(conv);
-  cSave(all);
-  renderList(all);
-  updateStat(all);
-  const el = document.getElementById('sbSync');
-  if (el) { el.style.display='block'; el.textContent='⟳ Saving to GitHub...'; }
-  const ok = await ghWrite(conv);
-  if (el) el.style.display = 'none';
-  if (!ok) console.warn('[SB] GitHub write failed — cached locally');
-}
-
-// ── Auto-save messages ──────────────────────────────────────────────
-function captureMsg(role, text) {
-  if (!text || text.length < 2) return;
-  // Skip system noise
-  const skip = ['[GODHEAD]','Server offline','◈ OMNIBRAIN','[L6]','[L7]','[OMNIBRAIN-LLM]'];
-  if (skip.some(s => text.startsWith(s))) return;
-
-  if (!_activeId) {
-    _activeId = 'c' + Date.now();
-    _pending = {
-      id: _activeId,
-      title: text.slice(0,45).trim() || 'Conversation',
-      project: _proj === 'all' ? 'vault' : _proj,
-      messages: [], created: Date.now(), updated: Date.now(), preview: ''
+    const renderG = (label, items) => !items.length ? '' :
+      `<div class="sb-grp">${label}</div>` + items.map(renderItem).join('');
+    const renderItem = c => {
+      const ts = new Date(c.updated||0).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      const mc = (c.messages||[]).length;
+      const esc = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return `<div class="sb-item${c.id===activeId?' on':''}" onclick="SB.loadChat('${c.id}')">
+        <span class="sb-item-ico">${c.pinned?'📌':'◈'}</span>
+        <div class="sb-item-body">
+          <div class="sb-item-title" id="sbt_${c.id}">${esc(c.title)}</div>
+          <div class="sb-item-sub">${mc} msg${mc!==1?'s':''} · ${esc((c.preview||'').slice(0,35))}</div>
+        </div>
+        <span class="sb-item-ts">${ts}</span>
+        <div class="sb-acts">
+          <button class="sb-ab" onclick="SB.pin(event,'${c.id}')" title="${c.pinned?'Unpin':'Pin'}">${c.pinned?'◆':'◇'}</button>
+          <button class="sb-ab" onclick="SB.rename(event,'${c.id}')" title="Rename">✎</button>
+          <button class="sb-ab" onclick="SB.move(event,'${c.id}')" title="Move">⊞</button>
+          <button class="sb-ab del" onclick="SB.del(event,'${c.id}')" title="Delete">✕</button>
+        </div>
+      </div>`;
     };
+    el.innerHTML = renderG('Today',grp.today)+renderG('Yesterday',grp.yesterday)+
+      renderG('This week',grp.week)+renderG('Older',grp.older);
   }
-  if (!_pending) {
-    _pending = cLoad().find(c => c.id === _activeId) || {
-      id: _activeId, title: text.slice(0,45)||'Chat',
-      project: _proj==='all'?'vault':_proj,
-      messages:[], created:Date.now(), updated:Date.now(), preview:''
-    };
-  }
-  _pending.messages.push({role, text, ts: Date.now()});
-  _pending.updated = Date.now();
-  _pending.preview = text.slice(0, 80);
-  if (role==='user' && _pending.messages.filter(m=>m.role==='user').length===1) {
-    _pending.title = text.slice(0,45).trim();
-  }
-  clearTimeout(_saveTimer);
-  _saveTimer = setTimeout(() => { if(_pending) saveConv({..._pending}); }, 2000);
-}
 
-// ── New chat ────────────────────────────────────────────────────────
-function newChat() {
-  _activeId = null; _pending = null; clearTimeout(_saveTimer);
-  const t = document.getElementById('chatThread');
-  if (t) t.innerHTML = '';
-  close();
-}
+  function updateStat(convs) {
+    const el = document.getElementById('sbStat');
+    if (!el) return;
+    const total = convs.reduce((a,c)=>a+(c.messages||[]).length,0);
+    el.textContent = `◈ ${convs.length} conversations · ${total} messages · GitHub vault`;
+  }
 
-// ── Load chat ───────────────────────────────────────────────────────
-function loadChat(id) {
-  const convs = cLoad();
-  const conv = convs.find(c => c.id === id);
-  if (!conv) return;
-  _activeId = id;
-  _pending = JSON.parse(JSON.stringify(conv));
-  const t = document.getElementById('chatThread');
-  if (t && typeof window._addMsgOrig === 'function') {
-    t.innerHTML = '';
-    (conv.messages||[]).forEach(m => {
-      window._sbRestore = true;
-      window._addMsgOrig(m.text, m.role==='user'?'user':'system');
-      window._sbRestore = false;
+  // ── Sync all to GitHub ────────────────────────────────────────
+  async function syncNow() {
+    document.getElementById('sbSync').style.display = 'block';
+    document.getElementById('sbSync').textContent = '⟳ Loading from GitHub...';
+    const ghConvs = await ghLoadAll();
+    const localConvs = cacheLoad();
+    // Merge: GitHub is source of truth, local additions merged in
+    const merged = [...ghConvs];
+    localConvs.forEach(lc => {
+      if (!merged.find(gc => gc.id === lc.id)) merged.push(lc);
     });
+    cacheSave(merged);
+    // Push any local-only convs to GitHub
+    const toSync = localConvs.filter(lc => !ghConvs.find(gc => gc.id === lc.id));
+    document.getElementById('sbSync').textContent = `⟳ Syncing ${toSync.length} to GitHub...`;
+    for (const c of toSync) { try { await ghPush(c); } catch(e) {} }
+    renderList(merged); updateStat(merged);
+    document.getElementById('sbSync').style.display = 'none';
+    renderList(merged);
   }
-  renderList(convs);
-  close();
-}
 
-// ── Pin ─────────────────────────────────────────────────────────────
-function pin(e, id) {
-  e.stopPropagation();
-  const all = cLoad();
-  const c = all.find(x=>x.id===id);
-  if (!c) return;
-  c.pinned = !c.pinned;
-  cSave(all);
-  saveConv(c);
-  renderList(all);
-}
-
-// ── Rename ──────────────────────────────────────────────────────────
-function rename(e, id) {
-  e.stopPropagation();
-  const el = document.getElementById('sbt'+id);
-  if (!el) return;
-  const old = el.textContent;
-  const inp = document.createElement('input');
-  inp.style.cssText='background:#111122;border:1px solid #a87fdb;border-radius:3px;color:#e0e0ff;font-size:10px;font-family:monospace;padding:2px 6px;width:140px;outline:none;';
-  inp.value = old;
-  el.replaceWith(inp); inp.focus(); inp.select();
-  const done = () => {
-    const all = cLoad();
-    const c = all.find(x=>x.id===id);
-    if (c) { c.title=inp.value.trim()||old; cSave(all); saveConv(c); }
-    renderList(cLoad());
-  };
-  inp.onblur = done;
-  inp.onkeydown = ev => { if(ev.key==='Enter')done(); if(ev.key==='Escape')renderList(cLoad()); };
-}
-
-// ── Delete ──────────────────────────────────────────────────────────
-function del(e, id) {
-  e.stopPropagation();
-  if (!confirm('Delete this conversation?')) return;
-  const all = cLoad().filter(c=>c.id!==id);
-  cSave(all);
-  ghDelete(id);
-  if (_activeId===id){_activeId=null;_pending=null;}
-  renderList(all); updateStat(all);
-}
-
-// ── Move ────────────────────────────────────────────────────────────
-function move(e, id) {
-  e.stopPropagation();
-  const p = prompt('Move to project (vault/builds/research):');
-  if (!p) return;
-  const all = cLoad();
-  const c = all.find(x=>x.id===id);
-  if (c) { c.project=p.trim(); cSave(all); saveConv(c); renderList(all); }
-}
-
-// ── Projects ────────────────────────────────────────────────────────
-function getProjs() {
-  const base=['all','vault','builds','research','pinned'];
-  try { return [...base,...JSON.parse(localStorage.getItem(PROJ_KEY)||'[]')]; }
-  catch(e){return base;}
-}
-function addProject() {
-  const n=prompt('New project name:'); if(!n)return;
-  const k=n.trim().toLowerCase().replace(/[^a-z0-9]/g,'_');
-  try{const e=JSON.parse(localStorage.getItem(PROJ_KEY)||'[]');if(!e.includes(k)){e.push(k);localStorage.setItem(PROJ_KEY,JSON.stringify(e));}}catch(e){}
-  renderProjs(); setProj(k);
-}
-function setProj(p) {
-  _proj = p;
-  document.querySelectorAll('.sb-ptab').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
-  renderList(cLoad());
-}
-function renderProjs() {
-  const el=document.getElementById('sbProjs'); if(!el)return;
-  el.innerHTML=getProjs().map(p=>
-    `<button class="sb-ptab${_proj===p?' on':''}" data-p="${p}" onclick="SB.setProj('${p}')">${p[0].toUpperCase()+p.slice(1)}</button>`
-  ).join('')+`<button class="sb-padd" onclick="SB.addProject()">+</button>`;
-}
-
-// ── Render list ─────────────────────────────────────────────────────
-function renderList(all) {
-  const el=document.getElementById('sbList'); if(!el)return;
-  let convs=[...all];
-  if(_proj==='pinned') convs=convs.filter(c=>c.pinned);
-  else if(_proj!=='all') convs=convs.filter(c=>c.project===_proj);
-  if(_query){const q=_query.toLowerCase();convs=convs.filter(c=>
-    c.title.toLowerCase().includes(q)||(c.preview||'').toLowerCase().includes(q)||
-    (c.messages||[]).some(m=>(m.text||'').toLowerCase().includes(q)));}
-  if(!convs.length){
-    el.innerHTML=`<div class="sb-empty">◈ ${_query?'No results':'No conversations yet'}<br>
-    <span style="font-size:8px;color:#44445a">${_query?'Try different search.':'Start chatting — auto-saves to GitHub.'}</span></div>`;
-    return;
-  }
-  const now=Date.now();
-  const g={today:[],yesterday:[],week:[],older:[]};
-  convs.forEach(c=>{const a=now-(c.updated||0);
-    if(a<86400000)g.today.push(c);
-    else if(a<172800000)g.yesterday.push(c);
-    else if(a<604800000)g.week.push(c);
-    else g.older.push(c);});
-  const esc=s=>String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  const item=c=>{
-    const ts=new Date(c.updated||0).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-    const mc=(c.messages||[]).length;
-    return `<div class="sb-item${c.id===_activeId?' on':''}" onclick="SB.loadChat('${c.id}')">
-      <span class="sb-item-ico">${c.pinned?'📌':'◈'}</span>
-      <div class="sb-item-body">
-        <div class="sb-item-title" id="sbt${c.id}">${esc(c.title)}</div>
-        <div class="sb-item-sub">${mc} msg${mc!==1?'s':''} · ${esc((c.preview||'').slice(0,35))}</div>
-      </div>
-      <span class="sb-item-ts">${ts}</span>
-      <div class="sb-acts">
-        <button class="sb-ab" onclick="SB.pin(event,'${c.id}')">${c.pinned?'◆':'◇'}</button>
-        <button class="sb-ab" onclick="SB.rename(event,'${c.id}')">✎</button>
-        <button class="sb-ab" onclick="SB.move(event,'${c.id}')">⊞</button>
-        <button class="sb-ab del" onclick="SB.del(event,'${c.id}')">✕</button>
-      </div>
-    </div>`;
-  };
-  const grp=(label,items)=>!items.length?'':
-    `<div class="sb-grp">${label}</div>`+items.map(item).join('');
-  el.innerHTML=grp('Today',g.today)+grp('Yesterday',g.yesterday)+
-    grp('This week',g.week)+grp('Older',g.older);
-}
-
-function updateStat(convs) {
-  const el=document.getElementById('sbStat'); if(!el)return;
-  const t=convs.reduce((a,c)=>a+(c.messages||[]).length,0);
-  el.textContent=`◈ ${convs.length} conversations · ${t} messages · GitHub vault`;
-}
-
-// ── Sync ────────────────────────────────────────────────────────────
-async function syncNow() {
-  const el=document.getElementById('sbSync');
-  if(el){el.style.display='block';el.textContent='⟳ Loading from GitHub...';}
-  const gh=await ghReadAll();
-  const local=cLoad();
-  const merged=[...gh];
-  local.forEach(lc=>{if(!merged.find(gc=>gc.id===lc.id))merged.push(lc);});
-  cSave(merged);
-  const toSync=local.filter(lc=>!gh.find(gc=>gc.id===lc.id));
-  if(el) el.textContent=`⟳ Pushing ${toSync.length} new chats...`;
-  for(const c of toSync){try{await ghWrite(c);}catch(e){}}
-  renderList(merged); updateStat(merged);
-  if(el) el.style.display='none';
-}
-
-// ── Toggle ──────────────────────────────────────────────────────────
-function toggle() { _open ? close() : open(); }
-function open() {
-  _open=true;
-  document.getElementById('omni-sidebar').classList.add('sb-open');
-  document.getElementById('omni-sidebar-overlay').classList.add('show');
-  renderProjs();
-  const cached=cLoad(); renderList(cached); updateStat(cached);
-  // Load from GitHub in background
-  ghReadAll().then(gh=>{
-    if(!gh.length)return;
-    const local=cLoad();
-    const merged=[...gh];
-    local.forEach(lc=>{if(!merged.find(gc=>gc.id===lc.id))merged.push(lc);});
-    cSave(merged); renderList(merged); updateStat(merged);
-  }).catch(()=>{});
-}
-function close() {
-  _open=false;
-  document.getElementById('omni-sidebar').classList.remove('sb-open');
-  document.getElementById('omni-sidebar-overlay').classList.remove('show');
-}
-function filter(q) { _query=q; renderList(cLoad()); }
-
-// ── Patch addMsg ────────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  // Patch addMsg to capture every real message
-  if (typeof window.addMsg === 'function' && !window._addMsgOrig) {
-    window._addMsgOrig = window.addMsg;
-    window.addMsg = function(text, type, extra) {
-      window._addMsgOrig.apply(this, arguments);
-      if (window._sbRestore) return;
-      if (!text || text.length < 2) return;
-      const role = type === 'user' ? 'user' : 'assistant';
-      // Skip noise
-      const noise = ['[GODHEAD]','Server offline','[ERROR]','[L6+L7]'];
-      if (noise.some(n => String(text).startsWith(n))) return;
-      captureMsg(role, String(text));
-    };
-    console.log('[SIDEBAR] addMsg patched — conversations auto-saving to GitHub');
-  }
-  renderProjs();
-  const cached = cLoad();
-  renderList(cached); updateStat(cached);
-  // Background GitHub sync
-  setTimeout(() => {
-    ghReadAll().then(gh => {
-      if (!gh.length) return;
-      const local = cLoad();
-      const merged = [...gh];
-      local.forEach(lc => { if(!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
-      cSave(merged); renderList(merged); updateStat(merged);
+  // ── Open / close ──────────────────────────────────────────────
+  function toggle() { open ? close() : openSB(); }
+  function openSB() {
+    open = true;
+    document.getElementById('omni-sidebar').classList.add('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.add('show');
+    renderProjs();
+    // Load from GitHub on open
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+    ghLoadAll().then(ghConvs => {
+      if (ghConvs.length) {
+        const merged = [...ghConvs];
+        cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+        cacheSave(merged); renderList(merged); updateStat(merged);
+      }
     }).catch(()=>{});
-  }, 2000);
-});
+  }
+  function close() {
+    open = false;
+    document.getElementById('omni-sidebar').classList.remove('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.remove('show');
+  }
 
-// Expose globally
-window.SB = { toggle, open, close, newChat, loadChat, filter,
-  pin, rename, del, move, setProj, addProject, syncNow };
+  // ── Filter ────────────────────────────────────────────────────
+  function filter(q) { query = q; renderList(cacheLoad()); }
 
+  // ── Boot ──────────────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    renderProjs();
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+
+    // Patch addMsg to intercept every message
+    const _orig = window.addMsg;
+    if (typeof _orig === 'function') {
+      window.addMsg = function(text, type, extra) {
+        _orig.apply(this, arguments);
+        if (window._sbRestoring) return;
+        const role = (type === 'user') ? 'user' : 'assistant';
+        const skip = !text || text.length < 3 ||
+          text.startsWith('[GODHEAD]') || text.startsWith('Server offline');
+        if (!skip) saveMsg(role, text);
+      };
+    }
+    // Refresh from GitHub in background
+    setTimeout(() => {
+      ghLoadAll().then(convs => {
+        if (convs.length) {
+          const merged = [...convs];
+          cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+          cacheSave(merged);
+        }
+      }).catch(()=>{});
+    }, 3000);
+    console.log('[OMNIBRAIN-SIDEBAR] GitHub-persistent chat history ready');
+  });
+
+  return {
+    toggle, open:openSB, close, newChat, loadChat, filter,
+    pin, rename, del, move, setProj, addProject, syncNow,
+    saveMsg
+  };
+} catch(e) { console.error("[SIDEBAR ERROR]", e); return {toggle:()=>{},open:()=>{},close:()=>{},newChat:()=>{},loadChat:()=>{},filter:()=>{},pin:()=>{},rename:()=>{},del:()=>{},move:()=>{},setProj:()=>{},addProject:()=>{},syncNow:()=>{},saveMsg:()=>{}}; }
 })();
 </script>
+
 </body>
 </html>
