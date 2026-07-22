@@ -1230,14 +1230,21 @@ function proc(c){
   }
 
   // ── OMNIBRAIN-LLM — direct route to Mistral-7B ──
+  out('◈ OMNIBRAIN processing... (~2 min)', 'tdim');
   fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(210000)})
     .then(r=>r.json())
     .then(d=>{
+      // remove thinking line
+      const tb=document.getElementById('tb');
+      if(tb&&tb.lastChild&&tb.lastChild.textContent&&tb.lastChild.textContent.includes('processing'))
+        tb.removeChild(tb.lastChild);
       if(d.response && d.response.trim()) out(d.response,'to');
-      else out('[OMNIBRAIN-LLM] No response — check GitHub Actions','terror');
+      else out('[OMNIBRAIN-LLM] Timeout — try again in a moment','terror');
     })
-    .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
+    .catch(e=>{
+      out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror');
+    });
   acur();
 }
 
