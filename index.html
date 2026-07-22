@@ -882,6 +882,24 @@ function rc(cmd){
   hist.push(c);hIdx=-1;el.value='';
   acmd(c);proc(c);
   addact('now',c.slice(0,42)+(c.length>42?'...':''));
+  try {
+    const _key = 'omni_convs_cache';
+    const _all = JSON.parse(localStorage.getItem(_key)||'[]');
+    const _now = Date.now();
+    if (!window._sbActiveId) { window._sbActiveId = 'c'+_now; }
+    let _cv = _all.find(function(x){return x.id===window._sbActiveId;});
+    if (!_cv) {
+      _cv = {id:window._sbActiveId, title:c.slice(0,45).trim(),
+        project:'vault', messages:[], created:_now, updated:_now, preview:c.slice(0,80)};
+      _all.unshift(_cv);
+    }
+    _cv.messages.push({role:'user',text:c,ts:_now});
+    _cv.updated=_now; _cv.preview=c.slice(0,80);
+    if(_cv.messages.filter(function(m){return m.role==='user';}).length===1){
+      _cv.title=c.slice(0,45).trim();
+    }
+    localStorage.setItem(_key, JSON.stringify(_all));
+  } catch(_e){}
 }
 
 function acmd(c){
