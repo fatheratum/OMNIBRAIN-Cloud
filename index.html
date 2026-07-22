@@ -487,7 +487,7 @@
       <div class="status-block" id="intel-block">
         <div class="sb-head">
           <span>◈ OMNIBRAIN INTELLIGENCE STATUS</span>
-          <span class="sb-live">● LIVE</span>
+          <span class="sb-live" id="hph-live">● LIVE</span>
         </div>
         <div class="sb-body">
           <div style="margin-bottom:6px;">
@@ -556,7 +556,7 @@
       <div class="helix-block" id="helix-block">
         <div class="sb-head">
           <span>◆ OMNIBRAIN GENETIC HELIX — LIVE EVOLUTION</span>
-          <span class="sb-live">● LIVE</span>
+          <span class="sb-live" id="hph-helix">● LIVE</span>
         </div>
         <div class="sb-body">
           <div class="sb-meta">
@@ -2505,6 +2505,8 @@ function applyLive(d) {
   // ── Live timestamp ──
   const hph = document.getElementById('hph-live');
   if (hph) hph.innerHTML = '<span class="dot g" style="width:4px;height:4px;"></span> LIVE · ' + ts;
+  const hph2 = document.getElementById('hph-helix');
+  if (hph2) hph2.innerHTML = '● LIVE · ' + ts;
 
   // ── Intel block ──
   const block = document.getElementById('intel-block');
