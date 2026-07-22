@@ -1263,17 +1263,7 @@ function proc(c){
   }
   else {
     // Generic conversational acknowledgment
-    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions
-  out('◈ OMNIBRAIN-LLM processing...', 'tdim');
-  fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
-    .then(r=>r.json())
-    .then(d=>{
-      // Remove the processing line
-      const t=document.getElementById('terminal');
-      if(t&&t.lastElementChild)t.lastElementChild.remove();
-      out(d.response||'[OMNIBRAIN-LLM] No response','to');
-    })
-    .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
+  
     out('', 'to');
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
     fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(180000)})
