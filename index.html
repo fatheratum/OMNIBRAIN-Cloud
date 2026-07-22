@@ -251,7 +251,7 @@
       <div class="ni" onclick="rc('ls ~/OmniBrain/')"><span>◈</span>Vault<span class="badge">15k</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/Engine/')"><span>⚙</span>Engine<span class="badge">7✓</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/control_layer/')"><span>◌</span>Control Layer</div>
-      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge">95</span></div>
+      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge" id="nav-cert-badge">124</span></div>
       <div class="ni" onclick="rc('godhead')"><span>◎</span>Godhead</div>
       <div class="ni" onclick="rc('helix')"><span>◆</span>Genetic Helix</div>
       <div class="ni" onclick="rc('status')"><span>◈</span>Intelligence</div>
@@ -347,7 +347,7 @@
             <span class="tdim" style="margin-left:0;">Surfing + semantic + vault running as one unified system. Autonomous output every cycle.</span>
           </div>
           <div class="sb-meta">
-            <span>Score: <strong>17504</strong> pts</span>
+            <span>Score: <strong id="live-score-1">47,229</strong> pts</span>
             <span>Progress: <span style="color:var(--green);">███░░░░░░░░░░░░░░░░░</span> <strong>100%</strong></span>
             <span>Next: <strong style="color:var(--gold);">SOVEREIGN</strong> @ 2500</span>
           </div>
@@ -376,7 +376,7 @@
           <div class="tsec" style="margin:10px 0 4px;">WHAT THE BRAIN HAS ACTUALLY DONE</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;font-size:10.5px;">
             <div>✓ Vault units: <strong style="color:var(--cyan);">16,947</strong></div>
-            <div>✓ Certified scripts: <strong style="color:var(--cyan);">95</strong></div>
+            <div>✓ Certified scripts: <strong id="live-cert-1" style="color:var(--cyan);">124</strong></div>
             <div>✓ Evolution cycles: <strong style="color:var(--cyan);">77</strong></div>
             <div>✓ Semantic builds: <strong style="color:var(--cyan);">83</strong></div>
             <div>✓ Manifests created: <strong style="color:var(--cyan);">19</strong></div>
@@ -412,10 +412,10 @@
         </div>
         <div class="sb-body">
           <div class="sb-meta">
-            <span>Level: <strong>OMNIBRAIN</strong></span>
-            <span>Score: <strong>17504</strong></span>
-            <span>Certified: <strong>95</strong></span>
-            <span>Cycles: <strong>77/20</strong></span>
+            <span>Level: <strong id="helix-live-level">OMNIBRAIN</strong></span>
+            <span>Score: <strong id="helix-live-score">47,229</strong></span>
+            <span>Certified: <strong id="helix-live-cert">124</strong></span>
+            <span>Cycles: <strong id="helix-live-cycles">163</strong></span>
           </div>
           <div style="font-size:9.5px;color:var(--dim);margin-bottom:6px;">Each strand position = one archetype | Color intensity = certification strength</div>
           <div class="helix-art">
@@ -570,7 +570,7 @@
       <div class="pt">Genetic Helix <span style="color:var(--pb);font-size:8px;margin-left:4px;">● LIVE</span></div>
       <div style="font-size:10.5px;color:var(--text);line-height:1.55;">
         <div>Level: <strong style="color:var(--pb);">TRANSCENDENT</strong></div>
-        <div>Score: <strong style="color:var(--pb);">17504</strong> · Certified: <strong style="color:var(--green);">95</strong></div>
+        <div>Score: <strong id="live-score-2" style="color:var(--pb);">47,229</strong> · Certified: <strong id="live-cert-2" style="color:var(--green);">124</strong></div>
         <div>Cycles: <strong style="color:var(--cyan);">78/20</strong></div>
         <div style="margin-top:5px;font-family:var(--mono);font-size:9px;color:#a070d0;line-height:1.25;white-space:pre;">
    █          █
@@ -2326,6 +2326,26 @@ function updateIntel(d){
   const mf=document.querySelector('.mini-fill');if(mf)mf.style.width=pct+'%';
   const mn=document.querySelector('.mini-next');if(mn)mn.textContent=pct+'% · '+ptsTo+' pts to '+next;
   const ce=document.getElementById('vaultCert');if(ce)ce.textContent=cert;
+
+  // Update hardcoded helix strip elements
+  const hls = document.getElementById('helix-live-score');
+  const hll = document.getElementById('helix-live-level');
+  const hlc = document.getElementById('helix-live-cert');
+  const hly = document.getElementById('helix-live-cycles');
+  if(hls) hls.textContent = score.toLocaleString();
+  if(hll) hll.textContent = level;
+  if(hlc) hlc.textContent = cert;
+  if(hly) hly.textContent = cycles;
+  const ls1 = document.getElementById('live-score-1');
+  const ls2 = document.getElementById('live-score-2');
+  const lc1 = document.getElementById('live-cert-1');
+  const lc2 = document.getElementById('live-cert-2');
+  const nb  = document.getElementById('nav-cert-badge');
+  if(ls1) ls1.textContent = score.toLocaleString();
+  if(ls2) ls2.textContent = score.toLocaleString();
+  if(lc1) lc1.textContent = cert;
+  if(lc2) lc2.textContent = cert;
+  if(nb)  nb.textContent  = cert;
 }
 async function intelSelfMod(){
   try{const r=await fetch(CLOUD_RAW+'/surf-results/intelligence.json?_='+Date.now());
