@@ -1045,8 +1045,8 @@ function proc(c){
   // ── CONVERSATIONAL / KNOWLEDGE PATH ──
   // Everything else is treated as real conversation (OmniBrain LLM path)
   // The omnibrain-llm package has been injected. Full inference coming online.
-  out(`[OMNIBRAIN-LLM] Conversational path activated`, 'tinfo');
-  out(`[OMNIBRAIN-LLM] Domain experts: reasoning · code · narrative · manifestation · knowledge_graph · generalist`, 'tdim');
+  
+  
   out('', 'to');
 
   // Temporary high-quality response layer until full local inference is wired
@@ -1076,7 +1076,21 @@ function proc(c){
   }
   else {
     // Generic conversational acknowledgment
-    out(`I hear you: "${c}"`, 'to');
+    // Route to OMNIBRAIN-LLM via /chat
+  showOmniThinking();
+  try {
+    const _cr = await fetch('/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({prompt: c})
+    });
+    const _cd = await _cr.json();
+    hideOmniThinking();
+    out(_cd.response || '[OMNIBRAIN-LLM] No response', 'to');
+  } catch(_ce) {
+    hideOmniThinking();
+    out('[OMNIBRAIN-LLM] Error: ' + _ce.message, 'terror');
+  }
     out('', 'to');
     out('The OmniBrain LLM layer has been injected (omnibrain-llm/). Full local generation is coming online.', 'to');
     out('For now I can still route pure questions through the reasoning expert path and the vault.', 'to');
@@ -1085,7 +1099,7 @@ function proc(c){
   }
 
   out('', 'to');
-  out('[OMNIBRAIN-LLM] Response generated · awaiting full inference endpoint', 'tdim');
+  
   acur();
 }
 
