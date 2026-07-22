@@ -928,33 +928,19 @@ function out(t,cls='to'){
     if(!skip) {
       const role = cls==='ti' ? 'user' : 'assistant';
       const msg = {role, text:t, ts:Date.now()};
-      // Save directly to localStorage immediately
+      // Append OMNIBRAIN response to existing conversation
       try {
-        const _all = JSON.parse(localStorage.getItem('omni_convs_cache')||'[]');
-        const _now = Date.now();
-        if (!window._sbActiveId) window._sbActiveId = 'c' + _now;
-        let _cv = _all.find(c => c.id === window._sbActiveId);
-        if (!_cv) {
-          _cv = {id:window._sbActiveId, title:role==='user'?t.slice(0,45):'Conversation',
-            project:'vault', messages:[], created:_now, updated:_now, preview:''};
-          _all.unshift(_cv);
+        if (role === 'assistant' && window._sbActiveId) {
+          const _all = JSON.parse(localStorage.getItem('omni_convs_cache')||'[]');
+          const _now = Date.now();
+          const _cv = _all.find(function(x){return x.id===window._sbActiveId;});
+          if (_cv) {
+            _cv.messages.push({role:'assistant', text:t, ts:_now});
+            _cv.updated = _now;
+            localStorage.setItem('omni_convs_cache', JSON.stringify(_all));
+          }
         }
-        _cv.messages.push({role, text:t, ts:_now});
-        _cv.updated = _now; _cv.preview = t.slice(0,80);
-        if(role==='user' && _cv.messages.filter(m=>m.role==='user').length===1)
-          _cv.title = t.slice(0,45).trim();
-        localStorage.setItem('omni_convs_cache', JSON.stringify(_all));
-        // Refresh sidebar list if open
-        const _sl = document.getElementById('sbList');
-        if (_sl && window.SB) {
-          clearTimeout(window._sbRT);
-          window._sbRT = setTimeout(() => {
-            try { window.SB.setProj('all'); } catch(e) {}
-          }, 300);
-        }
-        // Also push to GitHub via SB if available
-        if (window.SB && window.SB.saveMsg) window.SB.saveMsg(role, t);
-      } catch(_e) { console.warn('[SB capture]',_e); }
+      } catch(_e) {}
     }
   }
 }
