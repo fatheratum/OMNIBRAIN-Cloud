@@ -377,9 +377,9 @@
 
 
 <!-- ── OMNIBRAIN CHAT HISTORY SIDEBAR ──────────────────────────── -->
-<div id="omni-sidebar-overlay" onclick="omniSBClose()"></div>
+<div id="omni-sidebar-overlay" onclick="SB.close()"></div>
 
-<button id="omni-sb-toggle" onclick="omniSBToggle()" title="Chat History">☰</button>
+<button id="omni-sb-toggle" onclick="SB.toggle()" title="Chat History">☰</button>
 
 <div id="omni-sidebar">
   <div class="sb-header">
@@ -2656,10 +2656,11 @@ setInterval(masterSync, 30000);
 // Saves to fatheratum/OMNIBRAIN/conversations/ via GitHub API
 // ════════════════════════════════════════════════════════════════════
 const SB = (function() {
+try {
 
   let TOKEN = '';
   fetch('/token').then(r=>r.json()).then(d=>{TOKEN=d.token||'';}).catch(()=>{});
-  const REPO  = 'fatheratum/OMNIBRAIN';
+  const SB_REPO = 'fatheratum/OMNIBRAIN';
   const BASE  = 'https://api.github.com';
   const LKEY  = 'omni_convs_cache';      // localStorage cache only
   const PKEY  = 'omni_projects_extra';
@@ -2682,7 +2683,7 @@ const SB = (function() {
     // Check if file exists (get SHA)
     let sha = '';
     try {
-      const r = await fetch(`${BASE}/repos/${REPO}/contents/${path}`, {headers});
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {headers});
       if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
     } catch(e) {}
 
@@ -2691,7 +2692,7 @@ const SB = (function() {
       content,
       ...(sha ? {sha} : {})
     };
-    const r2 = await fetch(`${BASE}/repos/${REPO}/contents/${path}`, {
+    const r2 = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {
       method: 'PUT', headers, body: JSON.stringify(body)
     });
     return r2.ok || r2.status === 201;
@@ -2704,7 +2705,7 @@ const SB = (function() {
       'Accept': 'application/vnd.github+json'
     };
     try {
-      const r = await fetch(`${BASE}/repos/${REPO}/contents/conversations`, {headers});
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/conversations`, {headers});
       if (!r.ok) return [];
       const files = await r.json();
       if (!Array.isArray(files)) return [];
@@ -2854,11 +2855,11 @@ const SB = (function() {
     cacheSave(convs);
     // Delete from GitHub
     const headers = {'Authorization':`token ${TOKEN}`,'Accept':'application/vnd.github+json'};
-    fetch(`${BASE}/repos/${REPO}/contents/conversations/${id}.json`, {headers})
+    fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {headers})
       .then(r => r.ok ? r.json() : null)
       .then(d => {
         if (d && d.sha) {
-          fetch(`${BASE}/repos/${REPO}/contents/conversations/${id}.json`, {
+          fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {
             method:'DELETE', headers,
             body: JSON.stringify({message:`DELETE: conversation ${id}`, sha: d.sha})
           });
@@ -3056,6 +3057,7 @@ const SB = (function() {
     pin, rename, del, move, setProj, addProject, syncNow,
     saveMsg
   };
+} catch(e) { console.error("[SIDEBAR ERROR]", e); return {toggle:()=>{},open:()=>{},close:()=>{},newChat:()=>{},loadChat:()=>{},filter:()=>{},pin:()=>{},rename:()=>{},del:()=>{},move:()=>{},setProj:()=>{},addProject:()=>{},syncNow:()=>{},saveMsg:()=>{}}; }
 })();
 </script>
 
