@@ -2739,7 +2739,17 @@ try {
 
   // ── Local cache (fallback while syncing) ──────────────────────
   function cacheLoad() {
-    try { return JSON.parse(localStorage.getItem(LKEY)||'[]'); } catch(e) { return []; }
+    try {
+      // Also merge in anything saved by out() capture
+      const a = JSON.parse(localStorage.getItem(LKEY)||'[]');
+      const b = JSON.parse(localStorage.getItem('omni_convs_cache')||'[]');
+      // Merge both sources
+      const merged = [...a];
+      b.forEach(bc => { if (!merged.find(ac => ac.id === bc.id)) merged.push(bc); });
+      // Sort by updated
+      merged.sort((x,y) => (y.updated||0)-(x.updated||0));
+      return merged;
+    } catch(e) { return []; }
   }
   function cacheSave(convs) {
     try { localStorage.setItem(LKEY, JSON.stringify(convs)); } catch(e) {}
@@ -3019,10 +3029,7 @@ try {
     document.getElementById('omni-sidebar').classList.add('sb-open');
     document.getElementById('omni-sidebar-overlay').classList.add('show');
     renderProjs();
-    // Load from localStorage
     const cached = cacheLoad();
-    console.log('[SB] cache size:', cached.length, 'activeId:', window._sbActiveId);
-    console.log('[SB] raw localStorage:', localStorage.getItem('omni_convs_cache')?.slice(0,200));
     renderList(cached); updateStat(cached);
     ghLoadAll().then(ghConvs => {
       if (ghConvs.length) {
