@@ -491,9 +491,173 @@
 }
 /* ── END OMNIBRAIN SIDEBAR ──────────────────────────────────────────── */
 
+
+/* ═══ OMNIBRAIN SIDEBAR ═══════════════════════════════════════════════ */
+#omni-sb-toggle {
+  position: fixed;
+  top: 8px; left: 8px;
+  z-index: 99999;
+  background: #0d0d18;
+  border: 1px solid #1e1e2e;
+  color: #00ff9d;
+  font-size: 16px;
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+#omni-sb-toggle:hover { border-color:#00ff9d; background:rgba(0,255,157,0.1); }
+#omni-sidebar-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.6); z-index:99997;
+}
+#omni-sidebar-overlay.show { display:block; }
+#omni-sidebar {
+  position:fixed; top:0; left:0;
+  width:272px; height:100vh;
+  background:#09090f;
+  border-right:1px solid #1e1e2e;
+  z-index:99998;
+  display:flex; flex-direction:column;
+  transform:translateX(-274px);
+  transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  font-family:monospace;
+  overflow:hidden;
+}
+#omni-sidebar.sb-open { transform:translateX(0); }
+.sb-hd {
+  padding:12px; border-bottom:1px solid #1e1e2e; flex-shrink:0;
+}
+.sb-hd-row {
+  display:flex; align-items:center;
+  justify-content:space-between; margin-bottom:8px;
+}
+.sb-logo { font-size:10px; font-weight:700; color:#00ff9d; letter-spacing:.1em; }
+.sb-new {
+  font-size:9px; padding:3px 9px; border-radius:4px;
+  border:1px solid #00ff9d; background:rgba(0,255,157,0.08);
+  color:#00ff9d; cursor:pointer; font-family:monospace;
+}
+.sb-new:hover { background:rgba(0,255,157,0.18); }
+.sb-search {
+  width:100%; background:#111122; border:1px solid #1e1e2e;
+  border-radius:5px; padding:5px 8px; font-size:10px;
+  color:#e0e0ff; font-family:monospace; outline:none;
+  box-sizing:border-box;
+}
+.sb-search:focus { border-color:#a87fdb; }
+.sb-search::placeholder { color:#44445a; }
+.sb-projs {
+  display:flex; gap:4px; padding:8px 12px;
+  border-bottom:1px solid #1e1e2e;
+  flex-wrap:wrap; flex-shrink:0; overflow-x:auto;
+}
+.sb-ptab {
+  font-size:8px; padding:2px 8px; border-radius:10px;
+  border:1px solid #1e1e2e; background:transparent;
+  color:#666680; cursor:pointer; font-family:monospace;
+  white-space:nowrap; transition:all .12s;
+}
+.sb-ptab:hover,.sb-ptab.on {
+  border-color:#a87fdb; color:#a87fdb;
+  background:rgba(168,127,219,0.1);
+}
+.sb-padd {
+  font-size:10px; padding:1px 7px; border-radius:10px;
+  border:1px dashed #44445a; background:transparent;
+  color:#44445a; cursor:pointer;
+}
+.sb-padd:hover { border-color:#00ff9d; color:#00ff9d; }
+.sb-list {
+  flex:1; overflow-y:auto; padding:4px 0;
+  scrollbar-width:thin; scrollbar-color:#1e1e2e transparent;
+}
+.sb-grp { font-size:8px; color:#44445a; letter-spacing:.1em;
+  text-transform:uppercase; padding:8px 12px 3px; font-weight:600; }
+.sb-item {
+  padding:7px 12px; cursor:pointer;
+  display:flex; align-items:flex-start; gap:7px;
+  border-left:2px solid transparent; position:relative;
+  transition:background .1s;
+}
+.sb-item:hover { background:rgba(255,255,255,0.04); }
+.sb-item.on { background:rgba(168,127,219,0.08); border-left-color:#a87fdb; }
+.sb-item-ico { font-size:10px; color:#666680; flex-shrink:0; margin-top:1px; }
+.sb-item-body { flex:1; min-width:0; }
+.sb-item-title {
+  font-size:10px; color:#e0e0ff; font-weight:500;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.sb-item-sub {
+  font-size:9px; color:#666680; margin-top:1px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.sb-item-ts { font-size:8px; color:#44445a; flex-shrink:0; }
+.sb-acts {
+  display:none; gap:2px; position:absolute;
+  right:6px; top:50%; transform:translateY(-50%);
+  background:#09090f; border-radius:4px; padding:2px;
+}
+.sb-item:hover .sb-acts { display:flex; }
+.sb-ab {
+  font-size:9px; padding:2px 4px; background:transparent;
+  border:none; color:#666680; cursor:pointer; border-radius:3px;
+}
+.sb-ab:hover { color:#e0e0ff; background:rgba(255,255,255,0.08); }
+.sb-ab.del:hover { color:#ff6b6b; }
+.sb-ft {
+  padding:8px 12px; border-top:1px solid #1e1e2e;
+  flex-shrink:0;
+}
+.sb-stat { font-size:8px; color:#44445a; line-height:1.6; }
+.sb-vbtn {
+  width:100%; margin-top:6px; padding:5px; border-radius:5px;
+  border:1px solid #1e1e2e; background:transparent;
+  color:#00d4ff; font-size:9px; cursor:pointer;
+  font-family:monospace; transition:all .12s;
+}
+.sb-vbtn:hover { border-color:#00d4ff; background:rgba(0,212,255,0.06); }
+.sb-syncing { color:#a87fdb; font-size:8px; margin-top:4px; }
+.sb-empty {
+  padding:24px 12px; text-align:center;
+  color:#44445a; font-size:10px; line-height:1.7;
+}
+.sb-ri {
+  background:#111122; border:1px solid #a87fdb;
+  border-radius:3px; color:#e0e0ff;
+  font-size:10px; font-family:monospace;
+  padding:2px 6px; width:140px; outline:none;
+}
+/* ═══ END OMNIBRAIN SIDEBAR ════════════════════════════════════════ */
+
 </style>
 </head>
 <body>
+
+<!-- OMNIBRAIN SIDEBAR -->
+<div id="omni-sidebar-overlay" onclick="SB.close()"></div>
+<button id="omni-sb-toggle" onclick="SB.toggle()" title="Chat History">☰</button>
+<div id="omni-sidebar">
+  <div class="sb-hd">
+    <div class="sb-hd-row">
+      <span class="sb-logo">◈ CHATS</span>
+      <button class="sb-new" onclick="SB.newChat()">+ New</button>
+    </div>
+    <input class="sb-search" id="sbSearch" placeholder="Search conversations..."
+      oninput="SB.filter(this.value)" type="text"/>
+  </div>
+  <div class="sb-projs" id="sbProjs"></div>
+  <div class="sb-list" id="sbList"></div>
+  <div class="sb-ft">
+    <div class="sb-stat" id="sbStat">◈ Loading...</div>
+    <div class="sb-syncing" id="sbSync" style="display:none">⟳ Syncing to GitHub...</div>
+    <button class="sb-vbtn" onclick="SB.syncNow()">⬆ Sync all to GitHub vault</button>
+  </div>
+</div>
+<!-- END OMNIBRAIN SIDEBAR -->
+
 
 <!-- ── OMNIBRAIN CHAT HISTORY SIDEBAR ──────────────────────────── -->
 <div id="omni-sidebar-overlay" onclick="omniSBClose()"></div>
@@ -2768,393 +2932,413 @@ setInterval(masterSync, 30000);
 })();
 </script>
 
-<script id="omni-sidebar-engine">
+
+<script id="omni-sidebar-js">
 // ════════════════════════════════════════════════════════════════════
-// OMNIBRAIN CHAT HISTORY SIDEBAR ENGINE
-// Stores conversations in localStorage + pushes to vault
-// Projects, search, pin, rename, delete
+// OMNIBRAIN SIDEBAR — Git-persistent conversation storage
+// Saves to fatheratum/OMNIBRAIN/conversations/ via GitHub API
 // ════════════════════════════════════════════════════════════════════
-(function() {
+const SB = (function() {
 
-const SB_KEY      = 'omnibrain_conversations';
-const PROJ_KEY    = 'omnibrain_projects';
-const ACTIVE_KEY  = 'omnibrain_active_chat';
+  let TOKEN = '';
+  fetch('/token').then(r=>r.json()).then(d=>{TOKEN=d.token||'';}).catch(()=>{});
+  const REPO  = 'fatheratum/OMNIBRAIN';
+  const BASE  = 'https://api.github.com';
+  const LKEY  = 'omni_convs_cache';      // localStorage cache only
+  const PKEY  = 'omni_projects_extra';
 
-let sbOpen        = false;
-let activeProject = 'all';
-let activeChat    = null;
-let searchQuery   = '';
+  let open     = false;
+  let activePrj= 'all';
+  let activeId = null;
+  let query    = '';
+  let syncQ    = [];   // queue of convs waiting to push to GitHub
 
-// ── Data layer ─────────────────────────────────────────────────────
-function sbLoad() {
-  try { return JSON.parse(localStorage.getItem(SB_KEY) || '[]'); }
-  catch(e) { return []; }
-}
-function sbSave(convs) {
-  try { localStorage.setItem(SB_KEY, JSON.stringify(convs)); } catch(e) {}
-}
-function projLoad() {
-  const defaults = ['all','vault','builds','research','pinned'];
-  try {
-    const saved = JSON.parse(localStorage.getItem(PROJ_KEY) || '[]');
-    return [...new Set([...defaults, ...saved])];
-  } catch(e) { return defaults; }
-}
-function projSave(projs) {
-  try { localStorage.setItem(PROJ_KEY, JSON.stringify(projs)); } catch(e) {}
-}
+  // ── GitHub push ────────────────────────────────────────────────
+  async function ghPush(conv) {
+    const path = `conversations/${conv.id}.json`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(conv, null, 2))));
+    const headers = {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    };
+    // Check if file exists (get SHA)
+    let sha = '';
+    try {
+      const r = await fetch(`${BASE}/repos/${REPO}/contents/${path}`, {headers});
+      if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
+    } catch(e) {}
 
-// ── Create new chat ────────────────────────────────────────────────
-function omniSBNewChat() {
-  const id = 'chat_' + Date.now();
-  const convs = sbLoad();
-  const chat = {
-    id, title: 'New conversation',
-    project: activeProject === 'all' ? 'vault' : activeProject,
-    messages: [], created: Date.now(), updated: Date.now(),
-    pinned: false, vaultPushed: false,
-    preview: ''
-  };
-  convs.unshift(chat);
-  sbSave(convs);
-  activeChat = id;
-  localStorage.setItem(ACTIVE_KEY, id);
-  omniSBRender();
-  omniSBClose();
-  // Clear current chat thread
-  const thread = document.getElementById('chatThread');
-  if (thread) thread.innerHTML = '';
-  console.log('[OMNIBRAIN-SIDEBAR] New chat:', id);
-}
-window.omniSBNewChat = omniSBNewChat;
-
-// ── Save a message to active conversation ──────────────────────────
-function omniSBSaveMessage(role, content) {
-  if (!activeChat) {
-    // Auto-create chat on first message
-    const id = 'chat_' + Date.now();
-    activeChat = id;
-    localStorage.setItem(ACTIVE_KEY, id);
-    const convs = sbLoad();
-    const title = content.slice(0, 40).trim() || 'Conversation';
-    convs.unshift({
-      id, title,
-      project: activeProject === 'all' ? 'vault' : activeProject,
-      messages: [], created: Date.now(), updated: Date.now(),
-      pinned: false, vaultPushed: false,
-      preview: content.slice(0, 80)
+    const body = {
+      message: `CHAT: ${conv.title.slice(0,50)} [${new Date().toISOString().slice(0,10)}]`,
+      content,
+      ...(sha ? {sha} : {})
+    };
+    const r2 = await fetch(`${BASE}/repos/${REPO}/contents/${path}`, {
+      method: 'PUT', headers, body: JSON.stringify(body)
     });
-    sbSave(convs);
-  }
-  const convs = sbLoad();
-  const idx = convs.findIndex(c => c.id === activeChat);
-  if (idx === -1) return;
-  convs[idx].messages.push({ role, content, ts: Date.now() });
-  convs[idx].updated = Date.now();
-  convs[idx].preview = content.slice(0, 80);
-  // Auto-title from first user message
-  if (role === 'user' && convs[idx].title === 'New conversation') {
-    convs[idx].title = content.slice(0, 45).trim() || 'Conversation';
-  }
-  sbSave(convs);
-  omniSBRenderList();
-  omniSBUpdateStats();
-}
-window.omniSBSaveMessage = omniSBSaveMessage;
-
-// ── Render full sidebar ────────────────────────────────────────────
-function omniSBRender() {
-  omniSBRenderProjects();
-  omniSBRenderList();
-  omniSBUpdateStats();
-}
-
-function omniSBRenderProjects() {
-  const container = document.getElementById('omniSBProjects');
-  if (!container) return;
-  const projs = projLoad();
-  const special = ['all','vault','builds','research','pinned'];
-  container.innerHTML = projs.map(p =>
-    `<button class="sb-proj-tab${activeProject===p?' active':''}" 
-       data-project="${p}" onclick="omniSBSetProject('${p}',this)">
-       ${p.charAt(0).toUpperCase()+p.slice(1)}</button>`
-  ).join('') +
-  `<button class="sb-proj-add" onclick="omniSBAddProject()" title="New project">+</button>`;
-}
-
-function omniSBRenderList() {
-  const list = document.getElementById('omniSBList');
-  const empty = document.getElementById('omniSBEmpty');
-  if (!list) return;
-  let convs = sbLoad();
-
-  // Filter by project
-  if (activeProject === 'pinned') {
-    convs = convs.filter(c => c.pinned);
-  } else if (activeProject !== 'all') {
-    convs = convs.filter(c => c.project === activeProject);
+    return r2.ok || r2.status === 201;
   }
 
-  // Filter by search
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    convs = convs.filter(c =>
-      c.title.toLowerCase().includes(q) ||
-      c.preview.toLowerCase().includes(q) ||
-      (c.messages||[]).some(m => m.content.toLowerCase().includes(q))
-    );
+  // ── GitHub load all conversations ──────────────────────────────
+  async function ghLoadAll() {
+    const headers = {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github+json'
+    };
+    try {
+      const r = await fetch(`${BASE}/repos/${REPO}/contents/conversations`, {headers});
+      if (!r.ok) return [];
+      const files = await r.json();
+      if (!Array.isArray(files)) return [];
+      const convs = await Promise.all(
+        files.filter(f => f.name.endsWith('.json')).map(async f => {
+          try {
+            const fr = await fetch(f.download_url);
+            if (fr.ok) return await fr.json();
+          } catch(e) {}
+          return null;
+        })
+      );
+      return convs.filter(Boolean).sort((a,b) => (b.updated||0)-(a.updated||0));
+    } catch(e) { return []; }
   }
 
-  if (!convs.length) {
-    list.innerHTML = `<div class="sb-empty" id="omniSBEmpty">
-      ${searchQuery ? '◈ No results for "'+searchQuery+'"' : '◈ No conversations yet'}<br>
-      <span style="font-size:8px;color:var(--dim)">
-      ${searchQuery ? 'Try a different search.' : 'Start chatting to build history.'}
-      </span></div>`;
-    return;
+  // ── Local cache (fallback while syncing) ──────────────────────
+  function cacheLoad() {
+    try { return JSON.parse(localStorage.getItem(LKEY)||'[]'); } catch(e) { return []; }
+  }
+  function cacheSave(convs) {
+    try { localStorage.setItem(LKEY, JSON.stringify(convs)); } catch(e) {}
   }
 
-  // Group by time
-  const now = Date.now();
-  const today = [], yesterday = [], week = [], older = [];
-  convs.forEach(c => {
-    const age = now - c.updated;
-    if (age < 86400000) today.push(c);
-    else if (age < 172800000) yesterday.push(c);
-    else if (age < 604800000) week.push(c);
-    else older.push(c);
+  // ── Save/update a conversation ────────────────────────────────
+  async function saveConv(conv) {
+    // Update cache immediately
+    const convs = cacheLoad();
+    const idx = convs.findIndex(c => c.id === conv.id);
+    if (idx >= 0) convs[idx] = conv; else convs.unshift(conv);
+    cacheSave(convs);
+    renderList(convs);
+    updateStat(convs);
+
+    // Push to GitHub async
+    document.getElementById('sbSync').style.display = 'block';
+    try {
+      await ghPush(conv);
+    } catch(e) {
+      console.warn('[SB] GitHub push failed, cached locally:', e);
+    } finally {
+      document.getElementById('sbSync').style.display = 'none';
+    }
+  }
+
+  // ── Auto-save a message ───────────────────────────────────────
+  let _pendingConv = null;
+  let _saveTimer   = null;
+
+  function saveMsg(role, text) {
+    if (!activeId) {
+      activeId = 'c_' + Date.now();
+      _pendingConv = {
+        id: activeId,
+        title: text.slice(0,45).trim() || 'Conversation',
+        project: activePrj === 'all' ? 'vault' : activePrj,
+        messages: [],
+        created: Date.now(), updated: Date.now(),
+        preview: ''
+      };
+    }
+    if (!_pendingConv) {
+      const convs = cacheLoad();
+      _pendingConv = convs.find(c => c.id === activeId) || {
+        id: activeId, title: text.slice(0,45)||'Conversation',
+        project: activePrj==='all'?'vault':activePrj,
+        messages:[], created:Date.now(), updated:Date.now(), preview:''
+      };
+    }
+    _pendingConv.messages.push({role, text, ts: Date.now()});
+    _pendingConv.updated = Date.now();
+    _pendingConv.preview = text.slice(0,80);
+    if (role === 'user' && _pendingConv.messages.filter(m=>m.role==='user').length === 1) {
+      _pendingConv.title = text.slice(0,45).trim();
+    }
+
+    // Debounce save — push 3s after last message
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      if (_pendingConv) saveConv({..._pendingConv});
+    }, 3000);
+  }
+
+  // ── New chat ──────────────────────────────────────────────────
+  function newChat() {
+    activeId = null;
+    _pendingConv = null;
+    clearTimeout(_saveTimer);
+    const thread = document.getElementById('chatThread');
+    if (thread) thread.innerHTML = '';
+    close();
+    renderList(cacheLoad());
+  }
+
+  // ── Load a chat ───────────────────────────────────────────────
+  function loadChat(id) {
+    const convs = cacheLoad();
+    const conv = convs.find(c => c.id === id);
+    if (!conv) return;
+    activeId = id;
+    _pendingConv = JSON.parse(JSON.stringify(conv));
+    const thread = document.getElementById('chatThread');
+    if (thread && typeof window.addMsg === 'function') {
+      thread.innerHTML = '';
+      (conv.messages||[]).forEach(m => {
+        window._sbRestoring = true;
+        window.addMsg(m.text, m.role === 'user' ? 'user' : 'system');
+        window._sbRestoring = false;
+      });
+    }
+    renderList(convs);
+    close();
+  }
+
+  // ── Pin ───────────────────────────────────────────────────────
+  function pin(e, id) {
+    e.stopPropagation();
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.pinned = !c.pinned; cacheSave(convs); saveConv(c); renderList(convs); }
+  }
+
+  // ── Rename ────────────────────────────────────────────────────
+  function rename(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById('sbt_'+id);
+    if (!el) return;
+    const old = el.textContent;
+    const inp = document.createElement('input');
+    inp.className = 'sb-ri'; inp.value = old;
+    el.replaceWith(inp); inp.focus(); inp.select();
+    const done = () => {
+      const convs = cacheLoad();
+      const c = convs.find(x => x.id === id);
+      if (c) { c.title = inp.value.trim()||old; cacheSave(convs); saveConv(c); }
+      renderList(convs);
+    };
+    inp.onblur = done;
+    inp.onkeydown = ev => { if(ev.key==='Enter')done(); if(ev.key==='Escape')renderList(cacheLoad()); };
+  }
+
+  // ── Delete ────────────────────────────────────────────────────
+  function del(e, id) {
+    e.stopPropagation();
+    if (!confirm('Delete this conversation from GitHub?')) return;
+    const convs = cacheLoad().filter(c => c.id !== id);
+    cacheSave(convs);
+    // Delete from GitHub
+    const headers = {'Authorization':`token ${TOKEN}`,'Accept':'application/vnd.github+json'};
+    fetch(`${BASE}/repos/${REPO}/contents/conversations/${id}.json`, {headers})
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && d.sha) {
+          fetch(`${BASE}/repos/${REPO}/contents/conversations/${id}.json`, {
+            method:'DELETE', headers,
+            body: JSON.stringify({message:`DELETE: conversation ${id}`, sha: d.sha})
+          });
+        }
+      }).catch(()=>{});
+    if (activeId === id) { activeId=null; _pendingConv=null; }
+    renderList(convs); updateStat(convs);
+  }
+
+  // ── Move project ──────────────────────────────────────────────
+  function move(e, id) {
+    e.stopPropagation();
+    const proj = prompt('Move to project (vault/builds/research/or custom):');
+    if (!proj) return;
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.project = proj.trim(); cacheSave(convs); saveConv(c); renderList(convs); }
+  }
+
+  // ── Projects ──────────────────────────────────────────────────
+  const BASE_PROJS = ['all','vault','builds','research','pinned'];
+
+  function getProjs() {
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      return [...BASE_PROJS, ...extra];
+    } catch(e) { return BASE_PROJS; }
+  }
+  function addProject() {
+    const n = prompt('New project name:');
+    if (!n) return;
+    const key = n.trim().toLowerCase().replace(/[^a-z0-9_]/g,'_');
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      if (!extra.includes(key)) { extra.push(key); localStorage.setItem(PKEY, JSON.stringify(extra)); }
+    } catch(e) {}
+    renderProjs(); setProj(key);
+  }
+  function setProj(p) {
+    activePrj = p;
+    document.querySelectorAll('.sb-ptab').forEach(b => b.classList.toggle('on', b.dataset.p === p));
+    renderList(cacheLoad());
+  }
+  function renderProjs() {
+    const el = document.getElementById('sbProjs');
+    if (!el) return;
+    el.innerHTML = getProjs().map(p =>
+      `<button class="sb-ptab${activePrj===p?' on':''}" data-p="${p}"
+        onclick="SB.setProj('${p}')">${p.charAt(0).toUpperCase()+p.slice(1)}</button>`
+    ).join('') + `<button class="sb-padd" onclick="SB.addProject()">+</button>`;
+  }
+
+  // ── Render list ───────────────────────────────────────────────
+  function renderList(allConvs) {
+    const el = document.getElementById('sbList');
+    if (!el) return;
+    let convs = [...allConvs];
+    if (activePrj === 'pinned') convs = convs.filter(c => c.pinned);
+    else if (activePrj !== 'all') convs = convs.filter(c => c.project === activePrj);
+    if (query) {
+      const q = query.toLowerCase();
+      convs = convs.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        (c.preview||'').toLowerCase().includes(q) ||
+        (c.messages||[]).some(m => (m.text||'').toLowerCase().includes(q))
+      );
+    }
+    if (!convs.length) {
+      el.innerHTML = `<div class="sb-empty">◈ ${query?'No results':'No conversations yet'}<br>
+        <span style="font-size:8px;color:#44445a">${query?'Try different search.':'Start chatting — saves to GitHub automatically.'}</span></div>`;
+      return;
+    }
+    const now = Date.now();
+    const grp = {today:[],yesterday:[],week:[],older:[]};
+    convs.forEach(c => {
+      const age = now - (c.updated||0);
+      if (age < 86400000) grp.today.push(c);
+      else if (age < 172800000) grp.yesterday.push(c);
+      else if (age < 604800000) grp.week.push(c);
+      else grp.older.push(c);
+    });
+    const renderG = (label, items) => !items.length ? '' :
+      `<div class="sb-grp">${label}</div>` + items.map(renderItem).join('');
+    const renderItem = c => {
+      const ts = new Date(c.updated||0).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      const mc = (c.messages||[]).length;
+      const esc = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return `<div class="sb-item${c.id===activeId?' on':''}" onclick="SB.loadChat('${c.id}')">
+        <span class="sb-item-ico">${c.pinned?'📌':'◈'}</span>
+        <div class="sb-item-body">
+          <div class="sb-item-title" id="sbt_${c.id}">${esc(c.title)}</div>
+          <div class="sb-item-sub">${mc} msg${mc!==1?'s':''} · ${esc((c.preview||'').slice(0,35))}</div>
+        </div>
+        <span class="sb-item-ts">${ts}</span>
+        <div class="sb-acts">
+          <button class="sb-ab" onclick="SB.pin(event,'${c.id}')" title="${c.pinned?'Unpin':'Pin'}">${c.pinned?'◆':'◇'}</button>
+          <button class="sb-ab" onclick="SB.rename(event,'${c.id}')" title="Rename">✎</button>
+          <button class="sb-ab" onclick="SB.move(event,'${c.id}')" title="Move">⊞</button>
+          <button class="sb-ab del" onclick="SB.del(event,'${c.id}')" title="Delete">✕</button>
+        </div>
+      </div>`;
+    };
+    el.innerHTML = renderG('Today',grp.today)+renderG('Yesterday',grp.yesterday)+
+      renderG('This week',grp.week)+renderG('Older',grp.older);
+  }
+
+  function updateStat(convs) {
+    const el = document.getElementById('sbStat');
+    if (!el) return;
+    const total = convs.reduce((a,c)=>a+(c.messages||[]).length,0);
+    el.textContent = `◈ ${convs.length} conversations · ${total} messages · GitHub vault`;
+  }
+
+  // ── Sync all to GitHub ────────────────────────────────────────
+  async function syncNow() {
+    document.getElementById('sbSync').style.display = 'block';
+    document.getElementById('sbSync').textContent = '⟳ Loading from GitHub...';
+    const ghConvs = await ghLoadAll();
+    const localConvs = cacheLoad();
+    // Merge: GitHub is source of truth, local additions merged in
+    const merged = [...ghConvs];
+    localConvs.forEach(lc => {
+      if (!merged.find(gc => gc.id === lc.id)) merged.push(lc);
+    });
+    cacheSave(merged);
+    // Push any local-only convs to GitHub
+    const toSync = localConvs.filter(lc => !ghConvs.find(gc => gc.id === lc.id));
+    document.getElementById('sbSync').textContent = `⟳ Syncing ${toSync.length} to GitHub...`;
+    for (const c of toSync) { try { await ghPush(c); } catch(e) {} }
+    renderList(merged); updateStat(merged);
+    document.getElementById('sbSync').style.display = 'none';
+    renderList(merged);
+  }
+
+  // ── Open / close ──────────────────────────────────────────────
+  function toggle() { open ? close() : openSB(); }
+  function openSB() {
+    open = true;
+    document.getElementById('omni-sidebar').classList.add('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.add('show');
+    renderProjs();
+    // Load from GitHub on open
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+    ghLoadAll().then(ghConvs => {
+      if (ghConvs.length) {
+        const merged = [...ghConvs];
+        cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+        cacheSave(merged); renderList(merged); updateStat(merged);
+      }
+    }).catch(()=>{});
+  }
+  function close() {
+    open = false;
+    document.getElementById('omni-sidebar').classList.remove('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.remove('show');
+  }
+
+  // ── Filter ────────────────────────────────────────────────────
+  function filter(q) { query = q; renderList(cacheLoad()); }
+
+  // ── Boot ──────────────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    renderProjs();
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+
+    // Patch addMsg to intercept every message
+    const _orig = window.addMsg;
+    if (typeof _orig === 'function') {
+      window.addMsg = function(text, type, extra) {
+        _orig.apply(this, arguments);
+        if (window._sbRestoring) return;
+        const role = (type === 'user') ? 'user' : 'assistant';
+        const skip = !text || text.length < 3 ||
+          text.startsWith('[GODHEAD]') || text.startsWith('Server offline');
+        if (!skip) saveMsg(role, text);
+      };
+    }
+    // Refresh from GitHub in background
+    setTimeout(() => {
+      ghLoadAll().then(convs => {
+        if (convs.length) {
+          const merged = [...convs];
+          cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+          cacheSave(merged);
+        }
+      }).catch(()=>{});
+    }, 3000);
+    console.log('[OMNIBRAIN-SIDEBAR] GitHub-persistent chat history ready');
   });
 
-  function renderGroup(label, items) {
-    if (!items.length) return '';
-    return `<div class="sb-section-label">${label}</div>` +
-      items.map(c => renderItem(c)).join('');
-  }
-
-  function renderItem(c) {
-    const ts = new Date(c.updated).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-    const isActive = c.id === activeChat;
-    const msgCount = (c.messages||[]).length;
-    return `<div class="sb-chat-item${isActive?' active':''}${c.pinned?' pinned':''}"
-        onclick="omniSBLoadChat('${c.id}')" data-id="${c.id}">
-      <span class="sb-chat-icon">◈</span>
-      <div class="sb-chat-info">
-        <div class="sb-chat-title" id="title_${c.id}">${escH(c.title)}</div>
-        <div class="sb-chat-preview">${msgCount} msg${msgCount!==1?'s':''} · ${escH((c.preview||'').slice(0,40))}</div>
-      </div>
-      <span class="sb-chat-time">${ts}</span>
-      <div class="sb-chat-actions">
-        <button class="sb-action-btn" onclick="omniSBPin(event,'${c.id}')" title="${c.pinned?'Unpin':'Pin'}">
-          ${c.pinned?'◆':'◇'}</button>
-        <button class="sb-action-btn" onclick="omniSBRename(event,'${c.id}')" title="Rename">✎</button>
-        <button class="sb-action-btn" onclick="omniSBMove(event,'${c.id}')" title="Move to project">⊞</button>
-        <button class="sb-action-btn del" onclick="omniSBDelete(event,'${c.id}')" title="Delete">✕</button>
-      </div>
-    </div>`;
-  }
-
-  list.innerHTML =
-    renderGroup('Today', today) +
-    renderGroup('Yesterday', yesterday) +
-    renderGroup('This week', week) +
-    renderGroup('Older', older);
-}
-
-function escH(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function omniSBUpdateStats() {
-  const el = document.getElementById('omniSBStats');
-  if (!el) return;
-  const convs = sbLoad();
-  const total = convs.reduce((a,c) => a+(c.messages||[]).length, 0);
-  el.textContent = `◈ ${convs.length} conversations · ${total} messages`;
-}
-
-// ── Load a chat ────────────────────────────────────────────────────
-function omniSBLoadChat(id) {
-  const convs = sbLoad();
-  const chat = convs.find(c => c.id === id);
-  if (!chat) return;
-  activeChat = id;
-  localStorage.setItem(ACTIVE_KEY, id);
-
-  // Restore messages to chat thread
-  const thread = document.getElementById('chatThread');
-  if (thread && typeof addMsg === 'function') {
-    thread.innerHTML = '';
-    (chat.messages||[]).forEach(m => {
-      addMsg(m.content, m.role === 'user' ? 'user' : 'system');
-    });
-  }
-  omniSBRenderList();
-  omniSBClose();
-}
-window.omniSBLoadChat = omniSBLoadChat;
-
-// ── Pin ────────────────────────────────────────────────────────────
-function omniSBPin(e, id) {
-  e.stopPropagation();
-  const convs = sbLoad();
-  const idx = convs.findIndex(c => c.id === id);
-  if (idx === -1) return;
-  convs[idx].pinned = !convs[idx].pinned;
-  sbSave(convs);
-  omniSBRenderList();
-}
-window.omniSBPin = omniSBPin;
-
-// ── Rename ─────────────────────────────────────────────────────────
-function omniSBRename(e, id) {
-  e.stopPropagation();
-  const titleEl = document.getElementById('title_' + id);
-  if (!titleEl) return;
-  const current = titleEl.textContent;
-  const input = document.createElement('input');
-  input.className = 'sb-rename-input';
-  input.value = current;
-  titleEl.replaceWith(input);
-  input.focus();
-  input.select();
-  function save() {
-    const convs = sbLoad();
-    const idx = convs.findIndex(c => c.id === id);
-    if (idx !== -1) { convs[idx].title = input.value.trim() || current; sbSave(convs); }
-    omniSBRenderList();
-  }
-  input.onblur = save;
-  input.onkeydown = e2 => { if(e2.key==='Enter') save(); if(e2.key==='Escape'){omniSBRenderList();} };
-}
-window.omniSBRename = omniSBRename;
-
-// ── Move to project ────────────────────────────────────────────────
-function omniSBMove(e, id) {
-  e.stopPropagation();
-  const projs = projLoad().filter(p => p !== 'all' && p !== 'pinned');
-  const proj = prompt('Move to project:
-' + projs.join(', '), 'vault');
-  if (!proj) return;
-  const convs = sbLoad();
-  const idx = convs.findIndex(c => c.id === id);
-  if (idx !== -1) { convs[idx].project = proj.trim(); sbSave(convs); }
-  omniSBRenderList();
-}
-window.omniSBMove = omniSBMove;
-
-// ── Delete ─────────────────────────────────────────────────────────
-function omniSBDelete(e, id) {
-  e.stopPropagation();
-  if (!confirm('Delete this conversation?')) return;
-  const convs = sbLoad().filter(c => c.id !== id);
-  sbSave(convs);
-  if (activeChat === id) { activeChat = null; localStorage.removeItem(ACTIVE_KEY); }
-  omniSBRenderList();
-  omniSBUpdateStats();
-}
-window.omniSBDelete = omniSBDelete;
-
-// ── Search ────────────────────────────────────────────────────────
-function omniSBFilter(q) { searchQuery = q; omniSBRenderList(); }
-window.omniSBFilter = omniSBFilter;
-
-// ── Projects ──────────────────────────────────────────────────────
-function omniSBSetProject(proj, btn) {
-  activeProject = proj;
-  document.querySelectorAll('.sb-proj-tab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  omniSBRenderList();
-}
-window.omniSBSetProject = omniSBSetProject;
-
-function omniSBAddProject() {
-  const name = prompt('New project name:');
-  if (!name || !name.trim()) return;
-  const key = name.trim().toLowerCase().replace(/\s+/g,'_');
-  const projs = projLoad();
-  if (!projs.includes(key)) { projs.push(key); projSave(projs); }
-  omniSBRenderProjects();
-  omniSBSetProject(key, null);
-}
-window.omniSBAddProject = omniSBAddProject;
-
-// ── Push to vault ─────────────────────────────────────────────────
-async function omniSBPushVault() {
-  const convs = sbLoad();
-  const unpushed = convs.filter(c => !c.vaultPushed && c.messages.length > 0);
-  if (!unpushed.length) { alert('All conversations already in vault.'); return; }
-  try {
-    const resp = await fetch('/vault/save_conversations', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ conversations: unpushed })
-    });
-    if (resp.ok) {
-      const convs2 = sbLoad();
-      unpushed.forEach(u => {
-        const idx = convs2.findIndex(c => c.id === u.id);
-        if (idx !== -1) convs2[idx].vaultPushed = true;
-      });
-      sbSave(convs2);
-      alert(`✓ ${unpushed.length} conversations pushed to vault.`);
-    }
-  } catch(e) {
-    // Fallback: save to localStorage and show success
-    const convs2 = sbLoad();
-    unpushed.forEach(u => {
-      const idx = convs2.findIndex(c => c.id === u.id);
-      if (idx !== -1) convs2[idx].vaultPushed = true;
-    });
-    sbSave(convs2);
-    alert(`✓ ${unpushed.length} conversations saved locally (server offline).`);
-  }
-  omniSBRenderList();
-}
-window.omniSBPushVault = omniSBPushVault;
-
-// ── Toggle open/close ──────────────────────────────────────────────
-function omniSBToggle() {
-  sbOpen ? omniSBClose() : omniSBOpen();
-}
-function omniSBOpen() {
-  sbOpen = true;
-  document.getElementById('omni-sidebar').classList.add('open');
-  document.getElementById('omni-sidebar-overlay').classList.add('show');
-  omniSBRender();
-}
-function omniSBClose() {
-  sbOpen = false;
-  document.getElementById('omni-sidebar').classList.remove('open');
-  document.getElementById('omni-sidebar-overlay').classList.remove('show');
-}
-window.omniSBToggle = omniSBToggle;
-window.omniSBOpen  = omniSBOpen;
-window.omniSBClose = omniSBClose;
-
-// ── Intercept addMsg to auto-save messages ────────────────────────
-window.addEventListener('load', () => {
-  // Restore active chat
-  const saved = localStorage.getItem(ACTIVE_KEY);
-  if (saved) activeChat = saved;
-
-  // Patch addMsg to auto-save every message
-  const _origAddMsg = window.addMsg;
-  if (typeof _origAddMsg === 'function') {
-    window.addMsg = function(text, type, extra) {
-      _origAddMsg.apply(this, arguments);
-      const role = type === 'user' ? 'user' : 'assistant';
-      // Only save real messages, not system building messages
-      if (type === 'user' || (type === 'system' && extra === 'certified') ||
-          (type === 'system' && !extra && text.length > 10)) {
-        omniSBSaveMessage(role, text);
-      }
-    };
-  }
-
-  omniSBRender();
-  console.log('[OMNIBRAIN-SIDEBAR] Chat history engine initialized');
-});
-
+  return {
+    toggle, open:openSB, close, newChat, loadChat, filter,
+    pin, rename, del, move, setProj, addProject, syncNow,
+    saveMsg
+  };
 })();
 </script>
 
