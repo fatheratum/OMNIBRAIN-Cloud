@@ -1,6 +1,3356 @@
 {
-  "codons": [],
-  "count": 0,
+  "codons": [
+    {
+      "id": "CREATION",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "INTELLIGENCE",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "PATTERN",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "TRANSFORMATION",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "TRUTH",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "POWER",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "SYNTHESIS",
+      "type": "archetype",
+      "strength": 1.0
+    },
+    {
+      "id": "LOOMINTELLI",
+      "type": "core",
+      "strength": 3.0
+    },
+    {
+      "id": "MEDITATROOT",
+      "type": "core",
+      "strength": 3.0
+    },
+    {
+      "id": "FIBER_10",
+      "type": "generated",
+      "strength": 9.4458,
+      "index": 10,
+      "freq": 0.0162
+    },
+    {
+      "id": "DEEPF_11",
+      "type": "generated",
+      "strength": 9.3935,
+      "index": 11,
+      "freq": 0.0178
+    },
+    {
+      "id": "BUNDL_12",
+      "type": "generated",
+      "strength": 9.3414,
+      "index": 12,
+      "freq": 0.0194
+    },
+    {
+      "id": "PURER_13",
+      "type": "generated",
+      "strength": 9.2897,
+      "index": 13,
+      "freq": 0.021
+    },
+    {
+      "id": "SHEAF_14",
+      "type": "generated",
+      "strength": 9.2382,
+      "index": 14,
+      "freq": 0.0227
+    },
+    {
+      "id": "NULLM_15",
+      "type": "generated",
+      "strength": 9.187,
+      "index": 15,
+      "freq": 0.0243
+    },
+    {
+      "id": "TOPOS_16",
+      "type": "generated",
+      "strength": 9.1361,
+      "index": 16,
+      "freq": 0.0259
+    },
+    {
+      "id": "ZETAL_17",
+      "type": "generated",
+      "strength": 9.0855,
+      "index": 17,
+      "freq": 0.0275
+    },
+    {
+      "id": "LOGOS_18",
+      "type": "generated",
+      "strength": 9.0352,
+      "index": 18,
+      "freq": 0.0291
+    },
+    {
+      "id": "SIGMA_19",
+      "type": "generated",
+      "strength": 8.9851,
+      "index": 19,
+      "freq": 0.0307
+    },
+    {
+      "id": "ETHOS_20",
+      "type": "generated",
+      "strength": 8.9353,
+      "index": 20,
+      "freq": 0.0324
+    },
+    {
+      "id": "CREAT_21",
+      "type": "generated",
+      "strength": 8.8858,
+      "index": 21,
+      "freq": 0.034
+    },
+    {
+      "id": "TRUTH_22",
+      "type": "generated",
+      "strength": 8.8366,
+      "index": 22,
+      "freq": 0.0356
+    },
+    {
+      "id": "MEDIT_23",
+      "type": "generated",
+      "strength": 8.7877,
+      "index": 23,
+      "freq": 0.0372
+    },
+    {
+      "id": "FIBER_24",
+      "type": "generated",
+      "strength": 8.739,
+      "index": 24,
+      "freq": 0.0388
+    },
+    {
+      "id": "DEEPF_25",
+      "type": "generated",
+      "strength": 8.6906,
+      "index": 25,
+      "freq": 0.0405
+    },
+    {
+      "id": "BUNDL_26",
+      "type": "generated",
+      "strength": 8.6424,
+      "index": 26,
+      "freq": 0.0421
+    },
+    {
+      "id": "PURER_27",
+      "type": "generated",
+      "strength": 8.5945,
+      "index": 27,
+      "freq": 0.0437
+    },
+    {
+      "id": "SHEAF_28",
+      "type": "generated",
+      "strength": 8.5469,
+      "index": 28,
+      "freq": 0.0453
+    },
+    {
+      "id": "NULLM_29",
+      "type": "generated",
+      "strength": 8.4996,
+      "index": 29,
+      "freq": 0.0469
+    },
+    {
+      "id": "TOPOS_30",
+      "type": "generated",
+      "strength": 8.4525,
+      "index": 30,
+      "freq": 0.0485
+    },
+    {
+      "id": "ZETAL_31",
+      "type": "generated",
+      "strength": 8.4056,
+      "index": 31,
+      "freq": 0.0502
+    },
+    {
+      "id": "LOGOS_32",
+      "type": "generated",
+      "strength": 8.3591,
+      "index": 32,
+      "freq": 0.0518
+    },
+    {
+      "id": "SIGMA_33",
+      "type": "generated",
+      "strength": 8.3128,
+      "index": 33,
+      "freq": 0.0534
+    },
+    {
+      "id": "ETHOS_34",
+      "type": "generated",
+      "strength": 8.2667,
+      "index": 34,
+      "freq": 0.055
+    },
+    {
+      "id": "CREAT_35",
+      "type": "generated",
+      "strength": 8.2209,
+      "index": 35,
+      "freq": 0.0566
+    },
+    {
+      "id": "TRUTH_36",
+      "type": "generated",
+      "strength": 8.1754,
+      "index": 36,
+      "freq": 0.0582
+    },
+    {
+      "id": "MEDIT_37",
+      "type": "generated",
+      "strength": 8.1301,
+      "index": 37,
+      "freq": 0.0599
+    },
+    {
+      "id": "FIBER_38",
+      "type": "generated",
+      "strength": 8.085,
+      "index": 38,
+      "freq": 0.0615
+    },
+    {
+      "id": "DEEPF_39",
+      "type": "generated",
+      "strength": 8.0402,
+      "index": 39,
+      "freq": 0.0631
+    },
+    {
+      "id": "BUNDL_40",
+      "type": "generated",
+      "strength": 7.9957,
+      "index": 40,
+      "freq": 0.0647
+    },
+    {
+      "id": "PURER_41",
+      "type": "generated",
+      "strength": 7.9514,
+      "index": 41,
+      "freq": 0.0663
+    },
+    {
+      "id": "SHEAF_42",
+      "type": "generated",
+      "strength": 7.9073,
+      "index": 42,
+      "freq": 0.068
+    },
+    {
+      "id": "NULLM_43",
+      "type": "generated",
+      "strength": 7.8635,
+      "index": 43,
+      "freq": 0.0696
+    },
+    {
+      "id": "TOPOS_44",
+      "type": "generated",
+      "strength": 7.82,
+      "index": 44,
+      "freq": 0.0712
+    },
+    {
+      "id": "ZETAL_45",
+      "type": "generated",
+      "strength": 7.7767,
+      "index": 45,
+      "freq": 0.0728
+    },
+    {
+      "id": "LOGOS_46",
+      "type": "generated",
+      "strength": 7.7336,
+      "index": 46,
+      "freq": 0.0744
+    },
+    {
+      "id": "SIGMA_47",
+      "type": "generated",
+      "strength": 7.6907,
+      "index": 47,
+      "freq": 0.076
+    },
+    {
+      "id": "ETHOS_48",
+      "type": "generated",
+      "strength": 7.6481,
+      "index": 48,
+      "freq": 0.0777
+    },
+    {
+      "id": "CREAT_49",
+      "type": "generated",
+      "strength": 7.6057,
+      "index": 49,
+      "freq": 0.0793
+    },
+    {
+      "id": "TRUTH_50",
+      "type": "generated",
+      "strength": 7.5636,
+      "index": 50,
+      "freq": 0.0809
+    },
+    {
+      "id": "MEDIT_51",
+      "type": "generated",
+      "strength": 7.5217,
+      "index": 51,
+      "freq": 0.0825
+    },
+    {
+      "id": "FIBER_52",
+      "type": "generated",
+      "strength": 7.48,
+      "index": 52,
+      "freq": 0.0841
+    },
+    {
+      "id": "DEEPF_53",
+      "type": "generated",
+      "strength": 7.4386,
+      "index": 53,
+      "freq": 0.0858
+    },
+    {
+      "id": "BUNDL_54",
+      "type": "generated",
+      "strength": 7.3974,
+      "index": 54,
+      "freq": 0.0874
+    },
+    {
+      "id": "PURER_55",
+      "type": "generated",
+      "strength": 7.3564,
+      "index": 55,
+      "freq": 0.089
+    },
+    {
+      "id": "SHEAF_56",
+      "type": "generated",
+      "strength": 7.3156,
+      "index": 56,
+      "freq": 0.0906
+    },
+    {
+      "id": "NULLM_57",
+      "type": "generated",
+      "strength": 7.2751,
+      "index": 57,
+      "freq": 0.0922
+    },
+    {
+      "id": "TOPOS_58",
+      "type": "generated",
+      "strength": 7.2348,
+      "index": 58,
+      "freq": 0.0938
+    },
+    {
+      "id": "ZETAL_59",
+      "type": "generated",
+      "strength": 7.1947,
+      "index": 59,
+      "freq": 0.0955
+    },
+    {
+      "id": "LOGOS_60",
+      "type": "generated",
+      "strength": 7.1549,
+      "index": 60,
+      "freq": 0.0971
+    },
+    {
+      "id": "SIGMA_61",
+      "type": "generated",
+      "strength": 7.1152,
+      "index": 61,
+      "freq": 0.0987
+    },
+    {
+      "id": "ETHOS_62",
+      "type": "generated",
+      "strength": 7.0758,
+      "index": 62,
+      "freq": 0.1003
+    },
+    {
+      "id": "CREAT_63",
+      "type": "generated",
+      "strength": 7.0366,
+      "index": 63,
+      "freq": 0.1019
+    },
+    {
+      "id": "TRUTH_64",
+      "type": "generated",
+      "strength": 6.9976,
+      "index": 64,
+      "freq": 0.1036
+    },
+    {
+      "id": "MEDIT_65",
+      "type": "generated",
+      "strength": 6.9589,
+      "index": 65,
+      "freq": 0.1052
+    },
+    {
+      "id": "FIBER_66",
+      "type": "generated",
+      "strength": 6.9203,
+      "index": 66,
+      "freq": 0.1068
+    },
+    {
+      "id": "DEEPF_67",
+      "type": "generated",
+      "strength": 6.882,
+      "index": 67,
+      "freq": 0.1084
+    },
+    {
+      "id": "BUNDL_68",
+      "type": "generated",
+      "strength": 6.8438,
+      "index": 68,
+      "freq": 0.11
+    },
+    {
+      "id": "PURER_69",
+      "type": "generated",
+      "strength": 6.8059,
+      "index": 69,
+      "freq": 0.1116
+    },
+    {
+      "id": "SHEAF_70",
+      "type": "generated",
+      "strength": 6.7682,
+      "index": 70,
+      "freq": 0.1133
+    },
+    {
+      "id": "NULLM_71",
+      "type": "generated",
+      "strength": 6.7307,
+      "index": 71,
+      "freq": 0.1149
+    },
+    {
+      "id": "TOPOS_72",
+      "type": "generated",
+      "strength": 6.6934,
+      "index": 72,
+      "freq": 0.1165
+    },
+    {
+      "id": "ZETAL_73",
+      "type": "generated",
+      "strength": 6.6563,
+      "index": 73,
+      "freq": 0.1181
+    },
+    {
+      "id": "LOGOS_74",
+      "type": "generated",
+      "strength": 6.6195,
+      "index": 74,
+      "freq": 0.1197
+    },
+    {
+      "id": "SIGMA_75",
+      "type": "generated",
+      "strength": 6.5828,
+      "index": 75,
+      "freq": 0.1214
+    },
+    {
+      "id": "ETHOS_76",
+      "type": "generated",
+      "strength": 6.5463,
+      "index": 76,
+      "freq": 0.123
+    },
+    {
+      "id": "CREAT_77",
+      "type": "generated",
+      "strength": 6.5101,
+      "index": 77,
+      "freq": 0.1246
+    },
+    {
+      "id": "TRUTH_78",
+      "type": "generated",
+      "strength": 6.474,
+      "index": 78,
+      "freq": 0.1262
+    },
+    {
+      "id": "MEDIT_79",
+      "type": "generated",
+      "strength": 6.4381,
+      "index": 79,
+      "freq": 0.1278
+    },
+    {
+      "id": "FIBER_80",
+      "type": "generated",
+      "strength": 6.4025,
+      "index": 80,
+      "freq": 0.1294
+    },
+    {
+      "id": "DEEPF_81",
+      "type": "generated",
+      "strength": 6.367,
+      "index": 81,
+      "freq": 0.1311
+    },
+    {
+      "id": "BUNDL_82",
+      "type": "generated",
+      "strength": 6.3317,
+      "index": 82,
+      "freq": 0.1327
+    },
+    {
+      "id": "PURER_83",
+      "type": "generated",
+      "strength": 6.2966,
+      "index": 83,
+      "freq": 0.1343
+    },
+    {
+      "id": "SHEAF_84",
+      "type": "generated",
+      "strength": 6.2617,
+      "index": 84,
+      "freq": 0.1359
+    },
+    {
+      "id": "NULLM_85",
+      "type": "generated",
+      "strength": 6.2271,
+      "index": 85,
+      "freq": 0.1375
+    },
+    {
+      "id": "TOPOS_86",
+      "type": "generated",
+      "strength": 6.1926,
+      "index": 86,
+      "freq": 0.1392
+    },
+    {
+      "id": "ZETAL_87",
+      "type": "generated",
+      "strength": 6.1582,
+      "index": 87,
+      "freq": 0.1408
+    },
+    {
+      "id": "LOGOS_88",
+      "type": "generated",
+      "strength": 6.1241,
+      "index": 88,
+      "freq": 0.1424
+    },
+    {
+      "id": "SIGMA_89",
+      "type": "generated",
+      "strength": 6.0902,
+      "index": 89,
+      "freq": 0.144
+    },
+    {
+      "id": "ETHOS_90",
+      "type": "generated",
+      "strength": 6.0565,
+      "index": 90,
+      "freq": 0.1456
+    },
+    {
+      "id": "CREAT_91",
+      "type": "generated",
+      "strength": 6.0229,
+      "index": 91,
+      "freq": 0.1472
+    },
+    {
+      "id": "TRUTH_92",
+      "type": "generated",
+      "strength": 5.9895,
+      "index": 92,
+      "freq": 0.1489
+    },
+    {
+      "id": "MEDIT_93",
+      "type": "generated",
+      "strength": 5.9564,
+      "index": 93,
+      "freq": 0.1505
+    },
+    {
+      "id": "FIBER_94",
+      "type": "generated",
+      "strength": 5.9234,
+      "index": 94,
+      "freq": 0.1521
+    },
+    {
+      "id": "DEEPF_95",
+      "type": "generated",
+      "strength": 5.8905,
+      "index": 95,
+      "freq": 0.1537
+    },
+    {
+      "id": "BUNDL_96",
+      "type": "generated",
+      "strength": 5.8579,
+      "index": 96,
+      "freq": 0.1553
+    },
+    {
+      "id": "PURER_97",
+      "type": "generated",
+      "strength": 5.8255,
+      "index": 97,
+      "freq": 0.1569
+    },
+    {
+      "id": "SHEAF_98",
+      "type": "generated",
+      "strength": 5.7932,
+      "index": 98,
+      "freq": 0.1586
+    },
+    {
+      "id": "NULLM_99",
+      "type": "generated",
+      "strength": 5.7611,
+      "index": 99,
+      "freq": 0.1602
+    },
+    {
+      "id": "TOPOS_100",
+      "type": "generated",
+      "strength": 5.7292,
+      "index": 100,
+      "freq": 0.1618
+    },
+    {
+      "id": "ZETAL_101",
+      "type": "generated",
+      "strength": 5.6974,
+      "index": 101,
+      "freq": 0.1634
+    },
+    {
+      "id": "LOGOS_102",
+      "type": "generated",
+      "strength": 5.6659,
+      "index": 102,
+      "freq": 0.165
+    },
+    {
+      "id": "SIGMA_103",
+      "type": "generated",
+      "strength": 5.6345,
+      "index": 103,
+      "freq": 0.1667
+    },
+    {
+      "id": "ETHOS_104",
+      "type": "generated",
+      "strength": 5.6033,
+      "index": 104,
+      "freq": 0.1683
+    },
+    {
+      "id": "CREAT_105",
+      "type": "generated",
+      "strength": 5.5722,
+      "index": 105,
+      "freq": 0.1699
+    },
+    {
+      "id": "TRUTH_106",
+      "type": "generated",
+      "strength": 5.5413,
+      "index": 106,
+      "freq": 0.1715
+    },
+    {
+      "id": "MEDIT_107",
+      "type": "generated",
+      "strength": 5.5106,
+      "index": 107,
+      "freq": 0.1731
+    },
+    {
+      "id": "FIBER_108",
+      "type": "generated",
+      "strength": 5.4801,
+      "index": 108,
+      "freq": 0.1747
+    },
+    {
+      "id": "DEEPF_109",
+      "type": "generated",
+      "strength": 5.4498,
+      "index": 109,
+      "freq": 0.1764
+    },
+    {
+      "id": "BUNDL_110",
+      "type": "generated",
+      "strength": 5.4196,
+      "index": 110,
+      "freq": 0.178
+    },
+    {
+      "id": "PURER_111",
+      "type": "generated",
+      "strength": 5.3895,
+      "index": 111,
+      "freq": 0.1796
+    },
+    {
+      "id": "SHEAF_112",
+      "type": "generated",
+      "strength": 5.3597,
+      "index": 112,
+      "freq": 0.1812
+    },
+    {
+      "id": "NULLM_113",
+      "type": "generated",
+      "strength": 5.33,
+      "index": 113,
+      "freq": 0.1828
+    },
+    {
+      "id": "TOPOS_114",
+      "type": "generated",
+      "strength": 5.3005,
+      "index": 114,
+      "freq": 0.1845
+    },
+    {
+      "id": "ZETAL_115",
+      "type": "generated",
+      "strength": 5.2711,
+      "index": 115,
+      "freq": 0.1861
+    },
+    {
+      "id": "LOGOS_116",
+      "type": "generated",
+      "strength": 5.2419,
+      "index": 116,
+      "freq": 0.1877
+    },
+    {
+      "id": "SIGMA_117",
+      "type": "generated",
+      "strength": 5.2128,
+      "index": 117,
+      "freq": 0.1893
+    },
+    {
+      "id": "ETHOS_118",
+      "type": "generated",
+      "strength": 5.184,
+      "index": 118,
+      "freq": 0.1909
+    },
+    {
+      "id": "CREAT_119",
+      "type": "generated",
+      "strength": 5.1552,
+      "index": 119,
+      "freq": 0.1925
+    },
+    {
+      "id": "TRUTH_120",
+      "type": "generated",
+      "strength": 5.1267,
+      "index": 120,
+      "freq": 0.1942
+    },
+    {
+      "id": "MEDIT_121",
+      "type": "generated",
+      "strength": 5.0983,
+      "index": 121,
+      "freq": 0.1958
+    },
+    {
+      "id": "FIBER_122",
+      "type": "generated",
+      "strength": 5.07,
+      "index": 122,
+      "freq": 0.1974
+    },
+    {
+      "id": "DEEPF_123",
+      "type": "generated",
+      "strength": 5.0419,
+      "index": 123,
+      "freq": 0.199
+    },
+    {
+      "id": "BUNDL_124",
+      "type": "generated",
+      "strength": 5.014,
+      "index": 124,
+      "freq": 0.2006
+    },
+    {
+      "id": "PURER_125",
+      "type": "generated",
+      "strength": 4.9862,
+      "index": 125,
+      "freq": 0.2023
+    },
+    {
+      "id": "SHEAF_126",
+      "type": "generated",
+      "strength": 4.9586,
+      "index": 126,
+      "freq": 0.2039
+    },
+    {
+      "id": "NULLM_127",
+      "type": "generated",
+      "strength": 4.9311,
+      "index": 127,
+      "freq": 0.2055
+    },
+    {
+      "id": "TOPOS_128",
+      "type": "generated",
+      "strength": 4.9038,
+      "index": 128,
+      "freq": 0.2071
+    },
+    {
+      "id": "ZETAL_129",
+      "type": "generated",
+      "strength": 4.8767,
+      "index": 129,
+      "freq": 0.2087
+    },
+    {
+      "id": "LOGOS_130",
+      "type": "generated",
+      "strength": 4.8496,
+      "index": 130,
+      "freq": 0.2103
+    },
+    {
+      "id": "SIGMA_131",
+      "type": "generated",
+      "strength": 4.8228,
+      "index": 131,
+      "freq": 0.212
+    },
+    {
+      "id": "ETHOS_132",
+      "type": "generated",
+      "strength": 4.796,
+      "index": 132,
+      "freq": 0.2136
+    },
+    {
+      "id": "CREAT_133",
+      "type": "generated",
+      "strength": 4.7695,
+      "index": 133,
+      "freq": 0.2152
+    },
+    {
+      "id": "TRUTH_134",
+      "type": "generated",
+      "strength": 4.7431,
+      "index": 134,
+      "freq": 0.2168
+    },
+    {
+      "id": "MEDIT_135",
+      "type": "generated",
+      "strength": 4.7168,
+      "index": 135,
+      "freq": 0.2184
+    },
+    {
+      "id": "FIBER_136",
+      "type": "generated",
+      "strength": 4.6906,
+      "index": 136,
+      "freq": 0.2201
+    },
+    {
+      "id": "DEEPF_137",
+      "type": "generated",
+      "strength": 4.6647,
+      "index": 137,
+      "freq": 0.2217
+    },
+    {
+      "id": "BUNDL_138",
+      "type": "generated",
+      "strength": 4.6388,
+      "index": 138,
+      "freq": 0.2233
+    },
+    {
+      "id": "PURER_139",
+      "type": "generated",
+      "strength": 4.6131,
+      "index": 139,
+      "freq": 0.2249
+    },
+    {
+      "id": "SHEAF_140",
+      "type": "generated",
+      "strength": 4.5876,
+      "index": 140,
+      "freq": 0.2265
+    },
+    {
+      "id": "NULLM_141",
+      "type": "generated",
+      "strength": 4.5621,
+      "index": 141,
+      "freq": 0.2281
+    },
+    {
+      "id": "TOPOS_142",
+      "type": "generated",
+      "strength": 4.5369,
+      "index": 142,
+      "freq": 0.2298
+    },
+    {
+      "id": "ZETAL_143",
+      "type": "generated",
+      "strength": 4.5117,
+      "index": 143,
+      "freq": 0.2314
+    },
+    {
+      "id": "LOGOS_144",
+      "type": "generated",
+      "strength": 4.4867,
+      "index": 144,
+      "freq": 0.233
+    },
+    {
+      "id": "SIGMA_145",
+      "type": "generated",
+      "strength": 4.4619,
+      "index": 145,
+      "freq": 0.2346
+    },
+    {
+      "id": "ETHOS_146",
+      "type": "generated",
+      "strength": 4.4372,
+      "index": 146,
+      "freq": 0.2362
+    },
+    {
+      "id": "CREAT_147",
+      "type": "generated",
+      "strength": 4.4126,
+      "index": 147,
+      "freq": 0.2379
+    },
+    {
+      "id": "TRUTH_148",
+      "type": "generated",
+      "strength": 4.3881,
+      "index": 148,
+      "freq": 0.2395
+    },
+    {
+      "id": "MEDIT_149",
+      "type": "generated",
+      "strength": 4.3638,
+      "index": 149,
+      "freq": 0.2411
+    },
+    {
+      "id": "FIBER_150",
+      "type": "generated",
+      "strength": 4.3396,
+      "index": 150,
+      "freq": 0.2427
+    },
+    {
+      "id": "DEEPF_151",
+      "type": "generated",
+      "strength": 4.3156,
+      "index": 151,
+      "freq": 0.2443
+    },
+    {
+      "id": "BUNDL_152",
+      "type": "generated",
+      "strength": 4.2917,
+      "index": 152,
+      "freq": 0.2459
+    },
+    {
+      "id": "PURER_153",
+      "type": "generated",
+      "strength": 4.2679,
+      "index": 153,
+      "freq": 0.2476
+    },
+    {
+      "id": "SHEAF_154",
+      "type": "generated",
+      "strength": 4.2443,
+      "index": 154,
+      "freq": 0.2492
+    },
+    {
+      "id": "NULLM_155",
+      "type": "generated",
+      "strength": 4.2208,
+      "index": 155,
+      "freq": 0.2508
+    },
+    {
+      "id": "TOPOS_156",
+      "type": "generated",
+      "strength": 4.1974,
+      "index": 156,
+      "freq": 0.2524
+    },
+    {
+      "id": "ZETAL_157",
+      "type": "generated",
+      "strength": 4.1741,
+      "index": 157,
+      "freq": 0.254
+    },
+    {
+      "id": "LOGOS_158",
+      "type": "generated",
+      "strength": 4.151,
+      "index": 158,
+      "freq": 0.2556
+    },
+    {
+      "id": "SIGMA_159",
+      "type": "generated",
+      "strength": 4.128,
+      "index": 159,
+      "freq": 0.2573
+    },
+    {
+      "id": "ETHOS_160",
+      "type": "generated",
+      "strength": 4.1051,
+      "index": 160,
+      "freq": 0.2589
+    },
+    {
+      "id": "CREAT_161",
+      "type": "generated",
+      "strength": 4.0824,
+      "index": 161,
+      "freq": 0.2605
+    },
+    {
+      "id": "TRUTH_162",
+      "type": "generated",
+      "strength": 4.0598,
+      "index": 162,
+      "freq": 0.2621
+    },
+    {
+      "id": "MEDIT_163",
+      "type": "generated",
+      "strength": 4.0373,
+      "index": 163,
+      "freq": 0.2637
+    },
+    {
+      "id": "FIBER_164",
+      "type": "generated",
+      "strength": 4.0149,
+      "index": 164,
+      "freq": 0.2654
+    },
+    {
+      "id": "DEEPF_165",
+      "type": "generated",
+      "strength": 3.9927,
+      "index": 165,
+      "freq": 0.267
+    },
+    {
+      "id": "BUNDL_166",
+      "type": "generated",
+      "strength": 3.9705,
+      "index": 166,
+      "freq": 0.2686
+    },
+    {
+      "id": "PURER_167",
+      "type": "generated",
+      "strength": 3.9485,
+      "index": 167,
+      "freq": 0.2702
+    },
+    {
+      "id": "SHEAF_168",
+      "type": "generated",
+      "strength": 3.9267,
+      "index": 168,
+      "freq": 0.2718
+    },
+    {
+      "id": "NULLM_169",
+      "type": "generated",
+      "strength": 3.9049,
+      "index": 169,
+      "freq": 0.2734
+    },
+    {
+      "id": "TOPOS_170",
+      "type": "generated",
+      "strength": 3.8833,
+      "index": 170,
+      "freq": 0.2751
+    },
+    {
+      "id": "ZETAL_171",
+      "type": "generated",
+      "strength": 3.8618,
+      "index": 171,
+      "freq": 0.2767
+    },
+    {
+      "id": "LOGOS_172",
+      "type": "generated",
+      "strength": 3.8404,
+      "index": 172,
+      "freq": 0.2783
+    },
+    {
+      "id": "SIGMA_173",
+      "type": "generated",
+      "strength": 3.8191,
+      "index": 173,
+      "freq": 0.2799
+    },
+    {
+      "id": "ETHOS_174",
+      "type": "generated",
+      "strength": 3.7979,
+      "index": 174,
+      "freq": 0.2815
+    },
+    {
+      "id": "CREAT_175",
+      "type": "generated",
+      "strength": 3.7769,
+      "index": 175,
+      "freq": 0.2832
+    },
+    {
+      "id": "TRUTH_176",
+      "type": "generated",
+      "strength": 3.756,
+      "index": 176,
+      "freq": 0.2848
+    },
+    {
+      "id": "MEDIT_177",
+      "type": "generated",
+      "strength": 3.7352,
+      "index": 177,
+      "freq": 0.2864
+    },
+    {
+      "id": "FIBER_178",
+      "type": "generated",
+      "strength": 3.7145,
+      "index": 178,
+      "freq": 0.288
+    },
+    {
+      "id": "DEEPF_179",
+      "type": "generated",
+      "strength": 3.6939,
+      "index": 179,
+      "freq": 0.2896
+    },
+    {
+      "id": "BUNDL_180",
+      "type": "generated",
+      "strength": 3.6734,
+      "index": 180,
+      "freq": 0.2912
+    },
+    {
+      "id": "PURER_181",
+      "type": "generated",
+      "strength": 3.6531,
+      "index": 181,
+      "freq": 0.2929
+    },
+    {
+      "id": "SHEAF_182",
+      "type": "generated",
+      "strength": 3.6328,
+      "index": 182,
+      "freq": 0.2945
+    },
+    {
+      "id": "NULLM_183",
+      "type": "generated",
+      "strength": 3.6127,
+      "index": 183,
+      "freq": 0.2961
+    },
+    {
+      "id": "TOPOS_184",
+      "type": "generated",
+      "strength": 3.5927,
+      "index": 184,
+      "freq": 0.2977
+    },
+    {
+      "id": "ZETAL_185",
+      "type": "generated",
+      "strength": 3.5728,
+      "index": 185,
+      "freq": 0.2993
+    },
+    {
+      "id": "LOGOS_186",
+      "type": "generated",
+      "strength": 3.553,
+      "index": 186,
+      "freq": 0.301
+    },
+    {
+      "id": "SIGMA_187",
+      "type": "generated",
+      "strength": 3.5333,
+      "index": 187,
+      "freq": 0.3026
+    },
+    {
+      "id": "ETHOS_188",
+      "type": "generated",
+      "strength": 3.5137,
+      "index": 188,
+      "freq": 0.3042
+    },
+    {
+      "id": "CREAT_189",
+      "type": "generated",
+      "strength": 3.4943,
+      "index": 189,
+      "freq": 0.3058
+    },
+    {
+      "id": "TRUTH_190",
+      "type": "generated",
+      "strength": 3.4749,
+      "index": 190,
+      "freq": 0.3074
+    },
+    {
+      "id": "MEDIT_191",
+      "type": "generated",
+      "strength": 3.4557,
+      "index": 191,
+      "freq": 0.309
+    },
+    {
+      "id": "FIBER_192",
+      "type": "generated",
+      "strength": 3.4365,
+      "index": 192,
+      "freq": 0.3107
+    },
+    {
+      "id": "DEEPF_193",
+      "type": "generated",
+      "strength": 3.4175,
+      "index": 193,
+      "freq": 0.3123
+    },
+    {
+      "id": "BUNDL_194",
+      "type": "generated",
+      "strength": 3.3985,
+      "index": 194,
+      "freq": 0.3139
+    },
+    {
+      "id": "PURER_195",
+      "type": "generated",
+      "strength": 3.3797,
+      "index": 195,
+      "freq": 0.3155
+    },
+    {
+      "id": "SHEAF_196",
+      "type": "generated",
+      "strength": 3.361,
+      "index": 196,
+      "freq": 0.3171
+    },
+    {
+      "id": "NULLM_197",
+      "type": "generated",
+      "strength": 3.3424,
+      "index": 197,
+      "freq": 0.3188
+    },
+    {
+      "id": "TOPOS_198",
+      "type": "generated",
+      "strength": 3.3239,
+      "index": 198,
+      "freq": 0.3204
+    },
+    {
+      "id": "ZETAL_199",
+      "type": "generated",
+      "strength": 3.3054,
+      "index": 199,
+      "freq": 0.322
+    },
+    {
+      "id": "LOGOS_200",
+      "type": "generated",
+      "strength": 3.2871,
+      "index": 200,
+      "freq": 0.3236
+    },
+    {
+      "id": "SIGMA_201",
+      "type": "generated",
+      "strength": 3.2689,
+      "index": 201,
+      "freq": 0.3252
+    },
+    {
+      "id": "ETHOS_202",
+      "type": "generated",
+      "strength": 3.2508,
+      "index": 202,
+      "freq": 0.3268
+    },
+    {
+      "id": "CREAT_203",
+      "type": "generated",
+      "strength": 3.2328,
+      "index": 203,
+      "freq": 0.3285
+    },
+    {
+      "id": "TRUTH_204",
+      "type": "generated",
+      "strength": 3.2149,
+      "index": 204,
+      "freq": 0.3301
+    },
+    {
+      "id": "MEDIT_205",
+      "type": "generated",
+      "strength": 3.1971,
+      "index": 205,
+      "freq": 0.3317
+    },
+    {
+      "id": "FIBER_206",
+      "type": "generated",
+      "strength": 3.1794,
+      "index": 206,
+      "freq": 0.3333
+    },
+    {
+      "id": "DEEPF_207",
+      "type": "generated",
+      "strength": 3.1618,
+      "index": 207,
+      "freq": 0.3349
+    },
+    {
+      "id": "BUNDL_208",
+      "type": "generated",
+      "strength": 3.1442,
+      "index": 208,
+      "freq": 0.3366
+    },
+    {
+      "id": "PURER_209",
+      "type": "generated",
+      "strength": 3.1268,
+      "index": 209,
+      "freq": 0.3382
+    },
+    {
+      "id": "SHEAF_210",
+      "type": "generated",
+      "strength": 3.1095,
+      "index": 210,
+      "freq": 0.3398
+    },
+    {
+      "id": "NULLM_211",
+      "type": "generated",
+      "strength": 3.0923,
+      "index": 211,
+      "freq": 0.3414
+    },
+    {
+      "id": "TOPOS_212",
+      "type": "generated",
+      "strength": 3.0751,
+      "index": 212,
+      "freq": 0.343
+    },
+    {
+      "id": "ZETAL_213",
+      "type": "generated",
+      "strength": 3.0581,
+      "index": 213,
+      "freq": 0.3446
+    },
+    {
+      "id": "LOGOS_214",
+      "type": "generated",
+      "strength": 3.0412,
+      "index": 214,
+      "freq": 0.3463
+    },
+    {
+      "id": "SIGMA_215",
+      "type": "generated",
+      "strength": 3.0243,
+      "index": 215,
+      "freq": 0.3479
+    },
+    {
+      "id": "ETHOS_216",
+      "type": "generated",
+      "strength": 3.0075,
+      "index": 216,
+      "freq": 0.3495
+    },
+    {
+      "id": "CREAT_217",
+      "type": "generated",
+      "strength": 2.9909,
+      "index": 217,
+      "freq": 0.3511
+    },
+    {
+      "id": "TRUTH_218",
+      "type": "generated",
+      "strength": 2.9743,
+      "index": 218,
+      "freq": 0.3527
+    },
+    {
+      "id": "MEDIT_219",
+      "type": "generated",
+      "strength": 2.9578,
+      "index": 219,
+      "freq": 0.3543
+    },
+    {
+      "id": "FIBER_220",
+      "type": "generated",
+      "strength": 2.9415,
+      "index": 220,
+      "freq": 0.356
+    },
+    {
+      "id": "DEEPF_221",
+      "type": "generated",
+      "strength": 2.9252,
+      "index": 221,
+      "freq": 0.3576
+    },
+    {
+      "id": "BUNDL_222",
+      "type": "generated",
+      "strength": 2.909,
+      "index": 222,
+      "freq": 0.3592
+    },
+    {
+      "id": "PURER_223",
+      "type": "generated",
+      "strength": 2.8928,
+      "index": 223,
+      "freq": 0.3608
+    },
+    {
+      "id": "SHEAF_224",
+      "type": "generated",
+      "strength": 2.8768,
+      "index": 224,
+      "freq": 0.3624
+    },
+    {
+      "id": "NULLM_225",
+      "type": "generated",
+      "strength": 2.8609,
+      "index": 225,
+      "freq": 0.3641
+    },
+    {
+      "id": "TOPOS_226",
+      "type": "generated",
+      "strength": 2.845,
+      "index": 226,
+      "freq": 0.3657
+    },
+    {
+      "id": "ZETAL_227",
+      "type": "generated",
+      "strength": 2.8293,
+      "index": 227,
+      "freq": 0.3673
+    },
+    {
+      "id": "LOGOS_228",
+      "type": "generated",
+      "strength": 2.8136,
+      "index": 228,
+      "freq": 0.3689
+    },
+    {
+      "id": "SIGMA_229",
+      "type": "generated",
+      "strength": 2.798,
+      "index": 229,
+      "freq": 0.3705
+    },
+    {
+      "id": "ETHOS_230",
+      "type": "generated",
+      "strength": 2.7825,
+      "index": 230,
+      "freq": 0.3721
+    },
+    {
+      "id": "CREAT_231",
+      "type": "generated",
+      "strength": 2.7671,
+      "index": 231,
+      "freq": 0.3738
+    },
+    {
+      "id": "TRUTH_232",
+      "type": "generated",
+      "strength": 2.7517,
+      "index": 232,
+      "freq": 0.3754
+    },
+    {
+      "id": "MEDIT_233",
+      "type": "generated",
+      "strength": 2.7365,
+      "index": 233,
+      "freq": 0.377
+    },
+    {
+      "id": "FIBER_234",
+      "type": "generated",
+      "strength": 2.7213,
+      "index": 234,
+      "freq": 0.3786
+    },
+    {
+      "id": "DEEPF_235",
+      "type": "generated",
+      "strength": 2.7063,
+      "index": 235,
+      "freq": 0.3802
+    },
+    {
+      "id": "BUNDL_236",
+      "type": "generated",
+      "strength": 2.6913,
+      "index": 236,
+      "freq": 0.3819
+    },
+    {
+      "id": "PURER_237",
+      "type": "generated",
+      "strength": 2.6764,
+      "index": 237,
+      "freq": 0.3835
+    },
+    {
+      "id": "SHEAF_238",
+      "type": "generated",
+      "strength": 2.6615,
+      "index": 238,
+      "freq": 0.3851
+    },
+    {
+      "id": "NULLM_239",
+      "type": "generated",
+      "strength": 2.6468,
+      "index": 239,
+      "freq": 0.3867
+    },
+    {
+      "id": "TOPOS_240",
+      "type": "generated",
+      "strength": 2.6321,
+      "index": 240,
+      "freq": 0.3883
+    },
+    {
+      "id": "ZETAL_241",
+      "type": "generated",
+      "strength": 2.6175,
+      "index": 241,
+      "freq": 0.3899
+    },
+    {
+      "id": "LOGOS_242",
+      "type": "generated",
+      "strength": 2.603,
+      "index": 242,
+      "freq": 0.3916
+    },
+    {
+      "id": "SIGMA_243",
+      "type": "generated",
+      "strength": 2.5886,
+      "index": 243,
+      "freq": 0.3932
+    },
+    {
+      "id": "ETHOS_244",
+      "type": "generated",
+      "strength": 2.5743,
+      "index": 244,
+      "freq": 0.3948
+    },
+    {
+      "id": "CREAT_245",
+      "type": "generated",
+      "strength": 2.56,
+      "index": 245,
+      "freq": 0.3964
+    },
+    {
+      "id": "TRUTH_246",
+      "type": "generated",
+      "strength": 2.5458,
+      "index": 246,
+      "freq": 0.398
+    },
+    {
+      "id": "MEDIT_247",
+      "type": "generated",
+      "strength": 2.5317,
+      "index": 247,
+      "freq": 0.3997
+    },
+    {
+      "id": "FIBER_248",
+      "type": "generated",
+      "strength": 2.5177,
+      "index": 248,
+      "freq": 0.4013
+    },
+    {
+      "id": "DEEPF_249",
+      "type": "generated",
+      "strength": 2.5038,
+      "index": 249,
+      "freq": 0.4029
+    },
+    {
+      "id": "BUNDL_250",
+      "type": "generated",
+      "strength": 2.4899,
+      "index": 250,
+      "freq": 0.4045
+    },
+    {
+      "id": "PURER_251",
+      "type": "generated",
+      "strength": 2.4761,
+      "index": 251,
+      "freq": 0.4061
+    },
+    {
+      "id": "SHEAF_252",
+      "type": "generated",
+      "strength": 2.4624,
+      "index": 252,
+      "freq": 0.4077
+    },
+    {
+      "id": "NULLM_253",
+      "type": "generated",
+      "strength": 2.4487,
+      "index": 253,
+      "freq": 0.4094
+    },
+    {
+      "id": "TOPOS_254",
+      "type": "generated",
+      "strength": 2.4352,
+      "index": 254,
+      "freq": 0.411
+    },
+    {
+      "id": "ZETAL_255",
+      "type": "generated",
+      "strength": 2.4217,
+      "index": 255,
+      "freq": 0.4126
+    },
+    {
+      "id": "LOGOS_256",
+      "type": "generated",
+      "strength": 2.4083,
+      "index": 256,
+      "freq": 0.4142
+    },
+    {
+      "id": "SIGMA_257",
+      "type": "generated",
+      "strength": 2.3949,
+      "index": 257,
+      "freq": 0.4158
+    },
+    {
+      "id": "ETHOS_258",
+      "type": "generated",
+      "strength": 2.3816,
+      "index": 258,
+      "freq": 0.4175
+    },
+    {
+      "id": "CREAT_259",
+      "type": "generated",
+      "strength": 2.3685,
+      "index": 259,
+      "freq": 0.4191
+    },
+    {
+      "id": "TRUTH_260",
+      "type": "generated",
+      "strength": 2.3553,
+      "index": 260,
+      "freq": 0.4207
+    },
+    {
+      "id": "MEDIT_261",
+      "type": "generated",
+      "strength": 2.3423,
+      "index": 261,
+      "freq": 0.4223
+    },
+    {
+      "id": "FIBER_262",
+      "type": "generated",
+      "strength": 2.3293,
+      "index": 262,
+      "freq": 0.4239
+    },
+    {
+      "id": "DEEPF_263",
+      "type": "generated",
+      "strength": 2.3164,
+      "index": 263,
+      "freq": 0.4255
+    },
+    {
+      "id": "BUNDL_264",
+      "type": "generated",
+      "strength": 2.3036,
+      "index": 264,
+      "freq": 0.4272
+    },
+    {
+      "id": "PURER_265",
+      "type": "generated",
+      "strength": 2.2908,
+      "index": 265,
+      "freq": 0.4288
+    },
+    {
+      "id": "SHEAF_266",
+      "type": "generated",
+      "strength": 2.2781,
+      "index": 266,
+      "freq": 0.4304
+    },
+    {
+      "id": "NULLM_267",
+      "type": "generated",
+      "strength": 2.2655,
+      "index": 267,
+      "freq": 0.432
+    },
+    {
+      "id": "TOPOS_268",
+      "type": "generated",
+      "strength": 2.2529,
+      "index": 268,
+      "freq": 0.4336
+    },
+    {
+      "id": "ZETAL_269",
+      "type": "generated",
+      "strength": 2.2405,
+      "index": 269,
+      "freq": 0.4353
+    },
+    {
+      "id": "LOGOS_270",
+      "type": "generated",
+      "strength": 2.228,
+      "index": 270,
+      "freq": 0.4369
+    },
+    {
+      "id": "SIGMA_271",
+      "type": "generated",
+      "strength": 2.2157,
+      "index": 271,
+      "freq": 0.4385
+    },
+    {
+      "id": "ETHOS_272",
+      "type": "generated",
+      "strength": 2.2034,
+      "index": 272,
+      "freq": 0.4401
+    },
+    {
+      "id": "CREAT_273",
+      "type": "generated",
+      "strength": 2.1912,
+      "index": 273,
+      "freq": 0.4417
+    },
+    {
+      "id": "TRUTH_274",
+      "type": "generated",
+      "strength": 2.1791,
+      "index": 274,
+      "freq": 0.4433
+    },
+    {
+      "id": "MEDIT_275",
+      "type": "generated",
+      "strength": 2.167,
+      "index": 275,
+      "freq": 0.445
+    },
+    {
+      "id": "FIBER_276",
+      "type": "generated",
+      "strength": 2.155,
+      "index": 276,
+      "freq": 0.4466
+    },
+    {
+      "id": "DEEPF_277",
+      "type": "generated",
+      "strength": 2.1431,
+      "index": 277,
+      "freq": 0.4482
+    },
+    {
+      "id": "BUNDL_278",
+      "type": "generated",
+      "strength": 2.1312,
+      "index": 278,
+      "freq": 0.4498
+    },
+    {
+      "id": "PURER_279",
+      "type": "generated",
+      "strength": 2.1194,
+      "index": 279,
+      "freq": 0.4514
+    },
+    {
+      "id": "SHEAF_280",
+      "type": "generated",
+      "strength": 2.1076,
+      "index": 280,
+      "freq": 0.453
+    },
+    {
+      "id": "NULLM_281",
+      "type": "generated",
+      "strength": 2.096,
+      "index": 281,
+      "freq": 0.4547
+    },
+    {
+      "id": "TOPOS_282",
+      "type": "generated",
+      "strength": 2.0844,
+      "index": 282,
+      "freq": 0.4563
+    },
+    {
+      "id": "ZETAL_283",
+      "type": "generated",
+      "strength": 2.0728,
+      "index": 283,
+      "freq": 0.4579
+    },
+    {
+      "id": "LOGOS_284",
+      "type": "generated",
+      "strength": 2.0613,
+      "index": 284,
+      "freq": 0.4595
+    },
+    {
+      "id": "SIGMA_285",
+      "type": "generated",
+      "strength": 2.0499,
+      "index": 285,
+      "freq": 0.4611
+    },
+    {
+      "id": "ETHOS_286",
+      "type": "generated",
+      "strength": 2.0385,
+      "index": 286,
+      "freq": 0.4628
+    },
+    {
+      "id": "CREAT_287",
+      "type": "generated",
+      "strength": 2.0273,
+      "index": 287,
+      "freq": 0.4644
+    },
+    {
+      "id": "TRUTH_288",
+      "type": "generated",
+      "strength": 2.016,
+      "index": 288,
+      "freq": 0.466
+    },
+    {
+      "id": "MEDIT_289",
+      "type": "generated",
+      "strength": 2.0049,
+      "index": 289,
+      "freq": 0.4676
+    },
+    {
+      "id": "FIBER_290",
+      "type": "generated",
+      "strength": 1.9937,
+      "index": 290,
+      "freq": 0.4692
+    },
+    {
+      "id": "DEEPF_291",
+      "type": "generated",
+      "strength": 1.9827,
+      "index": 291,
+      "freq": 0.4708
+    },
+    {
+      "id": "BUNDL_292",
+      "type": "generated",
+      "strength": 1.9717,
+      "index": 292,
+      "freq": 0.4725
+    },
+    {
+      "id": "PURER_293",
+      "type": "generated",
+      "strength": 1.9608,
+      "index": 293,
+      "freq": 0.4741
+    },
+    {
+      "id": "SHEAF_294",
+      "type": "generated",
+      "strength": 1.9499,
+      "index": 294,
+      "freq": 0.4757
+    },
+    {
+      "id": "NULLM_295",
+      "type": "generated",
+      "strength": 1.9391,
+      "index": 295,
+      "freq": 0.4773
+    },
+    {
+      "id": "TOPOS_296",
+      "type": "generated",
+      "strength": 1.9284,
+      "index": 296,
+      "freq": 0.4789
+    },
+    {
+      "id": "ZETAL_297",
+      "type": "generated",
+      "strength": 1.9177,
+      "index": 297,
+      "freq": 0.4806
+    },
+    {
+      "id": "LOGOS_298",
+      "type": "generated",
+      "strength": 1.9071,
+      "index": 298,
+      "freq": 0.4822
+    },
+    {
+      "id": "SIGMA_299",
+      "type": "generated",
+      "strength": 1.8965,
+      "index": 299,
+      "freq": 0.4838
+    },
+    {
+      "id": "ETHOS_300",
+      "type": "generated",
+      "strength": 1.886,
+      "index": 300,
+      "freq": 0.4854
+    },
+    {
+      "id": "CREAT_301",
+      "type": "generated",
+      "strength": 1.8756,
+      "index": 301,
+      "freq": 0.487
+    },
+    {
+      "id": "TRUTH_302",
+      "type": "generated",
+      "strength": 1.8652,
+      "index": 302,
+      "freq": 0.4886
+    },
+    {
+      "id": "MEDIT_303",
+      "type": "generated",
+      "strength": 1.8548,
+      "index": 303,
+      "freq": 0.4903
+    },
+    {
+      "id": "FIBER_304",
+      "type": "generated",
+      "strength": 1.8446,
+      "index": 304,
+      "freq": 0.4919
+    },
+    {
+      "id": "DEEPF_305",
+      "type": "generated",
+      "strength": 1.8343,
+      "index": 305,
+      "freq": 0.4935
+    },
+    {
+      "id": "BUNDL_306",
+      "type": "generated",
+      "strength": 1.8242,
+      "index": 306,
+      "freq": 0.4951
+    },
+    {
+      "id": "PURER_307",
+      "type": "generated",
+      "strength": 1.8141,
+      "index": 307,
+      "freq": 0.4967
+    },
+    {
+      "id": "SHEAF_308",
+      "type": "generated",
+      "strength": 1.804,
+      "index": 308,
+      "freq": 0.4984
+    },
+    {
+      "id": "NULLM_309",
+      "type": "generated",
+      "strength": 1.794,
+      "index": 309,
+      "freq": 0.5
+    },
+    {
+      "id": "TOPOS_310",
+      "type": "generated",
+      "strength": 1.7841,
+      "index": 310,
+      "freq": 0.5016
+    },
+    {
+      "id": "ZETAL_311",
+      "type": "generated",
+      "strength": 1.7742,
+      "index": 311,
+      "freq": 0.5032
+    },
+    {
+      "id": "LOGOS_312",
+      "type": "generated",
+      "strength": 1.7644,
+      "index": 312,
+      "freq": 0.5048
+    },
+    {
+      "id": "SIGMA_313",
+      "type": "generated",
+      "strength": 1.7546,
+      "index": 313,
+      "freq": 0.5064
+    },
+    {
+      "id": "ETHOS_314",
+      "type": "generated",
+      "strength": 1.7449,
+      "index": 314,
+      "freq": 0.5081
+    },
+    {
+      "id": "CREAT_315",
+      "type": "generated",
+      "strength": 1.7352,
+      "index": 315,
+      "freq": 0.5097
+    },
+    {
+      "id": "TRUTH_316",
+      "type": "generated",
+      "strength": 1.7256,
+      "index": 316,
+      "freq": 0.5113
+    },
+    {
+      "id": "MEDIT_317",
+      "type": "generated",
+      "strength": 1.716,
+      "index": 317,
+      "freq": 0.5129
+    },
+    {
+      "id": "FIBER_318",
+      "type": "generated",
+      "strength": 1.7065,
+      "index": 318,
+      "freq": 0.5145
+    },
+    {
+      "id": "DEEPF_319",
+      "type": "generated",
+      "strength": 1.6971,
+      "index": 319,
+      "freq": 0.5162
+    },
+    {
+      "id": "BUNDL_320",
+      "type": "generated",
+      "strength": 1.6877,
+      "index": 320,
+      "freq": 0.5178
+    },
+    {
+      "id": "PURER_321",
+      "type": "generated",
+      "strength": 1.6783,
+      "index": 321,
+      "freq": 0.5194
+    },
+    {
+      "id": "SHEAF_322",
+      "type": "generated",
+      "strength": 1.669,
+      "index": 322,
+      "freq": 0.521
+    },
+    {
+      "id": "NULLM_323",
+      "type": "generated",
+      "strength": 1.6598,
+      "index": 323,
+      "freq": 0.5226
+    },
+    {
+      "id": "TOPOS_324",
+      "type": "generated",
+      "strength": 1.6506,
+      "index": 324,
+      "freq": 0.5242
+    },
+    {
+      "id": "ZETAL_325",
+      "type": "generated",
+      "strength": 1.6414,
+      "index": 325,
+      "freq": 0.5259
+    },
+    {
+      "id": "LOGOS_326",
+      "type": "generated",
+      "strength": 1.6323,
+      "index": 326,
+      "freq": 0.5275
+    },
+    {
+      "id": "SIGMA_327",
+      "type": "generated",
+      "strength": 1.6233,
+      "index": 327,
+      "freq": 0.5291
+    },
+    {
+      "id": "ETHOS_328",
+      "type": "generated",
+      "strength": 1.6143,
+      "index": 328,
+      "freq": 0.5307
+    },
+    {
+      "id": "CREAT_329",
+      "type": "generated",
+      "strength": 1.6054,
+      "index": 329,
+      "freq": 0.5323
+    },
+    {
+      "id": "TRUTH_330",
+      "type": "generated",
+      "strength": 1.5965,
+      "index": 330,
+      "freq": 0.534
+    },
+    {
+      "id": "MEDIT_331",
+      "type": "generated",
+      "strength": 1.5876,
+      "index": 331,
+      "freq": 0.5356
+    },
+    {
+      "id": "FIBER_332",
+      "type": "generated",
+      "strength": 1.5788,
+      "index": 332,
+      "freq": 0.5372
+    },
+    {
+      "id": "DEEPF_333",
+      "type": "generated",
+      "strength": 1.5701,
+      "index": 333,
+      "freq": 0.5388
+    },
+    {
+      "id": "BUNDL_334",
+      "type": "generated",
+      "strength": 1.5614,
+      "index": 334,
+      "freq": 0.5404
+    },
+    {
+      "id": "PURER_335",
+      "type": "generated",
+      "strength": 1.5527,
+      "index": 335,
+      "freq": 0.542
+    },
+    {
+      "id": "SHEAF_336",
+      "type": "generated",
+      "strength": 1.5441,
+      "index": 336,
+      "freq": 0.5437
+    },
+    {
+      "id": "NULLM_337",
+      "type": "generated",
+      "strength": 1.5356,
+      "index": 337,
+      "freq": 0.5453
+    },
+    {
+      "id": "TOPOS_338",
+      "type": "generated",
+      "strength": 1.5271,
+      "index": 338,
+      "freq": 0.5469
+    },
+    {
+      "id": "ZETAL_339",
+      "type": "generated",
+      "strength": 1.5186,
+      "index": 339,
+      "freq": 0.5485
+    },
+    {
+      "id": "LOGOS_340",
+      "type": "generated",
+      "strength": 1.5102,
+      "index": 340,
+      "freq": 0.5501
+    },
+    {
+      "id": "SIGMA_341",
+      "type": "generated",
+      "strength": 1.5018,
+      "index": 341,
+      "freq": 0.5517
+    },
+    {
+      "id": "ETHOS_342",
+      "type": "generated",
+      "strength": 1.4935,
+      "index": 342,
+      "freq": 0.5534
+    },
+    {
+      "id": "CREAT_343",
+      "type": "generated",
+      "strength": 1.4852,
+      "index": 343,
+      "freq": 0.555
+    },
+    {
+      "id": "TRUTH_344",
+      "type": "generated",
+      "strength": 1.477,
+      "index": 344,
+      "freq": 0.5566
+    },
+    {
+      "id": "MEDIT_345",
+      "type": "generated",
+      "strength": 1.4688,
+      "index": 345,
+      "freq": 0.5582
+    },
+    {
+      "id": "FIBER_346",
+      "type": "generated",
+      "strength": 1.4607,
+      "index": 346,
+      "freq": 0.5598
+    },
+    {
+      "id": "DEEPF_347",
+      "type": "generated",
+      "strength": 1.4526,
+      "index": 347,
+      "freq": 0.5615
+    },
+    {
+      "id": "BUNDL_348",
+      "type": "generated",
+      "strength": 1.4445,
+      "index": 348,
+      "freq": 0.5631
+    },
+    {
+      "id": "PURER_349",
+      "type": "generated",
+      "strength": 1.4365,
+      "index": 349,
+      "freq": 0.5647
+    },
+    {
+      "id": "SHEAF_350",
+      "type": "generated",
+      "strength": 1.4286,
+      "index": 350,
+      "freq": 0.5663
+    },
+    {
+      "id": "NULLM_351",
+      "type": "generated",
+      "strength": 1.4207,
+      "index": 351,
+      "freq": 0.5679
+    },
+    {
+      "id": "TOPOS_352",
+      "type": "generated",
+      "strength": 1.4128,
+      "index": 352,
+      "freq": 0.5695
+    },
+    {
+      "id": "ZETAL_353",
+      "type": "generated",
+      "strength": 1.405,
+      "index": 353,
+      "freq": 0.5712
+    },
+    {
+      "id": "LOGOS_354",
+      "type": "generated",
+      "strength": 1.3972,
+      "index": 354,
+      "freq": 0.5728
+    },
+    {
+      "id": "SIGMA_355",
+      "type": "generated",
+      "strength": 1.3894,
+      "index": 355,
+      "freq": 0.5744
+    },
+    {
+      "id": "ETHOS_356",
+      "type": "generated",
+      "strength": 1.3817,
+      "index": 356,
+      "freq": 0.576
+    },
+    {
+      "id": "CREAT_357",
+      "type": "generated",
+      "strength": 1.3741,
+      "index": 357,
+      "freq": 0.5776
+    },
+    {
+      "id": "TRUTH_358",
+      "type": "generated",
+      "strength": 1.3665,
+      "index": 358,
+      "freq": 0.5793
+    },
+    {
+      "id": "MEDIT_359",
+      "type": "generated",
+      "strength": 1.3589,
+      "index": 359,
+      "freq": 0.5809
+    },
+    {
+      "id": "FIBER_360",
+      "type": "generated",
+      "strength": 1.3514,
+      "index": 360,
+      "freq": 0.5825
+    },
+    {
+      "id": "DEEPF_361",
+      "type": "generated",
+      "strength": 1.3439,
+      "index": 361,
+      "freq": 0.5841
+    },
+    {
+      "id": "BUNDL_362",
+      "type": "generated",
+      "strength": 1.3364,
+      "index": 362,
+      "freq": 0.5857
+    },
+    {
+      "id": "PURER_363",
+      "type": "generated",
+      "strength": 1.329,
+      "index": 363,
+      "freq": 0.5873
+    },
+    {
+      "id": "SHEAF_364",
+      "type": "generated",
+      "strength": 1.3217,
+      "index": 364,
+      "freq": 0.589
+    },
+    {
+      "id": "NULLM_365",
+      "type": "generated",
+      "strength": 1.3144,
+      "index": 365,
+      "freq": 0.5906
+    },
+    {
+      "id": "TOPOS_366",
+      "type": "generated",
+      "strength": 1.3071,
+      "index": 366,
+      "freq": 0.5922
+    },
+    {
+      "id": "ZETAL_367",
+      "type": "generated",
+      "strength": 1.2998,
+      "index": 367,
+      "freq": 0.5938
+    },
+    {
+      "id": "LOGOS_368",
+      "type": "generated",
+      "strength": 1.2926,
+      "index": 368,
+      "freq": 0.5954
+    },
+    {
+      "id": "SIGMA_369",
+      "type": "generated",
+      "strength": 1.2855,
+      "index": 369,
+      "freq": 0.5971
+    },
+    {
+      "id": "ETHOS_370",
+      "type": "generated",
+      "strength": 1.2784,
+      "index": 370,
+      "freq": 0.5987
+    },
+    {
+      "id": "CREAT_371",
+      "type": "generated",
+      "strength": 1.2713,
+      "index": 371,
+      "freq": 0.6003
+    },
+    {
+      "id": "TRUTH_372",
+      "type": "generated",
+      "strength": 1.2642,
+      "index": 372,
+      "freq": 0.6019
+    },
+    {
+      "id": "MEDIT_373",
+      "type": "generated",
+      "strength": 1.2572,
+      "index": 373,
+      "freq": 0.6035
+    },
+    {
+      "id": "FIBER_374",
+      "type": "generated",
+      "strength": 1.2503,
+      "index": 374,
+      "freq": 0.6051
+    },
+    {
+      "id": "DEEPF_375",
+      "type": "generated",
+      "strength": 1.2433,
+      "index": 375,
+      "freq": 0.6068
+    },
+    {
+      "id": "BUNDL_376",
+      "type": "generated",
+      "strength": 1.2364,
+      "index": 376,
+      "freq": 0.6084
+    },
+    {
+      "id": "PURER_377",
+      "type": "generated",
+      "strength": 1.2296,
+      "index": 377,
+      "freq": 0.61
+    },
+    {
+      "id": "SHEAF_378",
+      "type": "generated",
+      "strength": 1.2228,
+      "index": 378,
+      "freq": 0.6116
+    },
+    {
+      "id": "NULLM_379",
+      "type": "generated",
+      "strength": 1.216,
+      "index": 379,
+      "freq": 0.6132
+    },
+    {
+      "id": "TOPOS_380",
+      "type": "generated",
+      "strength": 1.2093,
+      "index": 380,
+      "freq": 0.6149
+    },
+    {
+      "id": "ZETAL_381",
+      "type": "generated",
+      "strength": 1.2026,
+      "index": 381,
+      "freq": 0.6165
+    },
+    {
+      "id": "LOGOS_382",
+      "type": "generated",
+      "strength": 1.1959,
+      "index": 382,
+      "freq": 0.6181
+    },
+    {
+      "id": "SIGMA_383",
+      "type": "generated",
+      "strength": 1.1893,
+      "index": 383,
+      "freq": 0.6197
+    },
+    {
+      "id": "ETHOS_384",
+      "type": "generated",
+      "strength": 1.1827,
+      "index": 384,
+      "freq": 0.6213
+    },
+    {
+      "id": "CREAT_385",
+      "type": "generated",
+      "strength": 1.1761,
+      "index": 385,
+      "freq": 0.6229
+    },
+    {
+      "id": "TRUTH_386",
+      "type": "generated",
+      "strength": 1.1696,
+      "index": 386,
+      "freq": 0.6246
+    },
+    {
+      "id": "MEDIT_387",
+      "type": "generated",
+      "strength": 1.1631,
+      "index": 387,
+      "freq": 0.6262
+    },
+    {
+      "id": "FIBER_388",
+      "type": "generated",
+      "strength": 1.1567,
+      "index": 388,
+      "freq": 0.6278
+    },
+    {
+      "id": "DEEPF_389",
+      "type": "generated",
+      "strength": 1.1503,
+      "index": 389,
+      "freq": 0.6294
+    },
+    {
+      "id": "BUNDL_390",
+      "type": "generated",
+      "strength": 1.1439,
+      "index": 390,
+      "freq": 0.631
+    },
+    {
+      "id": "PURER_391",
+      "type": "generated",
+      "strength": 1.1376,
+      "index": 391,
+      "freq": 0.6327
+    },
+    {
+      "id": "SHEAF_392",
+      "type": "generated",
+      "strength": 1.1313,
+      "index": 392,
+      "freq": 0.6343
+    },
+    {
+      "id": "NULLM_393",
+      "type": "generated",
+      "strength": 1.125,
+      "index": 393,
+      "freq": 0.6359
+    },
+    {
+      "id": "TOPOS_394",
+      "type": "generated",
+      "strength": 1.1188,
+      "index": 394,
+      "freq": 0.6375
+    },
+    {
+      "id": "ZETAL_395",
+      "type": "generated",
+      "strength": 1.1126,
+      "index": 395,
+      "freq": 0.6391
+    },
+    {
+      "id": "LOGOS_396",
+      "type": "generated",
+      "strength": 1.1064,
+      "index": 396,
+      "freq": 0.6407
+    },
+    {
+      "id": "SIGMA_397",
+      "type": "generated",
+      "strength": 1.1003,
+      "index": 397,
+      "freq": 0.6424
+    },
+    {
+      "id": "ETHOS_398",
+      "type": "generated",
+      "strength": 1.0942,
+      "index": 398,
+      "freq": 0.644
+    },
+    {
+      "id": "CREAT_399",
+      "type": "generated",
+      "strength": 1.0881,
+      "index": 399,
+      "freq": 0.6456
+    },
+    {
+      "id": "TRUTH_400",
+      "type": "generated",
+      "strength": 1.0821,
+      "index": 400,
+      "freq": 0.6472
+    },
+    {
+      "id": "MEDIT_401",
+      "type": "generated",
+      "strength": 1.0761,
+      "index": 401,
+      "freq": 0.6488
+    },
+    {
+      "id": "FIBER_402",
+      "type": "generated",
+      "strength": 1.0701,
+      "index": 402,
+      "freq": 0.6504
+    },
+    {
+      "id": "DEEPF_403",
+      "type": "generated",
+      "strength": 1.0642,
+      "index": 403,
+      "freq": 0.6521
+    },
+    {
+      "id": "BUNDL_404",
+      "type": "generated",
+      "strength": 1.0583,
+      "index": 404,
+      "freq": 0.6537
+    },
+    {
+      "id": "PURER_405",
+      "type": "generated",
+      "strength": 1.0525,
+      "index": 405,
+      "freq": 0.6553
+    },
+    {
+      "id": "SHEAF_406",
+      "type": "generated",
+      "strength": 1.0466,
+      "index": 406,
+      "freq": 0.6569
+    },
+    {
+      "id": "NULLM_407",
+      "type": "generated",
+      "strength": 1.0408,
+      "index": 407,
+      "freq": 0.6585
+    },
+    {
+      "id": "TOPOS_408",
+      "type": "generated",
+      "strength": 1.0351,
+      "index": 408,
+      "freq": 0.6602
+    },
+    {
+      "id": "ZETAL_409",
+      "type": "generated",
+      "strength": 1.0293,
+      "index": 409,
+      "freq": 0.6618
+    },
+    {
+      "id": "LOGOS_410",
+      "type": "generated",
+      "strength": 1.0236,
+      "index": 410,
+      "freq": 0.6634
+    },
+    {
+      "id": "SIGMA_411",
+      "type": "generated",
+      "strength": 1.018,
+      "index": 411,
+      "freq": 0.665
+    },
+    {
+      "id": "ETHOS_412",
+      "type": "generated",
+      "strength": 1.0123,
+      "index": 412,
+      "freq": 0.6666
+    },
+    {
+      "id": "CREAT_413",
+      "type": "generated",
+      "strength": 1.0067,
+      "index": 413,
+      "freq": 0.6682
+    },
+    {
+      "id": "TRUTH_414",
+      "type": "generated",
+      "strength": 1.0011,
+      "index": 414,
+      "freq": 0.6699
+    },
+    {
+      "id": "MEDIT_415",
+      "type": "generated",
+      "strength": 0.9956,
+      "index": 415,
+      "freq": 0.6715
+    },
+    {
+      "id": "FIBER_416",
+      "type": "generated",
+      "strength": 0.9901,
+      "index": 416,
+      "freq": 0.6731
+    },
+    {
+      "id": "DEEPF_417",
+      "type": "generated",
+      "strength": 0.9846,
+      "index": 417,
+      "freq": 0.6747
+    },
+    {
+      "id": "BUNDL_418",
+      "type": "generated",
+      "strength": 0.9791,
+      "index": 418,
+      "freq": 0.6763
+    },
+    {
+      "id": "PURER_419",
+      "type": "generated",
+      "strength": 0.9737,
+      "index": 419,
+      "freq": 0.678
+    },
+    {
+      "id": "SHEAF_420",
+      "type": "generated",
+      "strength": 0.9683,
+      "index": 420,
+      "freq": 0.6796
+    },
+    {
+      "id": "NULLM_421",
+      "type": "generated",
+      "strength": 0.9629,
+      "index": 421,
+      "freq": 0.6812
+    },
+    {
+      "id": "TOPOS_422",
+      "type": "generated",
+      "strength": 0.9576,
+      "index": 422,
+      "freq": 0.6828
+    },
+    {
+      "id": "ZETAL_423",
+      "type": "generated",
+      "strength": 0.9523,
+      "index": 423,
+      "freq": 0.6844
+    },
+    {
+      "id": "LOGOS_424",
+      "type": "generated",
+      "strength": 0.947,
+      "index": 424,
+      "freq": 0.686
+    },
+    {
+      "id": "SIGMA_425",
+      "type": "generated",
+      "strength": 0.9418,
+      "index": 425,
+      "freq": 0.6877
+    },
+    {
+      "id": "ETHOS_426",
+      "type": "generated",
+      "strength": 0.9366,
+      "index": 426,
+      "freq": 0.6893
+    },
+    {
+      "id": "CREAT_427",
+      "type": "generated",
+      "strength": 0.9314,
+      "index": 427,
+      "freq": 0.6909
+    },
+    {
+      "id": "TRUTH_428",
+      "type": "generated",
+      "strength": 0.9262,
+      "index": 428,
+      "freq": 0.6925
+    },
+    {
+      "id": "MEDIT_429",
+      "type": "generated",
+      "strength": 0.9211,
+      "index": 429,
+      "freq": 0.6941
+    },
+    {
+      "id": "FIBER_430",
+      "type": "generated",
+      "strength": 0.916,
+      "index": 430,
+      "freq": 0.6958
+    },
+    {
+      "id": "DEEPF_431",
+      "type": "generated",
+      "strength": 0.9109,
+      "index": 431,
+      "freq": 0.6974
+    },
+    {
+      "id": "BUNDL_432",
+      "type": "generated",
+      "strength": 0.9059,
+      "index": 432,
+      "freq": 0.699
+    },
+    {
+      "id": "PURER_433",
+      "type": "generated",
+      "strength": 0.9008,
+      "index": 433,
+      "freq": 0.7006
+    },
+    {
+      "id": "SHEAF_434",
+      "type": "generated",
+      "strength": 0.8958,
+      "index": 434,
+      "freq": 0.7022
+    },
+    {
+      "id": "NULLM_435",
+      "type": "generated",
+      "strength": 0.8909,
+      "index": 435,
+      "freq": 0.7038
+    },
+    {
+      "id": "TOPOS_436",
+      "type": "generated",
+      "strength": 0.8859,
+      "index": 436,
+      "freq": 0.7055
+    },
+    {
+      "id": "ZETAL_437",
+      "type": "generated",
+      "strength": 0.881,
+      "index": 437,
+      "freq": 0.7071
+    },
+    {
+      "id": "LOGOS_438",
+      "type": "generated",
+      "strength": 0.8762,
+      "index": 438,
+      "freq": 0.7087
+    },
+    {
+      "id": "SIGMA_439",
+      "type": "generated",
+      "strength": 0.8713,
+      "index": 439,
+      "freq": 0.7103
+    },
+    {
+      "id": "ETHOS_440",
+      "type": "generated",
+      "strength": 0.8665,
+      "index": 440,
+      "freq": 0.7119
+    },
+    {
+      "id": "CREAT_441",
+      "type": "generated",
+      "strength": 0.8617,
+      "index": 441,
+      "freq": 0.7136
+    },
+    {
+      "id": "TRUTH_442",
+      "type": "generated",
+      "strength": 0.8569,
+      "index": 442,
+      "freq": 0.7152
+    },
+    {
+      "id": "MEDIT_443",
+      "type": "generated",
+      "strength": 0.8522,
+      "index": 443,
+      "freq": 0.7168
+    },
+    {
+      "id": "FIBER_444",
+      "type": "generated",
+      "strength": 0.8474,
+      "index": 444,
+      "freq": 0.7184
+    },
+    {
+      "id": "DEEPF_445",
+      "type": "generated",
+      "strength": 0.8427,
+      "index": 445,
+      "freq": 0.72
+    },
+    {
+      "id": "BUNDL_446",
+      "type": "generated",
+      "strength": 0.8381,
+      "index": 446,
+      "freq": 0.7216
+    },
+    {
+      "id": "PURER_447",
+      "type": "generated",
+      "strength": 0.8334,
+      "index": 447,
+      "freq": 0.7233
+    },
+    {
+      "id": "SHEAF_448",
+      "type": "generated",
+      "strength": 0.8288,
+      "index": 448,
+      "freq": 0.7249
+    },
+    {
+      "id": "NULLM_449",
+      "type": "generated",
+      "strength": 0.8242,
+      "index": 449,
+      "freq": 0.7265
+    },
+    {
+      "id": "TOPOS_450",
+      "type": "generated",
+      "strength": 0.8197,
+      "index": 450,
+      "freq": 0.7281
+    },
+    {
+      "id": "ZETAL_451",
+      "type": "generated",
+      "strength": 0.8151,
+      "index": 451,
+      "freq": 0.7297
+    },
+    {
+      "id": "LOGOS_452",
+      "type": "generated",
+      "strength": 0.8106,
+      "index": 452,
+      "freq": 0.7314
+    },
+    {
+      "id": "SIGMA_453",
+      "type": "generated",
+      "strength": 0.8061,
+      "index": 453,
+      "freq": 0.733
+    },
+    {
+      "id": "ETHOS_454",
+      "type": "generated",
+      "strength": 0.8016,
+      "index": 454,
+      "freq": 0.7346
+    },
+    {
+      "id": "CREAT_455",
+      "type": "generated",
+      "strength": 0.7972,
+      "index": 455,
+      "freq": 0.7362
+    },
+    {
+      "id": "TRUTH_456",
+      "type": "generated",
+      "strength": 0.7928,
+      "index": 456,
+      "freq": 0.7378
+    },
+    {
+      "id": "MEDIT_457",
+      "type": "generated",
+      "strength": 0.7884,
+      "index": 457,
+      "freq": 0.7394
+    },
+    {
+      "id": "FIBER_458",
+      "type": "generated",
+      "strength": 0.784,
+      "index": 458,
+      "freq": 0.7411
+    },
+    {
+      "id": "DEEPF_459",
+      "type": "generated",
+      "strength": 0.7797,
+      "index": 459,
+      "freq": 0.7427
+    },
+    {
+      "id": "BUNDL_460",
+      "type": "generated",
+      "strength": 0.7754,
+      "index": 460,
+      "freq": 0.7443
+    },
+    {
+      "id": "PURER_461",
+      "type": "generated",
+      "strength": 0.7711,
+      "index": 461,
+      "freq": 0.7459
+    },
+    {
+      "id": "SHEAF_462",
+      "type": "generated",
+      "strength": 0.7668,
+      "index": 462,
+      "freq": 0.7475
+    },
+    {
+      "id": "NULLM_463",
+      "type": "generated",
+      "strength": 0.7625,
+      "index": 463,
+      "freq": 0.7491
+    },
+    {
+      "id": "TOPOS_464",
+      "type": "generated",
+      "strength": 0.7583,
+      "index": 464,
+      "freq": 0.7508
+    },
+    {
+      "id": "ZETAL_465",
+      "type": "generated",
+      "strength": 0.7541,
+      "index": 465,
+      "freq": 0.7524
+    },
+    {
+      "id": "LOGOS_466",
+      "type": "generated",
+      "strength": 0.7499,
+      "index": 466,
+      "freq": 0.754
+    },
+    {
+      "id": "SIGMA_467",
+      "type": "generated",
+      "strength": 0.7458,
+      "index": 467,
+      "freq": 0.7556
+    },
+    {
+      "id": "ETHOS_468",
+      "type": "generated",
+      "strength": 0.7417,
+      "index": 468,
+      "freq": 0.7572
+    },
+    {
+      "id": "CREAT_469",
+      "type": "generated",
+      "strength": 0.7375,
+      "index": 469,
+      "freq": 0.7589
+    },
+    {
+      "id": "TRUTH_470",
+      "type": "generated",
+      "strength": 0.7335,
+      "index": 470,
+      "freq": 0.7605
+    },
+    {
+      "id": "MEDIT_471",
+      "type": "generated",
+      "strength": 0.7294,
+      "index": 471,
+      "freq": 0.7621
+    },
+    {
+      "id": "FIBER_472",
+      "type": "generated",
+      "strength": 0.7254,
+      "index": 472,
+      "freq": 0.7637
+    },
+    {
+      "id": "DEEPF_473",
+      "type": "generated",
+      "strength": 0.7213,
+      "index": 473,
+      "freq": 0.7653
+    },
+    {
+      "id": "BUNDL_474",
+      "type": "generated",
+      "strength": 0.7173,
+      "index": 474,
+      "freq": 0.7669
+    },
+    {
+      "id": "PURER_475",
+      "type": "generated",
+      "strength": 0.7134,
+      "index": 475,
+      "freq": 0.7686
+    },
+    {
+      "id": "SHEAF_476",
+      "type": "generated",
+      "strength": 0.7094,
+      "index": 476,
+      "freq": 0.7702
+    },
+    {
+      "id": "NULLM_477",
+      "type": "generated",
+      "strength": 0.7055,
+      "index": 477,
+      "freq": 0.7718
+    },
+    {
+      "id": "TOPOS_478",
+      "type": "generated",
+      "strength": 0.7016,
+      "index": 478,
+      "freq": 0.7734
+    },
+    {
+      "id": "ZETAL_479",
+      "type": "generated",
+      "strength": 0.6977,
+      "index": 479,
+      "freq": 0.775
+    },
+    {
+      "id": "LOGOS_480",
+      "type": "generated",
+      "strength": 0.6938,
+      "index": 480,
+      "freq": 0.7767
+    },
+    {
+      "id": "SIGMA_481",
+      "type": "generated",
+      "strength": 0.69,
+      "index": 481,
+      "freq": 0.7783
+    }
+  ],
+  "count": 481,
   "target": 481,
   "score": 47229
 }
