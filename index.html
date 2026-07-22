@@ -385,19 +385,19 @@
   <div class="sb-header">
     <div class="sb-header-top">
       <span class="sb-title">◈ OMNIBRAIN</span>
-      <button class="sb-new-btn" onclick="omniSBNewChat()">+ New Chat</button>
+      <button class="sb-new-btn" onclick="SB.newChat()">+ New Chat</button>
     </div>
     <input class="sb-search" id="omniSBSearch" placeholder="Search conversations..."
       oninput="omniSBFilter(this.value)" type="text"/>
   </div>
 
   <div class="sb-projects" id="omniSBProjects">
-    <button class="sb-proj-tab active" data-project="all" onclick="omniSBSetProject('all',this)">All</button>
-    <button class="sb-proj-tab" data-project="vault" onclick="omniSBSetProject('vault',this)">Vault</button>
-    <button class="sb-proj-tab" data-project="builds" onclick="omniSBSetProject('builds',this)">Builds</button>
-    <button class="sb-proj-tab" data-project="research" onclick="omniSBSetProject('research',this)">Research</button>
-    <button class="sb-proj-tab" data-project="pinned" onclick="omniSBSetProject('pinned',this)">Pinned</button>
-    <button class="sb-proj-add" onclick="omniSBAddProject()" title="New project">+</button>
+    <button class="sb-proj-tab active" data-project="all" onclick="SB.setProj('all')">All</button>
+    <button class="sb-proj-tab" data-project="vault" onclick="SB.setProj('vault')">Vault</button>
+    <button class="sb-proj-tab" data-project="builds" onclick="SB.setProj('builds')">Builds</button>
+    <button class="sb-proj-tab" data-project="research" onclick="SB.setProj('research')">Research</button>
+    <button class="sb-proj-tab" data-project="pinned" onclick="SB.setProj('pinned')">Pinned</button>
+    <button class="sb-proj-add" onclick="SB.addProject()" title="New project">+</button>
   </div>
 
   <div class="sb-list" id="omniSBList">
@@ -411,7 +411,7 @@
     <div class="sb-stats" id="omniSBStats">
       ◈ 0 conversations · 0 vault entries
     </div>
-    <button class="sb-vault-btn" onclick="omniSBPushVault()">
+    <button class="sb-vault-btn" onclick="SB.syncNow()">
       ⬆ Push all chats to vault
     </button>
   </div>
@@ -1276,7 +1276,6 @@ function proc(c){
     .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
     out('', 'to');
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
-    out('◈ OMNIBRAIN thinking...', 'tdim');
     fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(180000)})
       .then(r=>r.json())
       .then(d=>{
@@ -3029,7 +3028,8 @@ try {
 
     // Patch addMsg to intercept every message
     const _orig = window.addMsg;
-    if (typeof _orig === 'function') {
+    if (typeof _orig === 'function' && !window._sbPatched) {
+      window._sbPatched = true;
       window.addMsg = function(text, type, extra) {
         _orig.apply(this, arguments);
         if (window._sbRestoring) return;
