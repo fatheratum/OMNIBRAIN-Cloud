@@ -1076,22 +1076,17 @@ function proc(c){
   }
   else {
     // Generic conversational acknowledgment
-    // OMNIBRAIN-LLM — fetch real response from Mistral-7B
-  out('◈ OMNIBRAIN thinking...', 'tdim');
-  try {
-    const _r = await fetch('/chat', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({prompt: c})
-    });
-    const _d = await _r.json();
-    const _resp = _d.response || '';
-    // Remove the thinking line
-    const _lines = document.getElementById('terminal');
-    if (_lines && _lines.lastChild) _lines.lastChild.remove();
-    out(_resp, 'to');
-  } catch(_e) {
-    out('[OMNIBRAIN-LLM] Error: ' + _e.message, 'terror');
-  }
+    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions
+  out('◈ OMNIBRAIN-LLM processing...', 'tdim');
+  fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
+    .then(r=>r.json())
+    .then(d=>{
+      // Remove the processing line
+      const t=document.getElementById('terminal');
+      if(t&&t.lastElementChild)t.lastElementChild.remove();
+      out(d.response||'[OMNIBRAIN-LLM] No response','to');
+    })
+    .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
     out('', 'to');
     out('The OmniBrain LLM layer has been injected (omnibrain-llm/). Full local generation is coming online.', 'to');
     out('For now I can still route pure questions through the reasoning expert path and the vault.', 'to');
