@@ -3106,10 +3106,17 @@ try {
     console.log('[OMNIBRAIN-SIDEBAR] GitHub-persistent chat history ready');
   });
 
+  function refresh() {
+    const fresh = cacheLoad();
+    console.log('[SB] refresh — found', fresh.length, 'conversations');
+    renderList(fresh);
+    updateStat(fresh);
+  }
+
   return {
     toggle, open:openSB, close, newChat, loadChat, filter,
     pin, rename, del, move, setProj, addProject, syncNow,
-    saveMsg
+    saveMsg, refresh
   };
 } catch(e) { console.error("[SIDEBAR ERROR]", e); return {toggle:()=>{},open:()=>{},close:()=>{},newChat:()=>{},loadChat:()=>{},filter:()=>{},pin:()=>{},rename:()=>{},del:()=>{},move:()=>{},setProj:()=>{},addProject:()=>{},syncNow:()=>{},saveMsg:()=>{}}; }
 })();
