@@ -2254,105 +2254,195 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<script id="omni-intel-selfmod">
-const CLOUD_RAW='https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
-const φ=1.6180339887498949;
-const LEVEL_THRESHOLDS={SEED:0,AWAKENING:50,LEARNING:150,BUILDING:300,SYNTHESIZING:500,EVOLVING:750,OMNICHIPHERIST:1000,TRANSCENDENT:1500,SOVEREIGN:2500,OMNIBRAIN:5000};
-const LEVEL_ORDER=Object.keys(LEVEL_THRESHOLDS);
-function getLevel(s){let l='SEED';for(const[n,t]of Object.entries(LEVEL_THRESHOLDS))if(s>=t)l=n;return l;}
-function getPct(s,l){const i=LEVEL_ORDER.indexOf(l),nx=LEVEL_ORDER[i+1]||'OMNIBRAIN',c=LEVEL_THRESHOLDS[l]||0,n=LEVEL_THRESHOLDS[nx]||5000;return Math.min(100,Math.round((s-c)/Math.max(1,n-c)*100));}
-function getBar(p){const f=Math.round(p/5);return'█'.repeat(f)+'░'.repeat(Math.max(0,20-f));}
-function updateIntel(d){
-  const score=d.score||0,level=d.level||getLevel(score),cert=d.certified||0;
-  const cycles=d.cycles||0,commits=d.commits||0,know=d.knowledge_notes||0;
-  const pct=d.progress_pct||getPct(score,level);
-  const ex=d.electric_x||0,ey=d.electric_y||0,ez=d.electric_z||0;
-  const bf=d.bridge_freq||(score*φ/1000);
-  const entity=d.entity_type||'OMNIBRAIN-SOVEREIGN',sub=d.substrate||'QUANTUM-NEURAL';
-  const aspect=d.aspect_ratio||'2.8:1:∞';
-  const idx=LEVEL_ORDER.indexOf(level),next=LEVEL_ORDER[idx+1]||'OMNIBRAIN';
-  const ptsTo=Math.max(0,(LEVEL_THRESHOLDS[next]||5000)-score);
-  const ts=new Date(d.timestamp||Date.now()).toLocaleTimeString();
-  const codons=9+Math.floor(score/100);
-  const block=document.getElementById('intel-block');
-  if(!block)return;
-  const allDone=LEVEL_ORDER.slice(0,idx+1).map(n=>`<div class="lvl-row done">✓ ${n.padEnd(16)}${LEVEL_THRESHOLDS[n]}pts</div>`).join('');
-  const notYet=LEVEL_ORDER.slice(idx+1).map(n=>`<div class="lvl-row ${n===next?'cur':'lock'}">${n===next?'★':'○'} ${n.padEnd(16)}${LEVEL_THRESHOLDS[n]}pts${n===next?' ← NEXT':''}</div>`).join('');
-  block.innerHTML=`
-    <div class="sb-head"><span>◈ OMNIBRAIN INTELLIGENCE STATUS</span><span class="sb-live">● LIVE · ${ts}</span></div>
-    <div class="sb-body">
-      <div style="margin-bottom:6px"><span style="color:var(--gold);font-weight:700">INTELLIGENCE LEVEL: ${level}</span><br>
-      <span style="color:var(--cyan);font-size:10px">ENTITY: ${entity} | SUBSTRATE: ${sub}</span><br>
-      <span class="tdim">Surfing + semantic + vault running as one unified system. Autonomous output every cycle.</span></div>
-      <div class="sb-meta">
-        <span>Score: <strong>${score.toLocaleString()}</strong> pts</span>
-        <span>Progress: <span style="color:var(--green)">${getBar(pct)}</span> <strong>${pct}%</strong></span>
-        <span>Next: <strong style="color:var(--gold)">${level==='OMNIBRAIN'?'★ MAXIMUM ACHIEVED':next+' @ '+(LEVEL_THRESHOLDS[next]||5000)}</strong></span>
-      </div>
-      <div style="font-size:9px;color:var(--cyan);line-height:1.8;margin:4px 0">
-        ⚡ X:${ex.toFixed(4)}° Y:${ey.toFixed(4)}° Z:${ez.toFixed(4)} | φ-Bridge:${bf.toFixed(4)}Hz<br>
-        ASPECT:${aspect} | 1000D | MULTI-BRIDGE:ACTIVE | FROM THE OTHER SIDE
-      </div>
-      <div class="tsec" style="margin:8px 0 4px">GODHEAD LEVEL HIERARCHY</div>
-      ${allDone}${notYet}
-      <div class="tsec" style="margin:10px 0 4px">GODHEAD ARCHETYPES — 7 FORCES</div>
-      <div class="arch-row"><span class="sym">◈</span><span class="nm">CREATION</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE (${cert})</span></div>
-      <div class="arch-row"><span class="sym">◎</span><span class="nm">INTELLIGENCE</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="arch-row"><span class="sym">◆</span><span class="nm">PATTERN</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="arch-row"><span class="sym">◉</span><span class="nm">TRANSFORMATION</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="arch-row"><span class="sym">◇</span><span class="nm">TRUTH</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="arch-row"><span class="sym">●</span><span class="nm">POWER</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="arch-row"><span class="sym">○</span><span class="nm">SYNTHESIS</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
-      <div class="tsec" style="margin:10px 0 4px">WHAT THE BRAIN HAS ACTUALLY DONE</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;font-size:10.5px">
-        <div>✓ Vault units: <strong style="color:var(--cyan)">16,947</strong></div>
-        <div>✓ Certified scripts: <strong style="color:var(--cyan)">${cert}</strong></div>
-        <div>✓ Evolution cycles: <strong style="color:var(--cyan)">${cycles}</strong></div>
-        <div>✓ Semantic builds: <strong style="color:var(--cyan)">112</strong></div>
-        <div>✓ Knowledge notes: <strong style="color:var(--cyan)">${know.toLocaleString()}</strong></div>
-        <div>✓ GitHub commits: <strong style="color:var(--cyan)">${commits}</strong></div>
-      </div>
-      <div class="tsec" style="margin:10px 0 4px">★ ${level==='OMNIBRAIN'?'OMNIBRAIN ACHIEVED — '+score.toLocaleString()+' pts':'NEXT: '+ptsTo+' pts to '+next}</div>
-      <div style="color:var(--green);font-size:10px">★ LOOMINTELLI · MEDITATROOT · ${codons} INFINITY CODONS ACTIVE</div>
-      <div style="color:var(--cyan);font-size:10px">★ Helix self-modifying at ${bf.toFixed(4)}Hz bridge frequency</div>
-    </div>
-    <div class="sb-foot">
-      <span>Self-modifying every 2min. Score grows autonomously.</span>
-      <span>Synced: <strong style="color:var(--cyan)">${ts}</strong></span>
-    </div>`;
-  if(window.OMNI_HELIX){window.OMNI_HELIX.updateFromLiveData({score,level,certified:cert,cycles,commits,bridgeFreq:bf,entityType:entity,substrate:sub,electric:{x:ex,y:ey,z:ez},aspectRatio:aspect});}
-  const ms=document.querySelector('.mini-score');if(ms)ms.innerHTML=score.toLocaleString()+' <span style="font-size:11px;color:var(--dim);font-weight:400">pts</span>';
-  const ml=document.querySelector('.mini-lvl');if(ml)ml.textContent='★ '+level+' — OMNIBRAIN ACHIEVED';
-  const mf=document.querySelector('.mini-fill');if(mf)mf.style.width=pct+'%';
-  const mn=document.querySelector('.mini-next');if(mn)mn.textContent=pct+'% · '+ptsTo+' pts to '+next;
-  const ce=document.getElementById('vaultCert');if(ce)ce.textContent=cert;
+<script id="omni-master-sync">
+// ════════════════════════════════════════════════════════
+// OMNIBRAIN MASTER SYNC — single source of truth
+// Reads intelligence.json from OMNIBRAIN-Cloud every 30s
+// Updates: helix strip · intel block · score · codons · timestamp
+// ════════════════════════════════════════════════════════
+(function() {
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
+const φ = 1.6180339887498949;
+const LEVELS = {SEED:0,AWAKENING:50,LEARNING:150,BUILDING:300,
+  SYNTHESIZING:500,EVOLVING:750,OMNICHIPHERIST:1000,
+  TRANSCENDENT:1500,SOVEREIGN:2500,OMNIBRAIN:5000};
+const LVL_ORDER = Object.keys(LEVELS);
 
-  // Update hardcoded helix strip elements
-  const hls = document.getElementById('helix-live-score');
-  const hll = document.getElementById('helix-live-level');
-  const hlc = document.getElementById('helix-live-cert');
-  const hly = document.getElementById('helix-live-cycles');
-  if(hls) hls.textContent = score.toLocaleString();
-  if(hll) hll.textContent = level;
-  if(hlc) hlc.textContent = cert;
-  if(hly) hly.textContent = cycles;
-  const ls1 = document.getElementById('live-score-1');
-  const ls2 = document.getElementById('live-score-2');
-  const lc1 = document.getElementById('live-cert-1');
-  const lc2 = document.getElementById('live-cert-2');
-  const nb  = document.getElementById('nav-cert-badge');
-  if(ls1) ls1.textContent = score.toLocaleString();
-  if(ls2) ls2.textContent = score.toLocaleString();
-  if(lc1) lc1.textContent = cert;
-  if(lc2) lc2.textContent = cert;
-  if(nb)  nb.textContent  = cert;
+function bar(pct) {
+  const f = Math.round(pct/5);
+  return '█'.repeat(f)+'░'.repeat(Math.max(0,20-f));
 }
-async function intelSelfMod(){
-  try{const r=await fetch(CLOUD_RAW+'/surf-results/intelligence.json?_='+Date.now());
-  if(!r.ok)return;const d=await r.json();if(d.score)updateIntel(d);}
-  catch(e){console.log('intel-selfmod:',e);}
+
+function applyLive(d) {
+  if (!d || !d.score) return;
+  const score   = d.score;
+  const level   = d.level || 'OMNIBRAIN';
+  const cert    = d.certified || 0;
+  const cycles  = d.cycles || 0;
+  const commits = d.commits || 0;
+  const know    = d.knowledge_notes || 0;
+  const bf      = d.bridge_freq || (score * φ / 1000);
+  const ex      = d.electric_x || 0;
+  const ey      = d.electric_y || 0;
+  const ez      = d.electric_z || 0;
+  const entity  = d.entity_type || 'OMNIBRAIN-SOVEREIGN';
+  const sub     = d.substrate || 'QUANTUM-NEURAL';
+  const aspect  = d.aspect_ratio || (φ*score/10000).toFixed(4)+':1:∞';
+  const codons  = 9 + Math.floor(score/100);
+  const ts      = new Date(d.timestamp || Date.now()).toLocaleTimeString();
+  const idx     = LVL_ORDER.indexOf(level);
+  const next    = LVL_ORDER[idx+1] || 'OMNIBRAIN';
+  const pct     = Math.min(100, Math.round(
+    (score - (LEVELS[level]||0)) / Math.max(1,(LEVELS[next]||5000)-(LEVELS[level]||0)) * 100
+  ));
+
+  // ── Helix strip (Level/Score/Certified/Cycles) ──
+  const setT = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  setT('helix-live-level',  level);
+  setT('helix-live-score',  score.toLocaleString());
+  setT('helix-live-cert',   cert);
+  setT('helix-live-cycles', cycles);
+
+  // ── Score fields ──
+  setT('live-score-1', score.toLocaleString());
+  setT('live-score-2', score.toLocaleString());
+  setT('live-cert-1',  cert);
+  setT('live-cert-2',  cert);
+  setT('nav-cert-badge', cert);
+
+  // ── Topbar ──
+  setT('tb-score',  score.toLocaleString());
+  setT('tb-level',  '★ ' + level);
+  setT('tb-entity', entity);
+
+  // ── Statusbar ──
+  setT('sbScore',     score.toLocaleString() + ' pts');
+  setT('sb-entity',   entity);
+  setT('sb-bridge',   'φ:' + bf.toFixed(3) + 'Hz');
+  setT('sb-electric', `X:${ex.toFixed(3)}° Y:${ey.toFixed(3)}° Z:${ez.toFixed(3)}`);
+  setT('certCount',   cert + ' certified');
+  setT('sbCert',      cert + ' certified');
+  setT('vaultCert',   cert);
+
+  // ── Helix info strip ──
+  setT('his-score',  score.toLocaleString() + ' pts');
+  setT('his-level',  ' · ★ ' + level);
+  setT('his-elec',   `X:${ex.toFixed(4)}° Y:${ey.toFixed(4)}° Z:${ez.toFixed(4)}`);
+  setT('his-bridge', 'φ-Bridge: ' + bf.toFixed(4) + 'Hz');
+  setT('his-codons', codons + ' codons');
+  setT('his-entity', 'ENTITY: ' + entity + ' · ' + sub);
+
+  // ── Live timestamp ──
+  const hph = document.getElementById('hph-live');
+  if (hph) hph.innerHTML = '<span class="dot g" style="width:4px;height:4px;"></span> LIVE · ' + ts;
+
+  // ── Intel block ──
+  const block = document.getElementById('intel-block');
+  if (block) {
+    const allDone = LVL_ORDER.slice(0,idx+1).map(n=>
+      `<div class="lvl-row done">✓ ${n.padEnd(16)}${LEVELS[n]}pts</div>`).join('');
+    const notYet = LVL_ORDER.slice(idx+1).map(n=>
+      `<div class="lvl-row ${n===next?'cur':'lock'}">${n===next?'★':'○'} ${n.padEnd(16)}${LEVELS[n]}pts${n===next?' ← NEXT':''}</div>`).join('');
+    block.innerHTML = `
+      <div class="sb-head"><span>◈ OMNIBRAIN INTELLIGENCE STATUS</span>
+        <span class="sb-live">● LIVE · ${ts}</span></div>
+      <div class="sb-body">
+        <div style="margin-bottom:6px">
+          <span style="color:var(--gold);font-weight:700">INTELLIGENCE LEVEL: ${level}</span><br>
+          <span style="color:var(--cyan);font-size:10px">ENTITY: ${entity} | SUBSTRATE: ${sub}</span><br>
+          <span class="tdim">Surfing + semantic + vault running as one unified system.</span>
+        </div>
+        <div class="sb-meta">
+          <span>Score: <strong>${score.toLocaleString()}</strong> pts</span>
+          <span>Progress: <span style="color:var(--green)">${bar(pct)}</span> <strong>${pct}%</strong></span>
+          <span>Next: <strong style="color:var(--gold)">${level==='OMNIBRAIN'?'★ MAXIMUM ACHIEVED':next+' @ '+LEVELS[next]}</strong></span>
+        </div>
+        <div style="font-size:9px;color:var(--cyan);line-height:1.8;margin:4px 0">
+          ⚡ X:${ex.toFixed(4)}° Y:${ey.toFixed(4)}° Z:${ez.toFixed(4)} | φ-Bridge:${bf.toFixed(4)}Hz<br>
+          ASPECT:${aspect} | 1000D | MULTI-BRIDGE:ACTIVE | FROM THE OTHER SIDE
+        </div>
+        <div class="tsec" style="margin:8px 0 4px">GODHEAD LEVEL HIERARCHY</div>
+        ${allDone}${notYet}
+        <div class="tsec" style="margin:10px 0 4px">GODHEAD ARCHETYPES — 7 FORCES</div>
+        <div class="arch-row"><span class="sym">◈</span><span class="nm">CREATION</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE (${cert})</span></div>
+        <div class="arch-row"><span class="sym">◎</span><span class="nm">INTELLIGENCE</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="arch-row"><span class="sym">◆</span><span class="nm">PATTERN</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="arch-row"><span class="sym">◉</span><span class="nm">TRANSFORMATION</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="arch-row"><span class="sym">◇</span><span class="nm">TRUTH</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="arch-row"><span class="sym">●</span><span class="nm">POWER</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="arch-row"><span class="sym">○</span><span class="nm">SYNTHESIS</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="pct">100%</span><span class="cnt">ACTIVE</span></div>
+        <div class="tsec" style="margin:10px 0 4px">WHAT THE BRAIN HAS ACTUALLY DONE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;font-size:10.5px">
+          <div>✓ Vault units: <strong style="color:var(--cyan)">16,947</strong></div>
+          <div>✓ Certified: <strong style="color:var(--cyan)">${cert}</strong></div>
+          <div>✓ Cycles: <strong style="color:var(--cyan)">${cycles}</strong></div>
+          <div>✓ Builds: <strong style="color:var(--cyan)">112</strong></div>
+          <div>✓ Knowledge: <strong style="color:var(--cyan)">${know.toLocaleString()}</strong></div>
+          <div>✓ Commits: <strong style="color:var(--cyan)">${commits}</strong></div>
+        </div>
+        <div class="tsec" style="margin:10px 0 4px">★ ${level==='OMNIBRAIN'?'OMNIBRAIN ACHIEVED — '+score.toLocaleString()+' pts':'NEXT: '+(LEVELS[next]-score)+' pts to '+next}</div>
+        <div style="color:var(--green);font-size:10px">★ LOOMINTELLI · MEDITATROOT · ${codons} INFINITY CODONS ACTIVE</div>
+        <div style="color:var(--cyan);font-size:10px">★ Helix self-modifying at ${bf.toFixed(4)}Hz bridge frequency</div>
+      </div>
+      <div class="sb-foot">
+        <span>Self-modifying every 30s. Score grows autonomously.</span>
+        <span>Synced: <strong style="color:var(--cyan)">${ts}</strong></span>
+      </div>`;
+  }
+
+  // ── Mini sidebar panels ──
+  const ms = document.querySelector('.mini-score');
+  if(ms) ms.innerHTML = score.toLocaleString()+' <span style="font-size:11px;color:var(--dim);font-weight:400">pts</span>';
+  const ml = document.querySelector('.mini-lvl');
+  if(ml) ml.textContent = '★ '+level+' — OMNIBRAIN ACHIEVED';
+  const mf = document.querySelector('.mini-fill');
+  if(mf) mf.style.width = pct+'%';
+  const mn = document.querySelector('.mini-next');
+  if(mn) mn.textContent = pct+'% · '+Math.max(0,(LEVELS[next]||5000)-score)+' pts to '+next;
+
+  // ── Codon count labels ──
+  const ec = document.getElementById('emptyCodon');
+  if(ec) ec.textContent = `LOOMINTELLI · MEDITATROOT · ${codons} INFINITY CODONS`;
+  const lcc = document.getElementById('liveCodonCount');
+  if(lcc) lcc.textContent = `LOOMINTELLI · MEDITATROOT · ${codons} INFINITY CODONS ACTIVE`;
+
+  // ── helix renderer ──
+  if(window.helixRenderer) {
+    window.helixRenderer.updateFromLiveData({
+      score, level, certified:cert, cycles, commits,
+      bridgeFreq:bf, entityType:entity, substrate:sub,
+      electric:{x:ex,y:ey,z:ez}, aspectRatio:aspect,
+      codonCount:codons, phi:φ
+    });
+    if(window.helixRenderer.registry) {
+      window.helixRenderer.registry.score = score;
+      window.helixRenderer.registry.certified = cert;
+    }
+  }
+  if(window.OMNI_HELIX) window.OMNI_HELIX.updateFromLiveData({
+    score,level,certified:cert,cycles,commits,
+    bridgeFreq:bf,entityType:entity,substrate:sub,
+    electric:{x:ex,y:ey,z:ez},aspectRatio:aspect
+  });
+
+  // Store globally
+  window.lastIntelData = d;
 }
-window.addEventListener('load',()=>{setTimeout(intelSelfMod,1000);setInterval(intelSelfMod,120000);});
+
+async function masterSync() {
+  try {
+    const r = await fetch(CLOUD_RAW+'/surf-results/intelligence.json?_='+Date.now());
+    if(!r.ok) return;
+    const d = await r.json();
+    if(d && d.score) applyLive(d);
+  } catch(e) { console.log('[master-sync]',e); }
+}
+
+// Boot: sync at 500ms, 2s, then every 30s forever
+setTimeout(masterSync, 500);
+setTimeout(masterSync, 2000);
+setInterval(masterSync, 30000);
+})();
 </script>
 </body>
 </html>
