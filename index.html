@@ -1044,7 +1044,7 @@ function proc(c){
 
   // ── CONVERSATIONAL / KNOWLEDGE PATH ──
   // Everything else is treated as real conversation (OmniBrain LLM path)
-  // The omnibrain-llm package has been injected. Full inference coming online.
+
   
   
   out('', 'to');
@@ -1072,7 +1072,7 @@ function proc(c){
   else if (q.includes('how do you work') || q.includes('how does this work') || q.includes('architecture')) {
     out('OmniBrain is a Mixture-of-Experts Transformer refined from Megatron-LM principles.', 'to');
     out('Six domain experts + dynamic routing + vault-graph memory bias + evolutionary improvement of the router itself.', 'to');
-    out('The full local model lives in omnibrain-llm/. Once trained on your vault it will answer from your own knowledge graph instead of generic weights.', 'to');
+
   }
   else {
     // Generic conversational acknowledgment
@@ -1088,10 +1088,17 @@ function proc(c){
     })
     .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
     out('', 'to');
-    out('The OmniBrain LLM layer has been injected (omnibrain-llm/). Full local generation is coming online.', 'to');
-    out('For now I can still route pure questions through the reasoning expert path and the vault.', 'to');
-    out('If you want me to build something concrete, start with "build …" or "create a …".', 'to');
-    out('If you want knowledge from your own notes, try "search vault [topic]".', 'to');
+    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
+    out('◈ OMNIBRAIN thinking...', 'tdim');
+    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
+      .then(r=>r.json())
+      .then(d=>{
+        const t=document.getElementById('terminal');
+        if(t&&t.lastElementChild)t.lastElementChild.remove();
+        if(d.response) out(d.response,'to');
+        else out('[OMNIBRAIN-LLM] No response received','terror');
+      })
+      .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
   }
 
   out('', 'to');
