@@ -1548,7 +1548,7 @@ refreshSurfBadge();
 <script>
 // ── OMNIBRAIN LIVE INTELLIGENCE SYNC ───────────────────────────
 // Pulls real-time data from GitHub repo on every load + every 2min
-const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main';
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
@@ -1666,7 +1666,7 @@ async function liveSync() {
   });
 }
 // Pulls live data from GitHub repo — works on any device
-const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main';
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN-Cloud/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
@@ -2505,8 +2505,6 @@ function applyLive(d) {
   // ── Live timestamp ──
   const hph = document.getElementById('hph-live');
   if (hph) hph.innerHTML = '<span class="dot g" style="width:4px;height:4px;"></span> LIVE · ' + ts;
-  const hph2 = document.getElementById('hph-helix');
-  if (hph2) hph2.innerHTML = '● LIVE · ' + ts;
   const hph2 = document.getElementById('hph-helix');
   if (hph2) hph2.innerHTML = '● LIVE · ' + ts;
 
