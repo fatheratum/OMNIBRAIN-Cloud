@@ -897,6 +897,13 @@ function out(t,cls='to'){
   const b=document.getElementById('tb');
   const d=document.createElement('div');d.className=cls;d.textContent=t;
   b.appendChild(d);b.scrollTop=b.scrollHeight;
+  // Capture to sidebar chat history
+  if(t && t.trim() && window.SB && window.SB.saveMsg) {
+    const role = cls==='ti' ? 'user' : 'assistant';
+    const skip = !t.trim() || t.includes('processing...') ||
+      t.startsWith('[L') || t.startsWith('◈ OMNIBRAIN processing');
+    if(!skip) window.SB.saveMsg(role, t);
+  }
 }
 
 function acur(){
@@ -1230,19 +1237,25 @@ function proc(c){
   }
 
   // ── OMNIBRAIN-LLM — direct route to Mistral-7B ──
+  if(window._llmBusy) {
+    out('◈ OMNIBRAIN is still thinking... wait for response','tdim');
+    return;
+  }
+  window._llmBusy = true;
   out('◈ OMNIBRAIN processing... (~2 min)', 'tdim');
   fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(210000)})
     .then(r=>r.json())
     .then(d=>{
-      // remove thinking line
+      window._llmBusy = false;
       const tb=document.getElementById('tb');
       if(tb&&tb.lastChild&&tb.lastChild.textContent&&tb.lastChild.textContent.includes('processing'))
         tb.removeChild(tb.lastChild);
       if(d.response && d.response.trim()) out(d.response,'to');
-      else out('[OMNIBRAIN-LLM] Timeout — try again in a moment','terror');
+      else out('[OMNIBRAIN-LLM] Timeout — try again','terror');
     })
     .catch(e=>{
+      window._llmBusy = false;
       out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror');
     });
   acur();
