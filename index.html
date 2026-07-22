@@ -893,16 +893,33 @@ function acmd(c){
   b.appendChild(d);
 }
 
+// Sidebar message queue — captures before SB initializes
+window._sbQueue = window._sbQueue || [];
 function out(t,cls='to'){
   const b=document.getElementById('tb');
   const d=document.createElement('div');d.className=cls;d.textContent=t;
   b.appendChild(d);b.scrollTop=b.scrollHeight;
-  // Capture to sidebar chat history
-  if(t && t.trim() && window.SB && window.SB.saveMsg) {
-    const role = cls==='ti' ? 'user' : 'assistant';
-    const skip = !t.trim() || t.includes('processing...') ||
-      t.startsWith('[L') || t.startsWith('◈ OMNIBRAIN processing');
-    if(!skip) window.SB.saveMsg(role, t);
+  // Capture to sidebar
+  if(t && t.trim()) {
+    const skip = t.includes('processing...') || t.includes('~2 min') ||
+      t.startsWith('[L') || t.startsWith('▸') || t.startsWith('OMNIBRAIN v') ||
+      t.startsWith('  ') || t.startsWith('[1]') || t.startsWith('[2]') ||
+      t.startsWith('[3]') || t.startsWith('[4]') || t.startsWith('[5]') ||
+      t.startsWith('[6]') || t.startsWith('[7]') || t.length < 3;
+    if(!skip) {
+      const role = cls==='ti' ? 'user' : 'assistant';
+      const msg = {role, text:t, ts:Date.now()};
+      if(window.SB && window.SB.saveMsg) {
+        // Flush queue first
+        while(window._sbQueue.length) {
+          const q=window._sbQueue.shift();
+          window.SB.saveMsg(q.role, q.text);
+        }
+        window.SB.saveMsg(role, t);
+      } else {
+        window._sbQueue.push(msg);
+      }
+    }
   }
 }
 
