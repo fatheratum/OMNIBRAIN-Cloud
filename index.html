@@ -1078,7 +1078,7 @@ function proc(c){
     // Generic conversational acknowledgment
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions
   out('◈ OMNIBRAIN-LLM processing...', 'tdim');
-  fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
+
     .then(r=>r.json())
     .then(d=>{
       // Remove the processing line
@@ -1090,7 +1090,7 @@ function proc(c){
     out('', 'to');
     // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
     out('◈ OMNIBRAIN thinking...', 'tdim');
-    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
+    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(180000)})
       .then(r=>r.json())
       .then(d=>{
         const t=document.getElementById('terminal');
