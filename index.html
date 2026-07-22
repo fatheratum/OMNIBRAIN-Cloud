@@ -2810,6 +2810,10 @@ function toggle() {
     sb.classList.add('open');
     ov.classList.add('show');
     render();
+    // If empty, load from GitHub
+    if (load().length === 0 && _token) {
+      syncGH();
+    }
   } else {
     sb.classList.remove('open');
     ov.classList.remove('show');
@@ -2827,10 +2831,53 @@ function setProj(p) {
   render();
 }
 
+// ── Sync FROM GitHub into localStorage ──────────────────────────
+async function syncGH() {
+  if (!_token) {
+    try {
+      const r = await fetch('/token');
+      if (r.ok) { const d = await r.json(); _token = d.token||''; }
+    } catch(e) {}
+  }
+  if (!_token) return;
+  const stat = document.getElementById('omni-sb-stat');
+  if (stat) stat.textContent = '⟳ Loading from GitHub...';
+  try {
+    const headers = {
+      'Authorization': 'token ' + _token,
+      'Accept': 'application/vnd.github+json'
+    };
+    const r = await fetch('https://api.github.com/repos/' + GH_REPO + '/contents/conversations', {headers});
+    if (!r.ok) { render(); return; }
+    const files = await r.json();
+    if (!Array.isArray(files)) { render(); return; }
+    const convs = await Promise.all(
+      files.filter(function(f){return f.name.endsWith('.json');})
+        .map(async function(f) {
+          try {
+            const fr = await fetch(f.download_url);
+            if (fr.ok) return await fr.json();
+          } catch(e) {}
+          return null;
+        })
+    );
+    const valid = convs.filter(Boolean).sort(function(a,b){return (b.updated||0)-(a.updated||0);});
+    if (valid.length > 0) {
+      // Merge with local
+      const local = load();
+      valid.forEach(function(gc) {
+        if (!local.find(function(lc){return lc.id===gc.id;})) local.push(gc);
+      });
+      save(local.sort(function(a,b){return (b.updated||0)-(a.updated||0);}));
+    }
+    render();
+  } catch(e) { render(); }
+}
+
 // ── Expose globally ─────────────────────────────────────────────
 window._OMNISB = {
   toggle, load: loadChat, pin, del, newChat, refresh,
-  setQuery, setProj, addMessage
+  setQuery, setProj, addMessage, syncGH
 };
 
 // ── Intercept rc() to save user messages ────────────────────────
