@@ -1351,25 +1351,58 @@ function browserRefresh() {
 }
 
 function onFrameLoad(frame) {
-  // Some pages block iframe — show fallback
   try {
     const blocked = frame && frame.contentDocument === null;
-    if (blocked) {
-      document.getElementById('browserBlocked').style.display = 'flex';
-    }
+    if (blocked) { fetchAndRender(currentUrl); return; }
   } catch(e) {
-    // Cross-origin — try to detect if blocked
     setTimeout(() => {
       try {
         const doc = document.getElementById('browserFrame').contentDocument;
         if (!doc || !doc.body || doc.body.innerHTML === '') {
-          document.getElementById('browserBlocked').style.display = 'flex';
+          fetchAndRender(currentUrl);
         }
       } catch(e2) {
-        // Cross-origin block confirmed
-        document.getElementById('browserBlocked').style.display = 'flex';
+        fetchAndRender(currentUrl);
       }
     }, 2000);
+  }
+}
+
+async function fetchAndRender(url) {
+  if (!url) return;
+  const statusEl = document.getElementById('browserBlocked');
+  if (statusEl) {
+    statusEl.style.display = 'flex';
+    const msgEl = statusEl.querySelector('div[style*="12px"]');
+    if (msgEl) msgEl.textContent = '⟳ Fetching page through OmniSurf...';
+  }
+  try {
+    const resp = await fetch('/fetch', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url: url})
+    });
+    const data = await resp.json();
+    if (data.content || data.html) {
+      const content = data.html || data.content;
+      // Inject base tag so relative links resolve
+      const injected = content.replace(
+        '<head>', `<head><base href="${url}"><style>body{font-family:sans-serif;padding:12px;max-width:900px;margin:0 auto;line-height:1.6;color:#222}a{color:#0645ad}img{max-width:100%}</style>`
+      );
+      const blob = new Blob([injected], {type: 'text/html'});
+      const blobUrl = URL.createObjectURL(blob);
+      const frame = document.getElementById('browserFrame');
+      frame.onload = null;
+      frame.src = blobUrl;
+      if (statusEl) statusEl.style.display = 'none';
+    } else {
+      // Show fallback with open button
+      if (statusEl) statusEl.style.display = 'flex';
+      const msgEl = statusEl ? statusEl.querySelector('div[style*="12px"]') : null;
+      if (msgEl) msgEl.textContent = 'This page blocks embedded viewing. The L3 OmniSurf engine can access it directly via GitHub Actions using real Chromium — no restrictions.';
+    }
+  } catch(e) {
+    if (statusEl) statusEl.style.display = 'flex';
   }
 }
 
