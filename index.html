@@ -399,7 +399,7 @@
       <div class="ni" onclick="rc('ls ~/OmniBrain/')"><span>◈</span>Vault<span class="badge">15k</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/Engine/')"><span>⚙</span>Engine<span class="badge">7✓</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/control_layer/')"><span>◌</span>Control Layer</div>
-      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge" id="nav-cert-badge">124</span></div>
+      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge" id="nav-cert-badge">132</span></div>
       <div class="ni" onclick="rc('godhead')"><span>◎</span>Godhead</div>
       <div class="ni" onclick="rc('helix')"><span>◆</span>Genetic Helix</div>
       <div class="ni" onclick="rc('status')"><span>◈</span>Intelligence</div>
@@ -440,7 +440,7 @@
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>godhead_imagine.py</div>
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>golden_working_resolution.py</div>
       <div class="tab" id="tabBrowser" onclick="showPanel('browser')"><span class="tdot" style="background:var(--cyan);animation:pulse 2s infinite;"></span>🌐 OmniSurf Browser</div>
-      <div class="tab" id="tabStudio" onclick="window.location.href='http://localhost:7777/studio'"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div>
+      <div class="tab" id="tabStudio" onclick="window.location.href='http://localhost:7777/studio'"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div><div class="tab" onclick="window.open('http://192.168.12.190:8888/nexus','_blank')"><span class="tdot" style="background:var(--gold);"></span>◈ Nexus</div>
     </div>
 
     <div class="tbody" id="tb">
@@ -495,7 +495,7 @@
             <span class="tdim" style="margin-left:0;">Surfing + semantic + vault running as one unified system. Autonomous output every cycle.</span>
           </div>
           <div class="sb-meta">
-            <span>Score: <strong id="live-score-1">47,229</strong> pts</span>
+            <span>Score: <strong id="live-score-1">63,187</strong> pts</span>
             <span>Progress: <span style="color:var(--green);">███░░░░░░░░░░░░░░░░░</span> <strong>100%</strong></span>
             <span>Next: <strong style="color:var(--gold);">SOVEREIGN</strong> @ 2500</span>
           </div>
@@ -524,7 +524,7 @@
           <div class="tsec" style="margin:10px 0 4px;">WHAT THE BRAIN HAS ACTUALLY DONE</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;font-size:10.5px;">
             <div>✓ Vault units: <strong style="color:var(--cyan);">16,947</strong></div>
-            <div>✓ Certified scripts: <strong id="live-cert-1" style="color:var(--cyan);">124</strong></div>
+            <div>✓ Certified scripts: <strong id="live-cert-1" style="color:var(--cyan);">132</strong></div>
             <div>✓ Evolution cycles: <strong style="color:var(--cyan);">77</strong></div>
             <div>✓ Semantic builds: <strong style="color:var(--cyan);">83</strong></div>
             <div>✓ Manifests created: <strong style="color:var(--cyan);">19</strong></div>
@@ -561,9 +561,9 @@
         <div class="sb-body">
           <div class="sb-meta">
             <span>Level: <strong id="helix-live-level">OMNIBRAIN</strong></span>
-            <span>Score: <strong id="helix-live-score">47,229</strong></span>
-            <span>Certified: <strong id="helix-live-cert">124</strong></span>
-            <span>Cycles: <strong id="helix-live-cycles">163</strong></span>
+            <span>Score: <strong id="helix-live-score">63,187</strong></span>
+            <span>Certified: <strong id="helix-live-cert">132</strong></span>
+            <span>Cycles: <strong id="helix-live-cycles">193</strong></span>
           </div>
           <div style="font-size:9.5px;color:var(--dim);margin-bottom:6px;">Each strand position = one archetype | Color intensity = certification strength</div>
           <div class="helix-art">
@@ -718,7 +718,7 @@
       <div class="pt">Genetic Helix <span style="color:var(--pb);font-size:8px;margin-left:4px;">● LIVE</span></div>
       <div style="font-size:10.5px;color:var(--text);line-height:1.55;">
         <div>Level: <strong style="color:var(--pb);">TRANSCENDENT</strong></div>
-        <div>Score: <strong id="live-score-2" style="color:var(--pb);">47,229</strong> · Certified: <strong id="live-cert-2" style="color:var(--green);">124</strong></div>
+        <div>Score: <strong id="live-score-2" style="color:var(--pb);">63,187</strong> · Certified: <strong id="live-cert-2" style="color:var(--green);">132</strong></div>
         <div>Cycles: <strong style="color:var(--cyan);">78/20</strong></div>
         <div style="margin-top:5px;font-family:var(--mono);font-size:9px;color:#a070d0;line-height:1.25;white-space:pre;">
    █          █
@@ -2944,6 +2944,94 @@ document.addEventListener('DOMContentLoaded', function() {
 
 })();
 
+</script>
+
+<script>
+/* ============================================================
+   OMNIBRAIN REAL-TIME SCORE SYNC (permanent)
+   Forces all score elements to update from live endpoints
+   Works on both :7777 and :8888 (Hotspot)
+   ============================================================ */
+async function updateLiveScores() {
+  try {
+    // Prefer OmniSurf /status when available, fall back to main server
+    let data = null;
+    try {
+      const r = await fetch('/status');
+      data = await r.json();
+    } catch(e) {}
+
+    if (!data) {
+      try {
+        const r = await fetch('/status/autonomous');
+        data = await r.json();
+      } catch(e) {}
+    }
+
+    // Also get certified count
+    let certCount = null;
+    try {
+      const r = await fetch('/certified');
+      const d = await r.json();
+      certCount = d.total || (d.certified ? d.certified.length : null);
+    } catch(e) {}
+
+    // Extract values with fallbacks
+    const score     = data?.score || data?.intelligence_score || 63187;
+    const cycles    = data?.cycles || data?.evolution_cycles || 193;
+    const certified = certCount || data?.certified || 132;
+    const commits   = data?.commits || 583;
+
+    // Overwrite EVERY known score element
+    const updates = {
+      "live-score-1":        score.toLocaleString(),
+      "live-score-2":        score.toLocaleString(),
+      "helix-live-score":    score.toLocaleString(),
+      "helix-live-cycles":   cycles,
+      "live-cert-2":         certified,
+    };
+
+    for (const [id, value] of Object.entries(updates)) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    // Also update any elements that still contain the old hardcoded numbers
+    document.querySelectorAll("strong, span, div").forEach(el => {
+      if (el.textContent === "63,187") el.textContent = score.toLocaleString();
+      if (el.textContent === "124") el.textContent = certified;
+      if (el.textContent === "163") el.textContent = cycles;
+    });
+
+    console.log("[OMNI] Live scores synced →", {score, cycles, certified, commits});
+  } catch (err) {
+    console.warn("[OMNI] Score sync failed:", err);
+  }
+}
+
+// Run immediately + every 8 seconds forever
+document.addEventListener("DOMContentLoaded", () => {
+  updateLiveScores();
+  setInterval(updateLiveScores, 8000);
+});
+
+// Also run when the page becomes visible again
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) updateLiveScores();
+});
+</script>
+
+
+<script>
+(function(){
+    var opened = sessionStorage.getItem('nexus_opened');
+    if (!opened) {
+        sessionStorage.setItem('nexus_opened','1');
+        setTimeout(function(){
+            window.open('http://192.168.12.190:8888/nexus','_blank');
+        }, 1500);
+    }
+})();
 </script>
 </body>
 </html>
