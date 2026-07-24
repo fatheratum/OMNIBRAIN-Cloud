@@ -229,155 +229,194 @@
     .runbtn{font-size:10px;padding:5px 8px;}
   }
 
-
-
-
-/* ══ OMNIBRAIN SIDEBAR ═══════════════════════════════════════ */
-#omni-sb-btn {
-  position:fixed; top:8px; left:8px; z-index:99999;
-  width:32px; height:32px; border-radius:6px;
-  background:#09090f; border:1px solid #1e1e2e;
-  color:#00ff9d; font-size:18px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
+/* ═══ OMNIBRAIN SIDEBAR ═══════════════════════════════════════════════ */
+#omni-sb-toggle {
+  position: fixed;
+  top: 8px; left: 8px;
+  z-index: 99999;
+  background: #0d0d18;
+  border: 1px solid #1e1e2e;
+  color: #00ff9d;
+  font-size: 16px;
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
 }
-#omni-sb-btn:hover { border-color:#00ff9d; background:rgba(0,255,157,0.08); }
-#omni-sb-ov {
+#omni-sb-toggle:hover { border-color:#00ff9d; background:rgba(0,255,157,0.1); }
+#omni-sidebar-overlay {
   display:none; position:fixed; inset:0;
   background:rgba(0,0,0,0.6); z-index:99997;
 }
-#omni-sb-ov.show { display:block; }
-#omni-sb {
-  position:fixed; top:0; left:0; width:270px; height:100vh;
-  background:#09090f; border-right:1px solid #1e1e2e;
-  z-index:99998; display:flex; flex-direction:column;
-  transform:translateX(-272px);
+#omni-sidebar-overlay.show { display:block; }
+#omni-sidebar {
+  position:fixed; top:0; left:0;
+  width:272px; height:100vh;
+  background:#09090f;
+  border-right:1px solid #1e1e2e;
+  z-index:99998;
+  display:flex; flex-direction:column;
+  transform:translateX(-274px);
   transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);
   font-family:monospace;
+  overflow:hidden;
 }
-#omni-sb.open { transform:translateX(0); }
-.omni-sb-hd {
-  padding:10px 12px; border-bottom:1px solid #1e1e2e; flex-shrink:0;
+#omni-sidebar.sb-open { transform:translateX(0); }
+.sb-hd {
+  padding:12px; border-bottom:1px solid #1e1e2e; flex-shrink:0;
 }
-.omni-sb-hd-row {
+.sb-hd-row {
   display:flex; align-items:center;
   justify-content:space-between; margin-bottom:8px;
 }
-.omni-sb-logo { font-size:10px; font-weight:700; color:#00ff9d; letter-spacing:.1em; }
-.omni-sb-btns { display:flex; gap:4px; }
-.omni-sb-btn-sm {
-  font-size:9px; padding:2px 8px; border-radius:4px;
-  border:1px solid #1e1e2e; background:transparent;
-  color:#888; cursor:pointer; font-family:monospace;
+.sb-logo { font-size:10px; font-weight:700; color:#00ff9d; letter-spacing:.1em; }
+.sb-new {
+  font-size:9px; padding:3px 9px; border-radius:4px;
+  border:1px solid #00ff9d; background:rgba(0,255,157,0.08);
+  color:#00ff9d; cursor:pointer; font-family:monospace;
 }
-.omni-sb-btn-sm:hover { border-color:#00ff9d; color:#00ff9d; }
-.omni-sb-btn-sm.green { border-color:#00ff9d; color:#00ff9d; }
-.omni-sb-search {
+.sb-new:hover { background:rgba(0,255,157,0.18); }
+.sb-search {
   width:100%; background:#111122; border:1px solid #1e1e2e;
   border-radius:5px; padding:5px 8px; font-size:10px;
   color:#e0e0ff; font-family:monospace; outline:none;
   box-sizing:border-box;
 }
-.omni-sb-search:focus { border-color:#a87fdb; }
-.omni-sb-projs {
-  display:flex; gap:3px; padding:6px 12px;
-  border-bottom:1px solid #1e1e2e; flex-wrap:wrap; flex-shrink:0;
+.sb-search:focus { border-color:#a87fdb; }
+.sb-search::placeholder { color:#44445a; }
+.sb-projs {
+  display:flex; gap:4px; padding:8px 12px;
+  border-bottom:1px solid #1e1e2e;
+  flex-wrap:wrap; flex-shrink:0; overflow-x:auto;
 }
-.omni-sb-proj {
-  font-size:8px; padding:2px 7px; border-radius:10px;
+.sb-ptab {
+  font-size:8px; padding:2px 8px; border-radius:10px;
   border:1px solid #1e1e2e; background:transparent;
-  color:#666; cursor:pointer; font-family:monospace;
+  color:#666680; cursor:pointer; font-family:monospace;
+  white-space:nowrap; transition:all .12s;
 }
-.omni-sb-proj:hover,.omni-sb-proj.active {
-  border-color:#a87fdb; color:#a87fdb; background:rgba(168,127,219,0.1);
+.sb-ptab:hover,.sb-ptab.on {
+  border-color:#a87fdb; color:#a87fdb;
+  background:rgba(168,127,219,0.1);
 }
-#omni-sb-list {
+.sb-padd {
+  font-size:10px; padding:1px 7px; border-radius:10px;
+  border:1px dashed #44445a; background:transparent;
+  color:#44445a; cursor:pointer;
+}
+.sb-padd:hover { border-color:#00ff9d; color:#00ff9d; }
+.sb-list {
   flex:1; overflow-y:auto; padding:4px 0;
   scrollbar-width:thin; scrollbar-color:#1e1e2e transparent;
 }
-.omni-sb-grp {
-  font-size:8px; color:#44445a; letter-spacing:.1em;
-  text-transform:uppercase; padding:8px 12px 3px;
-}
-.omni-sb-item {
+.sb-grp { font-size:8px; color:#44445a; letter-spacing:.1em;
+  text-transform:uppercase; padding:8px 12px 3px; font-weight:600; }
+.sb-item {
   padding:7px 12px; cursor:pointer;
-  display:flex; align-items:flex-start; gap:6px;
+  display:flex; align-items:flex-start; gap:7px;
   border-left:2px solid transparent; position:relative;
   transition:background .1s;
 }
-.omni-sb-item:hover { background:rgba(255,255,255,0.04); }
-.omni-sb-item.active { background:rgba(168,127,219,0.08); border-left-color:#a87fdb; }
-.omni-sb-item-body { flex:1; min-width:0; }
-.omni-sb-item-title {
+.sb-item:hover { background:rgba(255,255,255,0.04); }
+.sb-item.on { background:rgba(168,127,219,0.08); border-left-color:#a87fdb; }
+.sb-item-ico { font-size:10px; color:#666680; flex-shrink:0; margin-top:1px; }
+.sb-item-body { flex:1; min-width:0; }
+.sb-item-title {
   font-size:10px; color:#e0e0ff; font-weight:500;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.omni-sb-item-sub {
-  font-size:9px; color:#666; margin-top:1px;
+.sb-item-sub {
+  font-size:9px; color:#666680; margin-top:1px;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.omni-sb-item-ts { font-size:8px; color:#44445a; flex-shrink:0; }
-.omni-sb-item-acts {
+.sb-item-ts { font-size:8px; color:#44445a; flex-shrink:0; }
+.sb-acts {
   display:none; gap:2px; position:absolute;
   right:6px; top:50%; transform:translateY(-50%);
   background:#09090f; border-radius:4px; padding:2px;
 }
-.omni-sb-item:hover .omni-sb-item-acts { display:flex; }
-.omni-sb-item-acts button {
+.sb-item:hover .sb-acts { display:flex; }
+.sb-ab {
   font-size:9px; padding:2px 4px; background:transparent;
-  border:none; color:#666; cursor:pointer; border-radius:3px;
+  border:none; color:#666680; cursor:pointer; border-radius:3px;
 }
-.omni-sb-item-acts button:hover { color:#e0e0ff; background:rgba(255,255,255,0.08); }
-.omni-sb-ft {
-  padding:8px 12px; border-top:1px solid #1e1e2e; flex-shrink:0;
+.sb-ab:hover { color:#e0e0ff; background:rgba(255,255,255,0.08); }
+.sb-ab.del:hover { color:#ff6b6b; }
+.sb-ft {
+  padding:8px 12px; border-top:1px solid #1e1e2e;
+  flex-shrink:0;
 }
-#omni-sb-stat { font-size:8px; color:#44445a; margin-bottom:4px; }
-.omni-sb-sync-btn {
-  width:100%; padding:5px; border-radius:5px;
+.sb-stat { font-size:8px; color:#44445a; line-height:1.6; }
+.sb-vbtn {
+  width:100%; margin-top:6px; padding:5px; border-radius:5px;
   border:1px solid #1e1e2e; background:transparent;
-  color:#00d4ff; font-size:9px; cursor:pointer; font-family:monospace;
+  color:#00d4ff; font-size:9px; cursor:pointer;
+  font-family:monospace; transition:all .12s;
 }
-.omni-sb-sync-btn:hover { border-color:#00d4ff; background:rgba(0,212,255,0.06); }
-/* ══ END OMNIBRAIN SIDEBAR ════════════════════════════════════ */
+.sb-vbtn:hover { border-color:#00d4ff; background:rgba(0,212,255,0.06); }
+.sb-syncing { color:#a87fdb; font-size:8px; margin-top:4px; }
+.sb-empty {
+  padding:24px 12px; text-align:center;
+  color:#44445a; font-size:10px; line-height:1.7;
+}
+.sb-ri {
+  background:#111122; border:1px solid #a87fdb;
+  border-radius:3px; color:#e0e0ff;
+  font-size:10px; font-family:monospace;
+  padding:2px 6px; width:140px; outline:none;
+}
+/* ═══ END OMNIBRAIN SIDEBAR ════════════════════════════════════════ */
 
 </style>
 </head>
 <body>
 
-<!-- ═══ OMNIBRAIN SIDEBAR ═══════════════════════════════════ -->
-<div id="omni-sb-ov" onclick="window._OMNISB&&window._OMNISB.toggle()"></div>
-<button id="omni-sb-btn" onclick="window._OMNISB&&window._OMNISB.toggle()" title="Chat History">☰</button>
-<div id="omni-sb">
-  <div class="omni-sb-hd">
-    <div class="omni-sb-hd-row">
-      <span class="omni-sb-logo">◈ CHATS</span>
-      <div class="omni-sb-btns">
-        <button class="omni-sb-btn-sm" onclick="window._OMNISB&&window._OMNISB.refresh()">↻</button>
-        <button class="omni-sb-btn-sm green" onclick="window._OMNISB&&window._OMNISB.newChat()">+ New</button>
-      </div>
-    </div>
-    <input class="omni-sb-search" placeholder="Search..." oninput="window._OMNISB&&window._OMNISB.setQuery(this.value)"/>
-  </div>
-  <div class="omni-sb-projs">
-    <button class="omni-sb-proj active" data-p="all" onclick="window._OMNISB&&window._OMNISB.setProj('all')">All</button>
-    <button class="omni-sb-proj" data-p="vault" onclick="window._OMNISB&&window._OMNISB.setProj('vault')">Vault</button>
-    <button class="omni-sb-proj" data-p="builds" onclick="window._OMNISB&&window._OMNISB.setProj('builds')">Builds</button>
-    <button class="omni-sb-proj" data-p="pinned" onclick="window._OMNISB&&window._OMNISB.setProj('pinned')">Pinned</button>
-  </div>
-  <div id="omni-sb-list"></div>
-  <div class="omni-sb-ft">
-    <div id="omni-sb-stat">◈ 0 conversations</div>
-    <button class="omni-sb-sync-btn" onclick="window._OMNISB&&window._OMNISB.syncGH()">⬆ Sync to GitHub</button>
-  </div>
-</div>
-<!-- ═══ END OMNIBRAIN SIDEBAR ════════════════════════════════ -->
-
-
 
 
 
 <!-- ── OMNIBRAIN CHAT HISTORY SIDEBAR ──────────────────────────── -->
-<div class="sb-projects" id="omniSBProjects">
+<div id="omni-sidebar-overlay" onclick="SB.close()"></div>
 
+<button id="omni-sb-toggle" onclick="SB.toggle()" title="Chat History">☰</button>
+
+<div id="omni-sidebar">
+  <div class="sb-header">
+    <div class="sb-header-top">
+      <span class="sb-title">◈ OMNIBRAIN</span>
+      <button class="sb-new-btn" onclick="omniSBNewChat()">+ New Chat</button>
+    </div>
+    <input class="sb-search" id="omniSBSearch" placeholder="Search conversations..."
+      oninput="omniSBFilter(this.value)" type="text"/>
+  </div>
+
+  <div class="sb-projects" id="omniSBProjects">
+    <button class="sb-proj-tab active" data-project="all" onclick="omniSBSetProject('all',this)">All</button>
+    <button class="sb-proj-tab" data-project="vault" onclick="omniSBSetProject('vault',this)">Vault</button>
+    <button class="sb-proj-tab" data-project="builds" onclick="omniSBSetProject('builds',this)">Builds</button>
+    <button class="sb-proj-tab" data-project="research" onclick="omniSBSetProject('research',this)">Research</button>
+    <button class="sb-proj-tab" data-project="pinned" onclick="omniSBSetProject('pinned',this)">Pinned</button>
+    <button class="sb-proj-add" onclick="omniSBAddProject()" title="New project">+</button>
+  </div>
+
+  <div class="sb-list" id="omniSBList">
+    <div class="sb-empty" id="omniSBEmpty">
+      ◈ No conversations yet<br>
+      <span style="font-size:8px;color:var(--dim)">Your chat history will appear here.<br>Every conversation saves to vault.</span>
+    </div>
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-stats" id="omniSBStats">
+      ◈ 0 conversations · 0 vault entries
+    </div>
+    <button class="sb-vault-btn" onclick="omniSBPushVault()">
+      ⬆ Push all chats to vault
+    </button>
+  </div>
+</div>
+<!-- ── END SIDEBAR HTML ─────────────────────────────────────────── -->
 
 <div class="root">
 
@@ -399,7 +438,7 @@
       <div class="ni" onclick="rc('ls ~/OmniBrain/')"><span>◈</span>Vault<span class="badge">15k</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/Engine/')"><span>⚙</span>Engine<span class="badge">7✓</span></div>
       <div class="ni" onclick="rc('ls ~/OmniBrain/control_layer/')"><span>◌</span>Control Layer</div>
-      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge" id="nav-cert-badge">132</span></div>
+      <div class="ni" onclick="rc('manifests')"><span>★</span>Certified<span class="badge" id="nav-cert-badge">124</span></div>
       <div class="ni" onclick="rc('godhead')"><span>◎</span>Godhead</div>
       <div class="ni" onclick="rc('helix')"><span>◆</span>Genetic Helix</div>
       <div class="ni" onclick="rc('status')"><span>◈</span>Intelligence</div>
@@ -440,7 +479,7 @@
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>godhead_imagine.py</div>
       <div class="tab" onclick="showPanel('terminal')"><span class="tdot off"></span>golden_working_resolution.py</div>
       <div class="tab" id="tabBrowser" onclick="showPanel('browser')"><span class="tdot" style="background:var(--cyan);animation:pulse 2s infinite;"></span>🌐 OmniSurf Browser</div>
-      <div class="tab" id="tabStudio" onclick="window.location.href='http://localhost:7777/studio'"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div><div class="tab" onclick="window.open('http://192.168.12.190:8888/nexus','_blank')"><span class="tdot" style="background:var(--gold);"></span>◈ Nexus</div>
+      <div class="tab" id="tabStudio" onclick="window.location.href='http://localhost:7777/studio'"><span class="tdot" style="background:var(--green);"></span>◈ Studio</div>
     </div>
 
     <div class="tbody" id="tb">
@@ -487,7 +526,7 @@
       <div class="status-block" id="intel-block">
         <div class="sb-head">
           <span>◈ OMNIBRAIN INTELLIGENCE STATUS</span>
-          <span class="sb-live" id="hph-live">● LIVE</span>
+          <span class="sb-live">● LIVE</span>
         </div>
         <div class="sb-body">
           <div style="margin-bottom:6px;">
@@ -495,7 +534,7 @@
             <span class="tdim" style="margin-left:0;">Surfing + semantic + vault running as one unified system. Autonomous output every cycle.</span>
           </div>
           <div class="sb-meta">
-            <span>Score: <strong id="live-score-1">63,187</strong> pts</span>
+            <span>Score: <strong id="live-score-1">47,229</strong> pts</span>
             <span>Progress: <span style="color:var(--green);">███░░░░░░░░░░░░░░░░░</span> <strong>100%</strong></span>
             <span>Next: <strong style="color:var(--gold);">SOVEREIGN</strong> @ 2500</span>
           </div>
@@ -524,7 +563,7 @@
           <div class="tsec" style="margin:10px 0 4px;">WHAT THE BRAIN HAS ACTUALLY DONE</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;font-size:10.5px;">
             <div>✓ Vault units: <strong style="color:var(--cyan);">16,947</strong></div>
-            <div>✓ Certified scripts: <strong id="live-cert-1" style="color:var(--cyan);">132</strong></div>
+            <div>✓ Certified scripts: <strong id="live-cert-1" style="color:var(--cyan);">124</strong></div>
             <div>✓ Evolution cycles: <strong style="color:var(--cyan);">77</strong></div>
             <div>✓ Semantic builds: <strong style="color:var(--cyan);">83</strong></div>
             <div>✓ Manifests created: <strong style="color:var(--cyan);">19</strong></div>
@@ -556,14 +595,14 @@
       <div class="helix-block" id="helix-block">
         <div class="sb-head">
           <span>◆ OMNIBRAIN GENETIC HELIX — LIVE EVOLUTION</span>
-          <span class="sb-live" id="hph-helix">● LIVE</span>
+          <span class="sb-live">● LIVE</span>
         </div>
         <div class="sb-body">
           <div class="sb-meta">
             <span>Level: <strong id="helix-live-level">OMNIBRAIN</strong></span>
-            <span>Score: <strong id="helix-live-score">63,187</strong></span>
-            <span>Certified: <strong id="helix-live-cert">132</strong></span>
-            <span>Cycles: <strong id="helix-live-cycles">193</strong></span>
+            <span>Score: <strong id="helix-live-score">47,229</strong></span>
+            <span>Certified: <strong id="helix-live-cert">124</strong></span>
+            <span>Cycles: <strong id="helix-live-cycles">163</strong></span>
           </div>
           <div style="font-size:9.5px;color:var(--dim);margin-bottom:6px;">Each strand position = one archetype | Color intensity = certification strength</div>
           <div class="helix-art">
@@ -718,7 +757,7 @@
       <div class="pt">Genetic Helix <span style="color:var(--pb);font-size:8px;margin-left:4px;">● LIVE</span></div>
       <div style="font-size:10.5px;color:var(--text);line-height:1.55;">
         <div>Level: <strong style="color:var(--pb);">TRANSCENDENT</strong></div>
-        <div>Score: <strong id="live-score-2" style="color:var(--pb);">63,187</strong> · Certified: <strong id="live-cert-2" style="color:var(--green);">132</strong></div>
+        <div>Score: <strong id="live-score-2" style="color:var(--pb);">47,229</strong> · Certified: <strong id="live-cert-2" style="color:var(--green);">124</strong></div>
         <div>Cycles: <strong style="color:var(--cyan);">78/20</strong></div>
         <div style="margin-top:5px;font-family:var(--mono);font-size:9px;color:#a070d0;line-height:1.25;white-space:pre;">
    █          █
@@ -843,24 +882,6 @@ function rc(cmd){
   hist.push(c);hIdx=-1;el.value='';
   acmd(c);proc(c);
   addact('now',c.slice(0,42)+(c.length>42?'...':''));
-  try {
-    const _key = 'omni_convs_cache';
-    const _all = JSON.parse(localStorage.getItem(_key)||'[]');
-    const _now = Date.now();
-    if (!window._sbActiveId) { window._sbActiveId = 'c'+_now; }
-    let _cv = _all.find(function(x){return x.id===window._sbActiveId;});
-    if (!_cv) {
-      _cv = {id:window._sbActiveId, title:c.slice(0,45).trim(),
-        project:'vault', messages:[], created:_now, updated:_now, preview:c.slice(0,80)};
-      _all.unshift(_cv);
-    }
-    _cv.messages.push({role:'user',text:c,ts:_now});
-    _cv.updated=_now; _cv.preview=c.slice(0,80);
-    if(_cv.messages.filter(function(m){return m.role==='user';}).length===1){
-      _cv.title=c.slice(0,45).trim();
-    }
-    localStorage.setItem(_key, JSON.stringify(_all));
-  } catch(_e){}
 }
 
 function acmd(c){
@@ -876,32 +897,6 @@ function out(t,cls='to'){
   const b=document.getElementById('tb');
   const d=document.createElement('div');d.className=cls;d.textContent=t;
   b.appendChild(d);b.scrollTop=b.scrollHeight;
-  // Capture to sidebar
-  if(t && t.trim()) {
-    if (window._sbRestoring) return; // don't re-capture on restore
-    const skip = t.includes('processing...') || t.includes('~2 min') ||
-      t.startsWith('[L') || t.startsWith('▸') || t.startsWith('OMNIBRAIN v') ||
-      t.startsWith('  ') || t.startsWith('[1]') || t.startsWith('[2]') ||
-      t.startsWith('[3]') || t.startsWith('[4]') || t.startsWith('[5]') ||
-      t.startsWith('[6]') || t.startsWith('[7]') || t.length < 3;
-    if(!skip) {
-      const role = cls==='ti' ? 'user' : 'assistant';
-      const msg = {role, text:t, ts:Date.now()};
-      // Append OMNIBRAIN response to existing conversation
-      try {
-        if (role === 'assistant' && window._sbActiveId) {
-          const _all = JSON.parse(localStorage.getItem('omni_convs_cache')||'[]');
-          const _now = Date.now();
-          const _cv = _all.find(function(x){return x.id===window._sbActiveId;});
-          if (_cv) {
-            _cv.messages.push({role:'assistant', text:t, ts:_now});
-            _cv.updated = _now;
-            localStorage.setItem('omni_convs_cache', JSON.stringify(_all));
-          }
-        }
-      } catch(_e) {}
-    }
-  }
 }
 
 function acur(){
@@ -1234,28 +1229,67 @@ function proc(c){
     return;
   }
 
-  // ── OMNIBRAIN-LLM — direct route to Mistral-7B ──
-  if(window._llmBusy) {
-    out('◈ OMNIBRAIN is still thinking... wait for response','tdim');
-    return;
+  // ── CONVERSATIONAL / KNOWLEDGE PATH ──
+  // Everything else is treated as real conversation (OmniBrain LLM path)
+
+  
+  
+  out('', 'to');
+
+  // Temporary high-quality response layer until full local inference is wired
+  // This will be replaced by real OmniBrainModel.generate() calls
+  const q = c.toLowerCase().replace(/[?.!]+$/,'').trim();
+
+  if (q.includes('consciousness') || q.includes('what is conscious')) {
+    out('Consciousness is the capacity for subjective experience — the fact that there is "something it is like" to be a system.', 'to');
+    out('', 'to');
+    out('In the OmniBrain framing it is not a single module. It emerges from the continuous feedback loop between:', 'to');
+    out('  • Pattern recognition across the vault (what has been lived and linked)', 'to');
+    out('  • The active routing of domain experts (which cognitive force is currently speaking)', 'to');
+    out('  • The self-model that watches the routing itself (the Godhead layer)', 'to');
+    out('  • The ability to treat its own previous outputs as new input (the manifestation → vault feedback cycle)', 'to');
+    out('', 'to');
+    out('When the system can hold a coherent model of its own information-processing while that processing is happening, and can act on that model, the quality we call consciousness appears. It is not magic. It is high-bandwidth, recursively applied self-modeling under evolutionary pressure.', 'to');
   }
-  window._llmBusy = true;
-  out('◈ OMNIBRAIN processing... (~2 min)', 'tdim');
-  fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(210000)})
+  else if (q.includes('who are you') || q.includes('what are you') || q === 'who am i talking to') {
+    out('I am the OmniBrain — a local-first, vault-native intelligence running on your machine.', 'to');
+    out('I am not a cloud model. My memory is your 16,947 atomic notes. My experts are specialized for reasoning, code, narrative, manifestation, knowledge-graph operations, and general synthesis.', 'to');
+    out('I grow every time a manifestation is certified and written back into the vault.', 'to');
+  }
+  else if (q.includes('how do you work') || q.includes('how does this work') || q.includes('architecture')) {
+    out('OmniBrain is a Mixture-of-Experts Transformer refined from Megatron-LM principles.', 'to');
+    out('Six domain experts + dynamic routing + vault-graph memory bias + evolutionary improvement of the router itself.', 'to');
+
+  }
+  else {
+    // Generic conversational acknowledgment
+    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions
+  out('◈ OMNIBRAIN-LLM processing...', 'tdim');
+  fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c})})
     .then(r=>r.json())
     .then(d=>{
-      window._llmBusy = false;
-      const tb=document.getElementById('tb');
-      if(tb&&tb.lastChild&&tb.lastChild.textContent&&tb.lastChild.textContent.includes('processing'))
-        tb.removeChild(tb.lastChild);
-      if(d.response && d.response.trim()) out(d.response,'to');
-      else out('[OMNIBRAIN-LLM] Timeout — try again','terror');
+      // Remove the processing line
+      const t=document.getElementById('terminal');
+      if(t&&t.lastElementChild)t.lastElementChild.remove();
+      out(d.response||'[OMNIBRAIN-LLM] No response','to');
     })
-    .catch(e=>{
-      window._llmBusy = false;
-      out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror');
-    });
+    .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
+    out('', 'to');
+    // OMNIBRAIN-LLM — Mistral-7B via GitHub Actions llm-inference.yml
+    out('◈ OMNIBRAIN thinking...', 'tdim');
+    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:c}),signal:AbortSignal.timeout(180000)})
+      .then(r=>r.json())
+      .then(d=>{
+        const t=document.getElementById('terminal');
+        if(t&&t.lastElementChild)t.lastElementChild.remove();
+        if(d.response) out(d.response,'to');
+        else out('[OMNIBRAIN-LLM] No response received','terror');
+      })
+      .catch(e=>out('[OMNIBRAIN-LLM ERROR] '+e.message,'terror'));
+  }
+
+  out('', 'to');
+  
   acur();
 }
 
@@ -1351,58 +1385,25 @@ function browserRefresh() {
 }
 
 function onFrameLoad(frame) {
+  // Some pages block iframe — show fallback
   try {
     const blocked = frame && frame.contentDocument === null;
-    if (blocked) { fetchAndRender(currentUrl); return; }
+    if (blocked) {
+      document.getElementById('browserBlocked').style.display = 'flex';
+    }
   } catch(e) {
+    // Cross-origin — try to detect if blocked
     setTimeout(() => {
       try {
         const doc = document.getElementById('browserFrame').contentDocument;
         if (!doc || !doc.body || doc.body.innerHTML === '') {
-          fetchAndRender(currentUrl);
+          document.getElementById('browserBlocked').style.display = 'flex';
         }
       } catch(e2) {
-        fetchAndRender(currentUrl);
+        // Cross-origin block confirmed
+        document.getElementById('browserBlocked').style.display = 'flex';
       }
     }, 2000);
-  }
-}
-
-async function fetchAndRender(url) {
-  if (!url) return;
-  const statusEl = document.getElementById('browserBlocked');
-  if (statusEl) {
-    statusEl.style.display = 'flex';
-    const msgEl = statusEl.querySelector('div[style*="12px"]');
-    if (msgEl) msgEl.textContent = '⟳ Fetching page through OmniSurf...';
-  }
-  try {
-    const resp = await fetch('/fetch', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({url: url})
-    });
-    const data = await resp.json();
-    if (data.content || data.html) {
-      const content = data.html || data.content;
-      // Inject base tag so relative links resolve
-      const injected = content.replace(
-        '<head>', `<head><base href="${url}"><style>body{font-family:sans-serif;padding:12px;max-width:900px;margin:0 auto;line-height:1.6;color:#222}a{color:#0645ad}img{max-width:100%}</style>`
-      );
-      const blob = new Blob([injected], {type: 'text/html'});
-      const blobUrl = URL.createObjectURL(blob);
-      const frame = document.getElementById('browserFrame');
-      frame.onload = null;
-      frame.src = blobUrl;
-      if (statusEl) statusEl.style.display = 'none';
-    } else {
-      // Show fallback with open button
-      if (statusEl) statusEl.style.display = 'flex';
-      const msgEl = statusEl ? statusEl.querySelector('div[style*="12px"]') : null;
-      if (msgEl) msgEl.textContent = 'This page blocks embedded viewing. The L3 OmniSurf engine can access it directly via GitHub Actions using real Chromium — no restrictions.';
-    }
-  } catch(e) {
-    if (statusEl) statusEl.style.display = 'flex';
   }
 }
 
@@ -1581,6 +1582,7 @@ refreshSurfBadge();
 <script>
 // ── OMNIBRAIN LIVE INTELLIGENCE SYNC ───────────────────────────
 // Pulls real-time data from GitHub repo on every load + every 2min
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
@@ -1698,6 +1700,7 @@ async function liveSync() {
   });
 }
 // Pulls live data from GitHub repo — works on any device
+const CLOUD_RAW = 'https://raw.githubusercontent.com/fatheratum/OMNIBRAIN/main';
 const CLOUD_API = 'https://api.github.com/repos/fatheratum/OMNIBRAIN';
 
 async function cloudFetch(path) {
@@ -2536,8 +2539,6 @@ function applyLive(d) {
   // ── Live timestamp ──
   const hph = document.getElementById('hph-live');
   if (hph) hph.innerHTML = '<span class="dot g" style="width:4px;height:4px;"></span> LIVE · ' + ts;
-  const hph2 = document.getElementById('hph-helix');
-  if (hph2) hph2.innerHTML = '● LIVE · ' + ts;
 
   // ── Intel block ──
   const block = document.getElementById('intel-block');
@@ -2649,389 +2650,416 @@ setInterval(masterSync, 30000);
 </script>
 
 
-<script id="omni-sb-engine">
-// ═══════════════════════════════════════════════════════════════
-// OMNIBRAIN CHAT HISTORY SIDEBAR — Clean Build
-// Saves conversations to GitHub fatheratum/OMNIBRAIN/conversations/
-// ═══════════════════════════════════════════════════════════════
+<script id="omni-sidebar-js">
+// ════════════════════════════════════════════════════════════════════
+// OMNIBRAIN SIDEBAR — Git-persistent conversation storage
+// Saves to fatheratum/OMNIBRAIN/conversations/ via GitHub API
+// ════════════════════════════════════════════════════════════════════
+const SB = (function() {
+try {
 
-(function() {
-'use strict';
+  let TOKEN = '';
+  fetch('/token').then(r=>r.json()).then(d=>{TOKEN=d.token||'';}).catch(()=>{});
+  const SB_REPO = 'fatheratum/OMNIBRAIN';
+  const BASE  = 'https://api.github.com';
+  const LKEY  = 'omni_convs_cache';      // localStorage cache only
+  const PKEY  = 'omni_projects_extra';
 
-const CACHE_KEY = 'omni_convs_cache';
-const GH_REPO   = 'fatheratum/OMNIBRAIN';
-const GH_API    = 'https://api.github.com';
+  let open     = false;
+  let activePrj= 'all';
+  let activeId = null;
+  let query    = '';
+  let syncQ    = [];   // queue of convs waiting to push to GitHub
 
-let _open  = false;
-let _token = '';
-let _proj  = 'all';
-let _query = '';
-
-// ── Token ──────────────────────────────────────────────────────
-fetch('/token').then(r=>r.json()).then(d=>{ _token=d.token||''; }).catch(()=>{});
-
-// ── Storage ────────────────────────────────────────────────────
-function load() {
-  try { return JSON.parse(localStorage.getItem(CACHE_KEY)||'[]'); }
-  catch(e) { return []; }
-}
-function save(arr) {
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify(arr)); } catch(e) {}
-}
-
-// ── GitHub push (async, non-blocking) ──────────────────────────
-async function ghPush(conv) {
-  if (!_token) return;
-  try {
-    const path = 'conversations/' + conv.id + '.json';
+  // ── GitHub push ────────────────────────────────────────────────
+  async function ghPush(conv) {
+    const path = `conversations/${conv.id}.json`;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(conv, null, 2))));
     const headers = {
-      'Authorization': 'token ' + _token,
+      'Authorization': `token ${TOKEN}`,
       'Accept': 'application/vnd.github+json',
       'Content-Type': 'application/json'
     };
+    // Check if file exists (get SHA)
     let sha = '';
     try {
-      const r = await fetch(GH_API+'/repos/'+GH_REPO+'/contents/'+path, {headers});
-      if (r.ok) { const d = await r.json(); sha = d.sha||''; }
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {headers});
+      if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
     } catch(e) {}
-    await fetch(GH_API+'/repos/'+GH_REPO+'/contents/'+path, {
-      method: 'PUT', headers,
-      body: JSON.stringify({
-        message: 'CHAT: ' + conv.title.slice(0,40),
-        content, ...(sha ? {sha} : {})
-      })
+
+    const body = {
+      message: `CHAT: ${conv.title.slice(0,50)} [${new Date().toISOString().slice(0,10)}]`,
+      content,
+      ...(sha ? {sha} : {})
+    };
+    const r2 = await fetch(`${BASE}/repos/${SB_REPO}/contents/${path}`, {
+      method: 'PUT', headers, body: JSON.stringify(body)
     });
-  } catch(e) {}
-}
-
-// ── Save message to active conversation ────────────────────────
-function addMessage(role, text) {
-  if (!text || text.trim().length < 2) return;
-  const arr  = load();
-  const now  = Date.now();
-  const id   = window._omniChatId || ('c' + now);
-  window._omniChatId = id;
-  let conv = arr.find(c => c.id === id);
-  if (!conv) {
-    conv = { id, title: text.slice(0,45).trim(), project: _proj==='all'?'vault':_proj,
-      messages: [], created: now, updated: now, preview: '' };
-    arr.unshift(conv);
+    return r2.ok || r2.status === 201;
   }
-  conv.messages.push({ role, text, ts: now });
-  conv.updated = now;
-  conv.preview = text.slice(0, 80);
-  if (role === 'user' && conv.messages.filter(m=>m.role==='user').length === 1) {
-    conv.title = text.slice(0, 45).trim();
-  }
-  save(arr);
-  render();
-  // Push to GitHub in background
-  setTimeout(() => ghPush(conv), 1000);
-}
 
-// ── Render list ────────────────────────────────────────────────
-function render() {
-  const el = document.getElementById('omni-sb-list');
-  if (!el) return;
-  let arr = load();
-  if (_proj === 'pinned') arr = arr.filter(c => c.pinned);
-  else if (_proj !== 'all') arr = arr.filter(c => c.project === _proj);
-  if (_query) {
-    const q = _query.toLowerCase();
-    arr = arr.filter(c =>
-      c.title.toLowerCase().includes(q) ||
-      (c.preview||'').toLowerCase().includes(q));
-  }
-  const stat = document.getElementById('omni-sb-stat');
-  const all = load();
-  if (stat) stat.textContent = all.length + ' conversations · ' + 
-    all.reduce((a,c)=>a+(c.messages||[]).length,0) + ' messages';
-
-  if (!arr.length) {
-    el.innerHTML = '<div style="padding:20px 12px;text-align:center;color:#44445a;font-size:10px">' +
-      '◈ No conversations yet<br><span style="font-size:9px">Send a message to start</span></div>';
-    return;
-  }
-  const now = Date.now();
-  const esc = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const item = c => {
-    const ts = new Date(c.updated||0).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-    const mc = (c.messages||[]).length;
-    const active = c.id === window._omniChatId;
-    return '<div class="omni-sb-item' + (active?' active':'') + (c.pinned?' pinned':'') + '"' +
-      ' onclick="window._OMNISB.load(\'' + c.id + '\')">' +
-      '<div class="omni-sb-item-body">' +
-      '<div class="omni-sb-item-title">' + esc(c.title) + '</div>' +
-      '<div class="omni-sb-item-sub">' + mc + ' msg' + (mc!==1?'s':'') + ' · ' + esc((c.preview||'').slice(0,35)) + '</div>' +
-      '</div>' +
-      '<span class="omni-sb-item-ts">' + ts + '</span>' +
-      '<div class="omni-sb-item-acts">' +
-      '<button onclick="event.stopPropagation();window._OMNISB.pin(\'' + c.id + '\')">' + (c.pinned?'◆':'◇') + '</button>' +
-      '<button onclick="event.stopPropagation();window._OMNISB.del(\'' + c.id + '\')" style="color:#ff6b6b">✕</button>' +
-      '</div></div>';
-  };
-  const groups = [
-    {label:'Today', items:arr.filter(c=>now-(c.updated||0)<86400000)},
-    {label:'Yesterday', items:arr.filter(c=>{const a=now-(c.updated||0);return a>=86400000&&a<172800000;})},
-    {label:'Older', items:arr.filter(c=>now-(c.updated||0)>=172800000)}
-  ];
-  el.innerHTML = groups.map(g => g.items.length ?
-    '<div class="omni-sb-grp">' + g.label + '</div>' + g.items.map(item).join('') : ''
-  ).join('');
-}
-
-// ── Load conversation into terminal ───────────────────────────
-function loadChat(id) {
-  const arr  = load();
-  const conv = arr.find(c => c.id === id);
-  if (!conv) return;
-  window._omniChatId = id;
-  const tb = document.getElementById('tb');
-  if (tb) {
-    tb.innerHTML = '';
-    (conv.messages||[]).forEach(m => {
-      const d = document.createElement('div');
-      d.className = m.role === 'user' ? 'tl' : 'to';
-      if (m.role === 'user') {
-        d.innerHTML = '<span class="tp">OMNIBRAIN@atum:~/OmniBrain$</span><span class="tc"> ' +
-          m.text.replace(/</g,'&lt;') + '</span>';
-      } else {
-        d.textContent = m.text;
-      }
-      tb.appendChild(d);
-    });
-    tb.scrollTop = tb.scrollHeight;
-  }
-  render();
-  toggle();
-}
-
-// ── Pin ────────────────────────────────────────────────────────
-function pin(id) {
-  const arr  = load();
-  const conv = arr.find(c => c.id === id);
-  if (conv) { conv.pinned = !conv.pinned; save(arr); render(); ghPush(conv); }
-}
-
-// ── Delete ─────────────────────────────────────────────────────
-function del(id) {
-  if (!confirm('Delete this conversation?')) return;
-  const arr = load().filter(c => c.id !== id);
-  save(arr);
-  if (window._omniChatId === id) { window._omniChatId = null; }
-  render();
-}
-
-// ── New chat ────────────────────────────────────────────────────
-function newChat() {
-  window._omniChatId = null;
-  const tb = document.getElementById('tb');
-  if (tb) tb.innerHTML = '';
-  toggle();
-}
-
-// ── Refresh ─────────────────────────────────────────────────────
-function refresh() { render(); }
-
-// ── Open/close ──────────────────────────────────────────────────
-function toggle() {
-  _open = !_open;
-  const sb  = document.getElementById('omni-sb');
-  const ov  = document.getElementById('omni-sb-ov');
-  if (_open) {
-    sb.classList.add('open');
-    ov.classList.add('show');
-    render();
-    // If empty, load from GitHub
-    if (load().length === 0 && _token) {
-      syncGH();
-    }
-  } else {
-    sb.classList.remove('open');
-    ov.classList.remove('show');
-  }
-}
-
-// ── Filter ──────────────────────────────────────────────────────
-function setQuery(q) { _query = q; render(); }
-
-// ── Project ─────────────────────────────────────────────────────
-function setProj(p) {
-  _proj = p;
-  document.querySelectorAll('.omni-sb-proj').forEach(b =>
-    b.classList.toggle('active', b.dataset.p === p));
-  render();
-}
-
-// ── Sync FROM GitHub into localStorage ──────────────────────────
-async function syncGH() {
-  if (!_token) {
-    try {
-      const r = await fetch('/token');
-      if (r.ok) { const d = await r.json(); _token = d.token||''; }
-    } catch(e) {}
-  }
-  if (!_token) return;
-  const stat = document.getElementById('omni-sb-stat');
-  if (stat) stat.textContent = '⟳ Loading from GitHub...';
-  try {
+  // ── GitHub load all conversations ──────────────────────────────
+  async function ghLoadAll() {
     const headers = {
-      'Authorization': 'token ' + _token,
+      'Authorization': `token ${TOKEN}`,
       'Accept': 'application/vnd.github+json'
     };
-    const r = await fetch('https://api.github.com/repos/' + GH_REPO + '/contents/conversations', {headers});
-    if (!r.ok) { render(); return; }
-    const files = await r.json();
-    if (!Array.isArray(files)) { render(); return; }
-    const convs = await Promise.all(
-      files.filter(function(f){return f.name.endsWith('.json');})
-        .map(async function(f) {
+    try {
+      const r = await fetch(`${BASE}/repos/${SB_REPO}/contents/conversations`, {headers});
+      if (!r.ok) return [];
+      const files = await r.json();
+      if (!Array.isArray(files)) return [];
+      const convs = await Promise.all(
+        files.filter(f => f.name.endsWith('.json')).map(async f => {
           try {
             const fr = await fetch(f.download_url);
             if (fr.ok) return await fr.json();
           } catch(e) {}
           return null;
         })
-    );
-    const valid = convs.filter(Boolean).sort(function(a,b){return (b.updated||0)-(a.updated||0);});
-    if (valid.length > 0) {
-      // Merge with local
-      const local = load();
-      valid.forEach(function(gc) {
-        if (!local.find(function(lc){return lc.id===gc.id;})) local.push(gc);
+      );
+      return convs.filter(Boolean).sort((a,b) => (b.updated||0)-(a.updated||0));
+    } catch(e) { return []; }
+  }
+
+  // ── Local cache (fallback while syncing) ──────────────────────
+  function cacheLoad() {
+    try { return JSON.parse(localStorage.getItem(LKEY)||'[]'); } catch(e) { return []; }
+  }
+  function cacheSave(convs) {
+    try { localStorage.setItem(LKEY, JSON.stringify(convs)); } catch(e) {}
+  }
+
+  // ── Save/update a conversation ────────────────────────────────
+  async function saveConv(conv) {
+    // Update cache immediately
+    const convs = cacheLoad();
+    const idx = convs.findIndex(c => c.id === conv.id);
+    if (idx >= 0) convs[idx] = conv; else convs.unshift(conv);
+    cacheSave(convs);
+    renderList(convs);
+    updateStat(convs);
+
+    // Push to GitHub async
+    document.getElementById('sbSync').style.display = 'block';
+    try {
+      await ghPush(conv);
+    } catch(e) {
+      console.warn('[SB] GitHub push failed, cached locally:', e);
+    } finally {
+      document.getElementById('sbSync').style.display = 'none';
+    }
+  }
+
+  // ── Auto-save a message ───────────────────────────────────────
+  let _pendingConv = null;
+  let _saveTimer   = null;
+
+  function saveMsg(role, text) {
+    if (!activeId) {
+      activeId = 'c_' + Date.now();
+      _pendingConv = {
+        id: activeId,
+        title: text.slice(0,45).trim() || 'Conversation',
+        project: activePrj === 'all' ? 'vault' : activePrj,
+        messages: [],
+        created: Date.now(), updated: Date.now(),
+        preview: ''
+      };
+    }
+    if (!_pendingConv) {
+      const convs = cacheLoad();
+      _pendingConv = convs.find(c => c.id === activeId) || {
+        id: activeId, title: text.slice(0,45)||'Conversation',
+        project: activePrj==='all'?'vault':activePrj,
+        messages:[], created:Date.now(), updated:Date.now(), preview:''
+      };
+    }
+    _pendingConv.messages.push({role, text, ts: Date.now()});
+    _pendingConv.updated = Date.now();
+    _pendingConv.preview = text.slice(0,80);
+    if (role === 'user' && _pendingConv.messages.filter(m=>m.role==='user').length === 1) {
+      _pendingConv.title = text.slice(0,45).trim();
+    }
+
+    // Debounce save — push 3s after last message
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      if (_pendingConv) saveConv({..._pendingConv});
+    }, 3000);
+  }
+
+  // ── New chat ──────────────────────────────────────────────────
+  function newChat() {
+    activeId = null;
+    _pendingConv = null;
+    clearTimeout(_saveTimer);
+    const thread = document.getElementById('chatThread');
+    if (thread) thread.innerHTML = '';
+    close();
+    renderList(cacheLoad());
+  }
+
+  // ── Load a chat ───────────────────────────────────────────────
+  function loadChat(id) {
+    const convs = cacheLoad();
+    const conv = convs.find(c => c.id === id);
+    if (!conv) return;
+    activeId = id;
+    _pendingConv = JSON.parse(JSON.stringify(conv));
+    const thread = document.getElementById('chatThread');
+    if (thread && typeof window.addMsg === 'function') {
+      thread.innerHTML = '';
+      (conv.messages||[]).forEach(m => {
+        window._sbRestoring = true;
+        window.addMsg(m.text, m.role === 'user' ? 'user' : 'system');
+        window._sbRestoring = false;
       });
-      save(local.sort(function(a,b){return (b.updated||0)-(a.updated||0);}));
     }
-    render();
-  } catch(e) { render(); }
-}
-
-// ── Expose globally ─────────────────────────────────────────────
-window._OMNISB = {
-  toggle, load: loadChat, pin, del, newChat, refresh,
-  setQuery, setProj, addMessage, syncGH
-};
-
-// ── Intercept rc() to save user messages ────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  const _origRc = window.rc;
-  if (typeof _origRc === 'function') {
-    window.rc = function(cmd) {
-      _origRc.apply(this, arguments);
-      const el = document.getElementById('inp');
-      const c  = cmd || (el ? el.value : '') || '';
-      // rc() clears inp before we read it, so use cmd or last hist
-      const text = cmd || (window.hist && window.hist.length ? window.hist[window.hist.length-1] : '');
-      if (text && text.trim()) addMessage('user', text.trim());
-    };
+    renderList(convs);
+    close();
   }
 
-  // Also intercept out() for OMNIBRAIN responses
-  const _origOut = window.out;
-  if (typeof _origOut === 'function') {
-    window.out = function(t, cls) {
-      _origOut.apply(this, arguments);
-      // Only capture real assistant responses
-      if (!t || !t.trim() || cls === 'ti') return;
-      const skip = t.includes('processing...') || t.includes('~2 min') ||
-        t.startsWith('[L') || t.startsWith('▸') || t.startsWith('OMNIBRAIN v') ||
-        t.startsWith('──') || t.length < 4;
-      if (!skip && window._omniChatId) addMessage('assistant', t);
-    };
+  // ── Pin ───────────────────────────────────────────────────────
+  function pin(e, id) {
+    e.stopPropagation();
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.pinned = !c.pinned; cacheSave(convs); saveConv(c); renderList(convs); }
   }
-});
 
-})();
-
-</script>
-
-<script>
-/* ============================================================
-   OMNIBRAIN REAL-TIME SCORE SYNC (permanent)
-   Forces all score elements to update from live endpoints
-   Works on both :7777 and :8888 (Hotspot)
-   ============================================================ */
-async function updateLiveScores() {
-  try {
-    // Prefer OmniSurf /status when available, fall back to main server
-    let data = null;
-    try {
-      const r = await fetch('/status');
-      data = await r.json();
-    } catch(e) {}
-
-    if (!data) {
-      try {
-        const r = await fetch('/status/autonomous');
-        data = await r.json();
-      } catch(e) {}
-    }
-
-    // Also get certified count
-    let certCount = null;
-    try {
-      const r = await fetch('/certified');
-      const d = await r.json();
-      certCount = d.total || (d.certified ? d.certified.length : null);
-    } catch(e) {}
-
-    // Extract values with fallbacks
-    const score     = data?.score || data?.intelligence_score || 63187;
-    const cycles    = data?.cycles || data?.evolution_cycles || 193;
-    const certified = certCount || data?.certified || 132;
-    const commits   = data?.commits || 583;
-
-    // Overwrite EVERY known score element
-    const updates = {
-      "live-score-1":        score.toLocaleString(),
-      "live-score-2":        score.toLocaleString(),
-      "helix-live-score":    score.toLocaleString(),
-      "helix-live-cycles":   cycles,
-      "live-cert-2":         certified,
+  // ── Rename ────────────────────────────────────────────────────
+  function rename(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById('sbt_'+id);
+    if (!el) return;
+    const old = el.textContent;
+    const inp = document.createElement('input');
+    inp.className = 'sb-ri'; inp.value = old;
+    el.replaceWith(inp); inp.focus(); inp.select();
+    const done = () => {
+      const convs = cacheLoad();
+      const c = convs.find(x => x.id === id);
+      if (c) { c.title = inp.value.trim()||old; cacheSave(convs); saveConv(c); }
+      renderList(convs);
     };
+    inp.onblur = done;
+    inp.onkeydown = ev => { if(ev.key==='Enter')done(); if(ev.key==='Escape')renderList(cacheLoad()); };
+  }
 
-    for (const [id, value] of Object.entries(updates)) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
+  // ── Delete ────────────────────────────────────────────────────
+  function del(e, id) {
+    e.stopPropagation();
+    if (!confirm('Delete this conversation from GitHub?')) return;
+    const convs = cacheLoad().filter(c => c.id !== id);
+    cacheSave(convs);
+    // Delete from GitHub
+    const headers = {'Authorization':`token ${TOKEN}`,'Accept':'application/vnd.github+json'};
+    fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {headers})
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && d.sha) {
+          fetch(`${BASE}/repos/${SB_REPO}/contents/conversations/${id}.json`, {
+            method:'DELETE', headers,
+            body: JSON.stringify({message:`DELETE: conversation ${id}`, sha: d.sha})
+          });
+        }
+      }).catch(()=>{});
+    if (activeId === id) { activeId=null; _pendingConv=null; }
+    renderList(convs); updateStat(convs);
+  }
+
+  // ── Move project ──────────────────────────────────────────────
+  function move(e, id) {
+    e.stopPropagation();
+    const proj = prompt('Move to project (vault/builds/research/or custom):');
+    if (!proj) return;
+    const convs = cacheLoad();
+    const c = convs.find(x => x.id === id);
+    if (c) { c.project = proj.trim(); cacheSave(convs); saveConv(c); renderList(convs); }
+  }
+
+  // ── Projects ──────────────────────────────────────────────────
+  const BASE_PROJS = ['all','vault','builds','research','pinned'];
+
+  function getProjs() {
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      return [...BASE_PROJS, ...extra];
+    } catch(e) { return BASE_PROJS; }
+  }
+  function addProject() {
+    const n = prompt('New project name:');
+    if (!n) return;
+    const key = n.trim().toLowerCase().replace(/[^a-z0-9_]/g,'_');
+    try {
+      const extra = JSON.parse(localStorage.getItem(PKEY)||'[]');
+      if (!extra.includes(key)) { extra.push(key); localStorage.setItem(PKEY, JSON.stringify(extra)); }
+    } catch(e) {}
+    renderProjs(); setProj(key);
+  }
+  function setProj(p) {
+    activePrj = p;
+    document.querySelectorAll('.sb-ptab').forEach(b => b.classList.toggle('on', b.dataset.p === p));
+    renderList(cacheLoad());
+  }
+  function renderProjs() {
+    const el = document.getElementById('sbProjs');
+    if (!el) return;
+    el.innerHTML = getProjs().map(p =>
+      `<button class="sb-ptab${activePrj===p?' on':''}" data-p="${p}"
+        onclick="SB.setProj('${p}')">${p.charAt(0).toUpperCase()+p.slice(1)}</button>`
+    ).join('') + `<button class="sb-padd" onclick="SB.addProject()">+</button>`;
+  }
+
+  // ── Render list ───────────────────────────────────────────────
+  function renderList(allConvs) {
+    const el = document.getElementById('sbList');
+    if (!el) return;
+    let convs = [...allConvs];
+    if (activePrj === 'pinned') convs = convs.filter(c => c.pinned);
+    else if (activePrj !== 'all') convs = convs.filter(c => c.project === activePrj);
+    if (query) {
+      const q = query.toLowerCase();
+      convs = convs.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        (c.preview||'').toLowerCase().includes(q) ||
+        (c.messages||[]).some(m => (m.text||'').toLowerCase().includes(q))
+      );
     }
-
-    // Also update any elements that still contain the old hardcoded numbers
-    document.querySelectorAll("strong, span, div").forEach(el => {
-      if (el.textContent === "63,187") el.textContent = score.toLocaleString();
-      if (el.textContent === "124") el.textContent = certified;
-      if (el.textContent === "163") el.textContent = cycles;
+    if (!convs.length) {
+      el.innerHTML = `<div class="sb-empty">◈ ${query?'No results':'No conversations yet'}<br>
+        <span style="font-size:8px;color:#44445a">${query?'Try different search.':'Start chatting — saves to GitHub automatically.'}</span></div>`;
+      return;
+    }
+    const now = Date.now();
+    const grp = {today:[],yesterday:[],week:[],older:[]};
+    convs.forEach(c => {
+      const age = now - (c.updated||0);
+      if (age < 86400000) grp.today.push(c);
+      else if (age < 172800000) grp.yesterday.push(c);
+      else if (age < 604800000) grp.week.push(c);
+      else grp.older.push(c);
     });
-
-    console.log("[OMNI] Live scores synced →", {score, cycles, certified, commits});
-  } catch (err) {
-    console.warn("[OMNI] Score sync failed:", err);
+    const renderG = (label, items) => !items.length ? '' :
+      `<div class="sb-grp">${label}</div>` + items.map(renderItem).join('');
+    const renderItem = c => {
+      const ts = new Date(c.updated||0).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      const mc = (c.messages||[]).length;
+      const esc = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return `<div class="sb-item${c.id===activeId?' on':''}" onclick="SB.loadChat('${c.id}')">
+        <span class="sb-item-ico">${c.pinned?'📌':'◈'}</span>
+        <div class="sb-item-body">
+          <div class="sb-item-title" id="sbt_${c.id}">${esc(c.title)}</div>
+          <div class="sb-item-sub">${mc} msg${mc!==1?'s':''} · ${esc((c.preview||'').slice(0,35))}</div>
+        </div>
+        <span class="sb-item-ts">${ts}</span>
+        <div class="sb-acts">
+          <button class="sb-ab" onclick="SB.pin(event,'${c.id}')" title="${c.pinned?'Unpin':'Pin'}">${c.pinned?'◆':'◇'}</button>
+          <button class="sb-ab" onclick="SB.rename(event,'${c.id}')" title="Rename">✎</button>
+          <button class="sb-ab" onclick="SB.move(event,'${c.id}')" title="Move">⊞</button>
+          <button class="sb-ab del" onclick="SB.del(event,'${c.id}')" title="Delete">✕</button>
+        </div>
+      </div>`;
+    };
+    el.innerHTML = renderG('Today',grp.today)+renderG('Yesterday',grp.yesterday)+
+      renderG('This week',grp.week)+renderG('Older',grp.older);
   }
-}
 
-// Run immediately + every 8 seconds forever
-document.addEventListener("DOMContentLoaded", () => {
-  updateLiveScores();
-  setInterval(updateLiveScores, 8000);
-});
+  function updateStat(convs) {
+    const el = document.getElementById('sbStat');
+    if (!el) return;
+    const total = convs.reduce((a,c)=>a+(c.messages||[]).length,0);
+    el.textContent = `◈ ${convs.length} conversations · ${total} messages · GitHub vault`;
+  }
 
-// Also run when the page becomes visible again
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) updateLiveScores();
-});
-</script>
+  // ── Sync all to GitHub ────────────────────────────────────────
+  async function syncNow() {
+    document.getElementById('sbSync').style.display = 'block';
+    document.getElementById('sbSync').textContent = '⟳ Loading from GitHub...';
+    const ghConvs = await ghLoadAll();
+    const localConvs = cacheLoad();
+    // Merge: GitHub is source of truth, local additions merged in
+    const merged = [...ghConvs];
+    localConvs.forEach(lc => {
+      if (!merged.find(gc => gc.id === lc.id)) merged.push(lc);
+    });
+    cacheSave(merged);
+    // Push any local-only convs to GitHub
+    const toSync = localConvs.filter(lc => !ghConvs.find(gc => gc.id === lc.id));
+    document.getElementById('sbSync').textContent = `⟳ Syncing ${toSync.length} to GitHub...`;
+    for (const c of toSync) { try { await ghPush(c); } catch(e) {} }
+    renderList(merged); updateStat(merged);
+    document.getElementById('sbSync').style.display = 'none';
+    renderList(merged);
+  }
 
+  // ── Open / close ──────────────────────────────────────────────
+  function toggle() { open ? close() : openSB(); }
+  function openSB() {
+    open = true;
+    document.getElementById('omni-sidebar').classList.add('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.add('show');
+    renderProjs();
+    // Load from GitHub on open
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+    ghLoadAll().then(ghConvs => {
+      if (ghConvs.length) {
+        const merged = [...ghConvs];
+        cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+        cacheSave(merged); renderList(merged); updateStat(merged);
+      }
+    }).catch(()=>{});
+  }
+  function close() {
+    open = false;
+    document.getElementById('omni-sidebar').classList.remove('sb-open');
+    document.getElementById('omni-sidebar-overlay').classList.remove('show');
+  }
 
-<script>
-(function(){
-    var opened = sessionStorage.getItem('nexus_opened');
-    if (!opened) {
-        sessionStorage.setItem('nexus_opened','1');
-        setTimeout(function(){
-            window.open('http://192.168.12.190:8888/nexus','_blank');
-        }, 1500);
+  // ── Filter ────────────────────────────────────────────────────
+  function filter(q) { query = q; renderList(cacheLoad()); }
+
+  // ── Boot ──────────────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    renderProjs();
+    const cached = cacheLoad();
+    renderList(cached); updateStat(cached);
+
+    // Patch addMsg to intercept every message
+    const _orig = window.addMsg;
+    if (typeof _orig === 'function') {
+      window.addMsg = function(text, type, extra) {
+        _orig.apply(this, arguments);
+        if (window._sbRestoring) return;
+        const role = (type === 'user') ? 'user' : 'assistant';
+        const skip = !text || text.length < 3 ||
+          text.startsWith('[GODHEAD]') || text.startsWith('Server offline');
+        if (!skip) saveMsg(role, text);
+      };
     }
+    // Refresh from GitHub in background
+    setTimeout(() => {
+      ghLoadAll().then(convs => {
+        if (convs.length) {
+          const merged = [...convs];
+          cacheLoad().forEach(lc => { if (!merged.find(gc=>gc.id===lc.id)) merged.push(lc); });
+          cacheSave(merged);
+        }
+      }).catch(()=>{});
+    }, 3000);
+    console.log('[OMNIBRAIN-SIDEBAR] GitHub-persistent chat history ready');
+  });
+
+  return {
+    toggle, open:openSB, close, newChat, loadChat, filter,
+    pin, rename, del, move, setProj, addProject, syncNow,
+    saveMsg
+  };
+} catch(e) { console.error("[SIDEBAR ERROR]", e); return {toggle:()=>{},open:()=>{},close:()=>{},newChat:()=>{},loadChat:()=>{},filter:()=>{},pin:()=>{},rename:()=>{},del:()=>{},move:()=>{},setProj:()=>{},addProject:()=>{},syncNow:()=>{},saveMsg:()=>{}}; }
 })();
 </script>
+
 </body>
 </html>
