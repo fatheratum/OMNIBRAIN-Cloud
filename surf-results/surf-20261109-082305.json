@@ -1,0 +1,76 @@
+{
+  "omnisurf_version": "1.0-cloud",
+  "powered_by": "GitHub Actions \u2014 OmniSurf Internet Provider",
+  "query": "consciousness AI DNA evolution quantum intelligence",
+  "timestamp": "2026-11-09T08:23:05.727229+00:00",
+  "result_count": 10,
+  "sources": [
+    "wikipedia",
+    "hackernews",
+    "reddit",
+    "github",
+    "duckduckgo"
+  ],
+  "results": [
+    {
+      "title": "Technological singularity",
+      "url": "https://en.wikipedia.org/wiki/Technological_singularity",
+      "snippet": "November 2014). &quot;Ethical Artificial Intelligence&quot;. arXiv:1411.1373 [cs.AI]. Kr\u00fcger, Oliver, Virtual Immortality. God, Evolution, and the Singularity in Post-",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Large language model",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "snippet": "artificial consciousness. Leonard Dung argued that the evidential frameworks used to assess consciousness in animals apply equally to AI systems and",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Applications of artificial intelligence",
+      "url": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence",
+      "snippet": "Artificial intelligence (AI) and its subfields have been used in applications throughout industry and academia. Machine learning has been used for various",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Machine learning",
+      "url": "https://en.wikipedia.org/wiki/Machine_learning",
+      "snippet": "within the field of AI from the late 2000s and early 2010s onwards was such that the terms &quot;machine learning&quot; and &quot;artificial intelligence&quot; are now often used",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Artificial life",
+      "url": "https://en.wikipedia.org/wiki/Artificial_life",
+      "snippet": "science portal Artificial consciousness\u00a0\u2013 Hypothetical consciousness in artificial systems Applications of artificial intelligence Autonomous robot\u00a0\u2013 Robot",
+      "source": "wikipedia"
+    },
+    {
+      "title": "The consciousness spectrum: the emergent nature of purpose ... - Frontiers",
+      "url": "https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1639677/full",
+      "snippet": "Abstract This paper posits a cross-disciplinary framework for conceptualizingconsciousnessas an emergent phenomenon that transcends conventional biological constraints. By integrating theoretical constructs from biology, artificialintelligence, philosophy, and systems theory, it critically examines anthropocentric perspectives on sentience and redefines the continuum of life and ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Consciousness and AI \u2014 OECS",
+      "url": "https://oecs.mit.edu/pub/zf1nbs6d/",
+      "snippet": "Consciousnessis what distinguishes the familiar thoughts, emotions, and sensory experiences of waking life from the processes that go on in our brains without our awareness. Conscious experiences feel some way for the subject and seem to afford the subject a distinctive form of first-person access.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "The Evidence for AI Consciousness, Today - AI Frontiers",
+      "url": "https://ai-frontiers.org/articles/the-evidence-for-ai-consciousness-today",
+      "snippet": "But multiple lines of convergent evidence pointing towardconsciousness-like processes inAIsystems are accumulating, and with each new piece, the arguments for dismissing the possibility outright grow weaker. The Standard Counterargument The standard explanation forAIconsciousnessclaims is straightforward: these systems are just doing math.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Artificial consciousness - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Artificial_consciousness",
+      "snippet": "Artificialconsciousness, [1] also known as machineconsciousness, [2][3] syntheticconsciousness, [4] or digitalconsciousness, [5] isconsciousnesshypothesized to be possible for artificialintelligence. [6] It is also the corresponding field of study, which draws insights from philosophy of mind, philosophy of artificialintelligence, cognitive science and neuroscience. The term \"sentience ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "The Enigma of Consciousness in the Realm of Artificial Intelligence: A ...",
+      "url": "https://hackernoon.com/the-enigma-of-consciousness-in-the-realm-of-artificial-intelligence-a-multidisciplinary-perspective",
+      "snippet": "This article presents a comprehensive exploration into the intersection ofconsciousnessand artificialintelligence(AI), drawing from a multitude of disciplines including philosophy, neuroscience, and evolutionary biology.",
+      "source": "duckduckgo"
+    }
+  ]
+}
