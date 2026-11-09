@@ -1,0 +1,76 @@
+{
+  "omnisurf_version": "1.0-cloud",
+  "powered_by": "GitHub Actions \u2014 OmniSurf Internet Provider",
+  "query": "consciousness AI DNA evolution quantum intelligence",
+  "timestamp": "2026-11-09T01:06:14.189122+00:00",
+  "result_count": 10,
+  "sources": [
+    "wikipedia",
+    "hackernews",
+    "reddit",
+    "github",
+    "duckduckgo"
+  ],
+  "results": [
+    {
+      "title": "Technological singularity",
+      "url": "https://en.wikipedia.org/wiki/Technological_singularity",
+      "snippet": "November 2014). &quot;Ethical Artificial Intelligence&quot;. arXiv:1411.1373 [cs.AI]. Kr\u00fcger, Oliver, Virtual Immortality. God, Evolution, and the Singularity in Post-",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Applications of artificial intelligence",
+      "url": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence",
+      "snippet": "Artificial intelligence (AI) and its subfields have been used in applications throughout industry and academia. Machine learning has been used for various",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Machine learning",
+      "url": "https://en.wikipedia.org/wiki/Machine_learning",
+      "snippet": "within the field of AI from the late 2000s and early 2010s onwards was such that the terms &quot;machine learning&quot; and &quot;artificial intelligence&quot; are now often used",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Artificial life",
+      "url": "https://en.wikipedia.org/wiki/Artificial_life",
+      "snippet": "science portal Artificial consciousness\u00a0\u2013 Hypothetical consciousness in artificial systems Applications of artificial intelligence Autonomous robot\u00a0\u2013 Robot",
+      "source": "wikipedia"
+    },
+    {
+      "title": "The Singularity Is Near",
+      "url": "https://en.wikipedia.org/wiki/The_Singularity_Is_Near",
+      "snippet": "circuit assembly, computing with DNA, spintronics (computing with the spin of electrons), computing with light, and quantum computing. Since Kurzweil believes",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Why Your DNA is More Advanced than AI - Becoming BioQuantum\u00ae",
+      "url": "https://becomingbioquantum.com/why-your-dna-is-more-advanced-than-ai/",
+      "snippet": "Discover why humanDNAis the most advanced technology in existence and how awakenedconsciousnessis shaping the future ofAI. Explore the connection betweenDNA, Sourceintelligence,quantumconsciousness, and theevolutionof humanity beyond artificial systems.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Can Intelligent Machines Help Solve the Mystery of Consciousness?",
+      "url": "https://www.popularmechanics.com/science/a65604730/quantum-consciousness-ai/",
+      "snippet": "These experiments could redefineconsciousnessand reveal how it works in humans, animals\u2014and evenAI.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Quantum information as the scientific basis for the explanation of ...",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0303264725000772",
+      "snippet": "Abstract A scientific explanation ofconsciousnessand itsevolutionhas become possible by a generalizedquantuminformation concept. Crucial to this is a new understanding of matter and energy. Ourconsciousness, being an information structure, processes the information that we absorb from our bodies and our environment.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Consciousness, Robots, and DNA - Brown University",
+      "url": "https://www.dam.brown.edu/people/mumford/blog/2024/Cons.html",
+      "snippet": "The talk explores the complex interplay betweenconsciousness, robotics, andDNAusing the insights of artificialintelligence, neuroscience and physics. Specifically, I discuss theevolutionof language models and the quest for human-levelAI, the scientific dimensions ofconsciousness, the elusive nature of \"now\" inconsciousness, and the ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "The consciousness spectrum: the emergent nature of purpose ... - Frontiers",
+      "url": "https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1639677/full",
+      "snippet": "Abstract This paper posits a cross-disciplinary framework for conceptualizingconsciousnessas an emergent phenomenon that transcends conventional biological constraints. By integrating theoretical constructs from biology, artificialintelligence, philosophy, and systems theory, it critically examines anthropocentric perspectives on sentience and redefines the continuum of life and ...",
+      "source": "duckduckgo"
+    }
+  ]
+}
