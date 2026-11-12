@@ -1,0 +1,76 @@
+{
+  "omnisurf_version": "1.0-cloud",
+  "powered_by": "GitHub Actions \u2014 OmniSurf Internet Provider",
+  "query": "consciousness AI DNA evolution quantum intelligence",
+  "timestamp": "2026-11-12T22:21:52.592631+00:00",
+  "result_count": 10,
+  "sources": [
+    "wikipedia",
+    "hackernews",
+    "reddit",
+    "github",
+    "duckduckgo"
+  ],
+  "results": [
+    {
+      "title": "Technological singularity",
+      "url": "https://en.wikipedia.org/wiki/Technological_singularity",
+      "snippet": "November 2014). &quot;Ethical Artificial Intelligence&quot;. arXiv:1411.1373 [cs.AI]. Kr\u00fcger, Oliver, Virtual Immortality. God, Evolution, and the Singularity in Post-",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Large language model",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "snippet": "artificial consciousness. Leonard Dung argued that the evidential frameworks used to assess consciousness in animals apply equally to AI systems and",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Applications of artificial intelligence",
+      "url": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence",
+      "snippet": "Artificial intelligence (AI) and its subfields have been used in applications throughout industry and academia. Machine learning has been used for various",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Machine learning",
+      "url": "https://en.wikipedia.org/wiki/Machine_learning",
+      "snippet": "within the field of AI from the late 2000s and early 2010s onwards was such that the terms &quot;machine learning&quot; and &quot;artificial intelligence&quot; are now often used",
+      "source": "wikipedia"
+    },
+    {
+      "title": "The Singularity Is Near",
+      "url": "https://en.wikipedia.org/wiki/The_Singularity_Is_Near",
+      "snippet": "circuit assembly, computing with DNA, spintronics (computing with the spin of electrons), computing with light, and quantum computing. Since Kurzweil believes",
+      "source": "wikipedia"
+    },
+    {
+      "title": "New Research Tests Whether AI Models Know Their Own Thoughts",
+      "url": "https://www.quantamagazine.org/new-research-tests-whether-ai-models-know-their-own-thoughts-20261104/",
+      "snippet": "New Research Tests WhetherAIModels Know Their Own Thoughts By injecting \"thoughts\" directly into large language models, researchers are trying to map outAI'scapacity for introspection.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "From the mechanics of consciousness to the consciousness of machines ...",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1389041726000550",
+      "snippet": "Within the physical sciences and philosophy of mind,quantumtheories ofconsciousnessare frequently met with skepticism, often criticized for merely replacing one mystery (consciousness) with another (quantummechanics).",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Google Research@ 2026: Novel capabilities and intelligence",
+      "url": "https://blog.google/innovation-and-ai/technology/research/research-capabilities-intelligence-2026/",
+      "snippet": "Today at Research@ in Mountain View, we're sharing our latest milestones and some of the advancedAIcapabilities andintelligencethat we're putting in the hands of experts. Our latest breakthroughs help drive progress on the world's most pressing challenges including healthcare, crisis resilience, and beyond.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "What is consciousness? Artificial intelligence, real intelligence ...",
+      "url": "https://academic.oup.com/biolinnean/article/139/4/530/6674342",
+      "snippet": "INTRODUCTION: THE ISSUES This short paper makes four major claims: (i) artificial generalintelligenceis not possible; (ii) brain-mind is not purely classical; (iii) brain-mind must be partlyquantum; (iv) qualia are experienced and arise with our collapse of the wave function. These are quite astonishing claims. Even the first claim is major. ArtificialIntelligence(AI) has made tremendous ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "The Digital Nexus: tracing the evolution of human consciousness and ...",
+      "url": "https://link.springer.com/article/10.1007/s00146-023-01753-7",
+      "snippet": "This paper endeavors to appraise scholarly works from the 1940s to the contemporary era, examining the scientific quest to transpose human cognition andconsciousnessinto a digital surrogate, while contemplating the potential ramifications should humanity attain such an abstract level of intellect. The discourse commences with an explication of theories concerningconsciousness, progressing ...",
+      "source": "duckduckgo"
+    }
+  ]
+}
