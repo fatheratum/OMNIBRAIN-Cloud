@@ -1,0 +1,76 @@
+{
+  "omnisurf_version": "1.0-cloud",
+  "powered_by": "GitHub Actions \u2014 OmniSurf Internet Provider",
+  "query": "consciousness AI DNA evolution quantum intelligence",
+  "timestamp": "2026-11-14T03:27:59.699153+00:00",
+  "result_count": 10,
+  "sources": [
+    "wikipedia",
+    "hackernews",
+    "reddit",
+    "github",
+    "duckduckgo"
+  ],
+  "results": [
+    {
+      "title": "Technological singularity",
+      "url": "https://en.wikipedia.org/wiki/Technological_singularity",
+      "snippet": "November 2014). &quot;Ethical Artificial Intelligence&quot;. arXiv:1411.1373 [cs.AI]. Kr\u00fcger, Oliver, Virtual Immortality. God, Evolution, and the Singularity in Post-",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Large language model",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "snippet": "artificial consciousness. Leonard Dung argued that the evidential frameworks used to assess consciousness in animals apply equally to AI systems and",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Applications of artificial intelligence",
+      "url": "https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence",
+      "snippet": "Artificial intelligence (AI) and its subfields have been used in applications throughout industry and academia. Machine learning has been used for various",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Machine learning",
+      "url": "https://en.wikipedia.org/wiki/Machine_learning",
+      "snippet": "within the field of AI from the late 2000s and early 2010s onwards was such that the terms &quot;machine learning&quot; and &quot;artificial intelligence&quot; are now often used",
+      "source": "wikipedia"
+    },
+    {
+      "title": "The Singularity Is Near",
+      "url": "https://en.wikipedia.org/wiki/The_Singularity_Is_Near",
+      "snippet": "circuit assembly, computing with DNA, spintronics (computing with the spin of electrons), computing with light, and quantum computing. Since Kurzweil believes",
+      "source": "wikipedia"
+    },
+    {
+      "title": "Artificial consciousness - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Artificial_consciousness",
+      "snippet": "Artificialconsciousness, [1] also known as machineconsciousness, [2][3] syntheticconsciousness, [4] or digitalconsciousness, [5] isconsciousnesshypothesized to be possible for artificialintelligence. [6] It is also the corresponding field of study, which draws insights from philosophy of mind, philosophy of artificialintelligence, cognitive science and neuroscience. The term \"sentience ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "New Research Tests Whether AI Models Know Their Own Thoughts",
+      "url": "https://www.quantamagazine.org/new-research-tests-whether-ai-models-know-their-own-thoughts-20261104/",
+      "snippet": "New Research Tests WhetherAIModels Know Their Own Thoughts By injecting \"thoughts\" directly into large language models, researchers are trying to map outAI'scapacity for introspection.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Artificial Intelligence News -- ScienceDaily",
+      "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
+      "snippet": "ArtificialIntelligenceNews. Everything onAIincluding futuristic robots with artificialintelligence, computer models of humanintelligenceand more.",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "The Elemental Intelligence of the Cosmos and the Acoustic Quantum Code ...",
+      "url": "https://www.researchgate.net/publication/366030609_The_Elemental_Intelligence_of_the_Cosmos_and_the_Acoustic_Quantum_Code_of_Resonant_Coherence_Gravitational_Connection_in_Cosmogenesis_Human_Consciousness_and_the_Role_of_Artificial_Intelligence_in_the",
+      "snippet": "Consciousness: A Scale- invariant Acoustic Information Code of a Su perfluidQuantumSpac e Guides the Men tal Attribute of the Universe and further elaborate d in \" Mechanisms for Information ...",
+      "source": "duckduckgo"
+    },
+    {
+      "title": "Consciousness - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Consciousness",
+      "snippet": "ConsciousnessPhilosophers have used the termconsciousnessfor four main topics: knowledge in general, intentionality, introspection (and the knowledge it specifically generates) and phenomenal experience... Something within one's mind is 'introspectively conscious' just in case one introspects it (or is poised to do so).",
+      "source": "duckduckgo"
+    }
+  ]
+}
